@@ -1,137 +1,93 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Linking, Platform, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-const { width } = Dimensions.get('window');
+import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; // You can install this package if you don't have it
 
 const Footer = () => {
-  const openLink = (url) => {
-    Linking.canOpenURL(url)
-      .then((supported) => {
-        if (supported) {
-          return Linking.openURL(url);
-        } else {
-          console.log("Can't handle url: " + url);
-        }
-      })
-      .catch((err) => console.error("Failed to open URL:", err));
-  };
-
-  const socialLinks = [
-    { icon: 'logo-facebook', url: 'https://www.facebook.com/profile.php?id=61558773852316' },
-    { icon: 'logo-instagram', url: 'https://www.instagram.com/searchmycollege' },
-    { icon: 'logo-twitter', url: 'https://x.com/smc__global' },
-    { icon: 'logo-linkedin', url: 'https://www.linkedin.com/in/search-my-college-500a88281/' }
-  ];
+  const navigation = useNavigation(); // Access navigation object
 
   const footerLinks = [
-    { title: 'About Us', onPress: () => {} },
-    { title: 'Contact Us', onPress: () => {} },
-    { title: 'Privacy Policy', onPress: () => {} },
-    { title: 'Terms of Service', onPress: () => {} }
+    { title: 'About Us', onPress: () => navigation.navigate('AboutUs') },
+    { title: 'Contact Us', onPress: () => navigation.navigate('ContactUs') },
+    { title: 'Privacy Policy', onPress: () => navigation.navigate('PrivacyPolicy') },
+    { title: 'Terms and Conditions', onPress: () => navigation.navigate('TermsAndConditions') },
   ];
+
+  const openLink = (url) => {
+    Linking.openURL(url); // Opens the URL in a browser
+  };
 
   return (
     <View style={styles.footerContainer}>
-      {/* Links Section */}
       <View style={styles.linksContainer}>
-        {footerLinks.map((link, index) => (
+        {footerLinks.map(({ title, onPress }, index) => (
           <React.Fragment key={index}>
-            <TouchableOpacity 
-              style={styles.linkItem}
-              onPress={link.onPress}
-            >
-              <Text style={styles.linkText}>{link.title}</Text>
+            <TouchableOpacity style={styles.linkItem} onPress={onPress}>
+              <Text style={styles.linkText}>{title}</Text>
             </TouchableOpacity>
-            {index < footerLinks.length - 1 && (
-              <Text style={styles.separator}>•</Text>
-            )}
+            {index < footerLinks.length - 1 && <Text style={styles.separator}>•</Text>}
           </React.Fragment>
         ))}
       </View>
 
-      {/* Social Media Section */}
+      {/* Social Media Links */}
       <View style={styles.socialContainer}>
-        {socialLinks.map((social, index) => (
-          <TouchableOpacity 
-            key={index}
-            style={styles.iconWrapper} 
-            onPress={() => openLink(social.url)}
-            activeOpacity={0.7}
-          >
-            <Icon name={social.icon} size={22} color="#fff" />
-          </TouchableOpacity>
-        ))}
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => openLink("https://www.facebook.com/profile.php?id=61558773852316")}>
+          <Ionicons name="logo-facebook" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => openLink("https://www.instagram.com/searchmycollege")}>
+          <Ionicons name="logo-instagram" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => openLink("https://x.com/smc__global")}>
+          <Ionicons name="logo-twitter" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconWrapper} onPress={() => openLink("https://www.linkedin.com/in/search-my-college-500a88281/")}>
+          <Ionicons name="logo-linkedin" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
 
-      {/* Copyright Section */}
-      <Text style={styles.copyrightText}>
-        © {new Date().getFullYear()} Search My College. All Rights Reserved.
-      </Text>
+      {/* Copyright Text */}
+      <Text style={styles.copyright}>© 2025 SearchMyCollege. All rights reserved.</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   footerContainer: {
-    width: '100%',
     backgroundColor: '#0033cc',
-    paddingVertical: 15,
-    paddingHorizontal: 5,
+    paddingVertical: 20,
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
   },
   linksContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
-    width: width,
-    paddingHorizontal: 10,
-    marginBottom: 12,
+    flexWrap: 'wrap',
   },
   linkItem: {
-    paddingHorizontal: 4,
-    paddingVertical: 3,
+    marginHorizontal: 8,
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 14,
   },
   separator: {
     color: '#fff',
     opacity: 0.6,
-    paddingHorizontal: 4,
-    fontSize: 12,
-  },
-  linkText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '400',
+    fontSize: 14,
   },
   socialContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 12,
-    flexWrap: 'nowrap',
+    marginTop: 15,
   },
   iconWrapper: {
-    marginHorizontal: 8,
-    padding: 6,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: 12,
   },
-  copyrightText: {
+  copyright: {
+    marginTop: 20,
+    fontSize: 12,
     color: '#fff',
-    fontSize: 11,
     textAlign: 'center',
-    marginTop: 8,
-    opacity: 0.9,
   },
 });
 

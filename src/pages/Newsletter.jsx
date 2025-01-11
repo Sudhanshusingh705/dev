@@ -1,53 +1,144 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const courseOptions = [
-  'Select Course',
-  'Engineering',
-  'Medical',
-  'Management',
-  'Arts',
-  'Science',
-  'Commerce',
-  'Law',
-  'Design',
-  'Education'
-];
+const courseOptions = {
+  "Popular Courses": [
+    "BE/B.Tech - Bachelors (Technology)",
+    "MBA/PGDM - Masters (Business Administration)",
+    "BBA/BBM - Bachelors (Business Administration)",
+    "B.Com - Bachelors (Commerce)",
+    "BA - Bachelors (Arts)",
+    "MA - Masters (Arts)",
+    "MBBS - Bachelors (Medicince and Surgery)",
+    "BCA - Bachelors (Computer Applications)",
+    "MCA - Masters (Computer Applications)",
+    "ME/M.Tech - Masters (Technology)",
+    "B.Sc - Bachelors (Science)",
+    "M.Sc - Masters (Science)"
+  ],
+  "Bachelor": [
+    "B.Arch - Bachelor (Architecture)",
+    "BVSc - Bachelor (Veterinary Sciences)",
+    "Bachelor of Animation - Bachelor (Animation)",
+    "BSW - Bachelor (Arts)",
+    "LLB - Bachelor (Law)",
+    "BPH - Bachelor (Medical)",
+    "B.F.Sc - Bachelor (Science)",
+    "Bachelors (Animation & Graphic Design) - Bachelor (Arts)",
+    "B.P.Ed - Bachelor (Education)",
+    "BFA - Bachelor (Arts)",
+    "BUMS - Bachelor (Medical)",
+    "Bachelor of Physiotherapy(BPT) - Bachelor (Medical)",
+    "B.Planning - Bachelor (Architecture)",
+    "BHMS - Bachelor (Medical)",
+    "BBA (Aviation) - Bachelor (Aviation)",
+    "MBBS - Bachelors (Medicince and Surgery)",
+    "BMM - Bachelor (Mass Communications)",
+    "BHM - Bachelor (Hotel Management)",
+    "B.Com - Bachelors (Commerce)",
+    "B.Des - Bachelor (Design)",
+    "B.Ed - Bachelor (Education)",
+    "B.Pharm - Bachelor (Pharmacy)",
+    "B.Sc - Bachelors (Science)",
+    "B.Sc (Agriculture) - Bachelor (Agriculture)",
+    "B.Sc (Medicine) - Bachelor (Medical)",
+    "B.Sc (Nursing) - Bachelor (Paramedical)",
+    "BA - Bachelors (Arts)",
+    "Bachelors in Vocational Courses - Bachelor (Vocational Courses)",
+    "BAMS - Bachelor (Medical)",
+    "BBA/BBM - Bachelors (Business Administration)",
+    "BCA - Bachelors (Computer Applications)",
+    "BE/B.Tech - Bachelors (Technology)",
+    "BDS - Bachelor (Dental)"
+  ],
+  "Doctorate": [
+    "M.Phil/Ph.D in Paramedical - Doctorate (Paramedical)",
+    "M.Phil/Ph.D in Medicine - Doctorate (Medical)",
+    "M.Phil/Ph.D in Pharmacy - Doctorate (Pharmacy)",
+    "M.Phil/Ph.D in Science - Doctorate (Science)",
+    "MD - Doctorate (Medical)",
+    "Ph.D in Veterinary Science - Doctorate (Veterinary Sciences)",
+    "M.Phil/Ph.D in Mass Communication - Doctorate (Mass Communications)",
+    "M.Phil/Ph.D in Management - Doctorate (Management)",
+    "M.Phil/Ph.D in Law - Doctorate (Law)",
+    "M.Phil/Ph.D in Architecture - Doctorate (Architecture)",
+    "M.Phil/Ph.D in Arts - Doctorate (Arts)",
+    "M.Phil/Ph.D in Commerce - Doctorate (Commerce)",
+    "M.Phil/Ph.D in Computer Applications - Doctorate (Computer Applications)",
+    "M.Phil/Ph.D in Dental - Doctorate (Dental)",
+    "M.Phil/Ph.D in Agriculture - Doctorate (Agriculture)",
+    "M.Phil/Ph.D in Design - Doctorate (Design)",
+    "M.Phil/Ph.D in Hotel Management - Doctorate (Hotel Management)",
+    "M.Phil/Ph.D in Engineering - Doctorate (Engineering)",
+    "M.Phil/Ph.D in Education - Doctorate (Education)",
+    "D.Litt - Doctorate (Arts)"
+  ],
+  "Masters": [
+    "M.Des - Masters (Design)",
+    "M.P.Ed - Masters (Education)",
+    "MHA - Masters (Management)",
+    "M.Ed - Masters (Education)",
+    "M.Com - Masters (Commerce)",
+    "Executive MBA - Masters (Management)",
+    "MVSc - Masters (Veterinary Sciences)",
+    "Master of Animation - Masters (Animation)",
+    "M.Ch - Masters (Medical)",
+    "M.Arch - Masters (Architecture)",
+    "M.F.Sc - Masters (Science)",
+    "MPH - Masters (Medical)",
+    "LLM - Masters (Law)",
+    "MSW - Masters (Arts)",
+    "MMS - Masters (Management)",
+    "M.Pharm - Masters (Pharmacy)",
+    "MS - Masters (Medical)",
+    "M.Sc - Masters (Science)",
+    "M.Sc (Agriculture) - Masters (Agriculture)",
+    "M.Sc (Aviation) - Masters (Aviation)",
+    "M.Sc (Medicine) - Masters (Medical)",
+    "M.Sc (Nursing) - Masters (Paramedical)",
+    "MA - Masters (Arts)",
+    "Master of Physiotherapy(MPT) - Masters (Medical)",
+    "Masters in Vocational Courses - Masters (Vocational Courses)",
+    "MBA/PGDM - Masters (Business Administration)",
+    "MCA - Masters (Computer Applications)",
+    "MDS - Masters (Dental)",
+    "ME/M.Tech - Masters (Technology)",
+    "MHM - Masters (Hotel Management)",
+    "MMC - Masters (Mass Communications)",
+    "M.Planning - Masters (Architecture)"
+  ]
+};
 
 const Newsletter = () => {
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
-  const [selectedCourse, setSelectedCourse] = useState('Select Course');
+  const [selectedCourse, setSelectedCourse] = useState('');
   const [mobileError, setMobileError] = useState('');
   const [status, setStatus] = useState('');
   const [emailError, setEmailError] = useState('');
   const [isPressed, setIsPressed] = useState(false);
 
   const validateMobile = (number) => {
-    // Basic validation for Indian mobile numbers
     const mobileRegex = /^[6-9]\d{9}$/;
     
     if (!mobileRegex.test(number)) {
       return false;
     }
 
-    // Check for repeated digits (more than 7 times) to prevent numbers like 9999999999
     const repeatedDigits = /(.)\1{7,}/;
     if (repeatedDigits.test(number)) {
       setMobileError('Please enter a valid mobile number. Avoid repeated digits.');
       return false;
     }
 
-    // Check for sequential numbers (like 1234567890 or 9876543210)
     const sequential = ['0123456789', '9876543210'];
     if (sequential.some(seq => number.includes(seq))) {
       setMobileError('Please enter a valid mobile number. Avoid sequential digits.');
       return false;
     }
 
-    // Check if all digits are same (like 8888888888)
     if (new Set(number.split('')).size === 1) {
       setMobileError('Please enter a valid mobile number. Avoid using same digit.');
       return false;
@@ -72,14 +163,12 @@ const Newsletter = () => {
   };
 
   const validateEmail = (email) => {
-    // Basic email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError('Please enter a valid email address');
       return false;
     }
 
-    // Check for common email domains
     const validDomains = [
       'gmail.com',
       'yahoo.com',
@@ -102,7 +191,6 @@ const Newsletter = () => {
       return false;
     }
 
-    // Additional checks
     if (email.length > 50) {
       setEmailError('Email address is too long');
       return false;
@@ -113,7 +201,6 @@ const Newsletter = () => {
       return false;
     }
 
-    // Check for consecutive special characters
     if (/[.]{2,}|[-]{2,}|[_]{2,}/.test(email)) {
       setEmailError('Email cannot contain consecutive special characters');
       return false;
@@ -133,17 +220,16 @@ const Newsletter = () => {
   };
 
   const handleSubmit = async () => {
-    // Validate both email and mobile before submission
-    if (!validateEmail(email) || !validateMobile(mobile) || selectedCourse === 'Select Course') {
+    if (!validateEmail(email) || !validateMobile(mobile) || selectedCourse === '') {
       setStatus('Please fill all fields correctly');
       return;
     }
 
     try {
-      setStatus('Success! Thank you for subscribing.');
+      setStatus({ text: 'Success! Thank you for subscribing.', type: 'success' });
       setEmail('');
       setMobile('');
-      setSelectedCourse('Select Course');
+      setSelectedCourse('');
       setEmailError('');
       setMobileError('');
     } catch (error) {
@@ -151,11 +237,10 @@ const Newsletter = () => {
     }
   };
 
-  // Combine all validation states in a single useMemo
   const validationState = useMemo(() => {
     const isEmailValid = email && validateEmail(email);
     const isMobileValid = mobile && validateMobile(mobile);
-    const isFormValid = isEmailValid && isMobileValid && selectedCourse !== 'Select Course';
+    const isFormValid = isEmailValid && isMobileValid && selectedCourse !== '';
 
     return {
       isEmailValid,
@@ -197,7 +282,7 @@ const Newsletter = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Subscribe To Our News Letter</Text>
       <Text style={styles.subtitle}>
         Get College Notifications, Exam Notifications and News Updates
@@ -264,19 +349,36 @@ const Newsletter = () => {
               style={styles.picker}
               dropdownIconColor="#666"
             >
-              {courseOptions.map((course) => (
+              <Picker.Item label="Choose your course" value="" />
+              {Object.entries(courseOptions).map(([category, courses]) => [
                 <Picker.Item 
-                  key={course} 
-                  label={course} 
-                  value={course}
-                  style={styles.pickerItemText}
-                />
-              ))}
+                  key={`category-${category}`}
+                  label={`--- ${category} ---`}
+                  value={`category-${category}`}
+                  enabled={false}
+                  style={{ fontWeight: 'bold', backgroundColor: '#f0f0f0' }}
+                />,
+                ...courses.map((course) => (
+                  <Picker.Item
+                    key={course}
+                    label={course}
+                    value={course}
+                    style={{ paddingLeft: 20 }}
+                  />
+                ))
+              ]).flat()}
             </Picker>
           </View>
         </View>
 
-        {status ? <Text style={styles.statusText}>{status}</Text> : null}
+        {status ? (
+          <Text style={[
+            styles.statusText,
+            status.type === 'success' && styles.successText
+          ]}>
+            {status.text}
+          </Text>
+        ) : null}
 
         <TouchableOpacity 
           style={[
@@ -297,7 +399,7 @@ const Newsletter = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -383,7 +485,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
   },
   submitButtonPressed: {
-    backgroundColor: '#0056b3', // Darker shade of primary color
+    backgroundColor: '#0056b3',
     elevation: 1,
     shadowOpacity: 0.15,
     transform: [{ scale: 0.98 }],
@@ -415,6 +517,11 @@ const styles = StyleSheet.create({
   inputSuccess: {
     color: '#00C851',
   },
+  successText: {
+    color: '#00C851',
+    fontWeight: '500',
+  },
 });
 
 export default Newsletter;
+
