@@ -436,6 +436,217 @@
 
 
 
+// import React, { useEffect, useState } from 'react';
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   TouchableOpacity,
+//   ActivityIndicator,
+//   Alert,
+//   SafeAreaView
+// } from 'react-native';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// const ProfileScreen = ({ navigation }) => {
+//   const [profile, setProfile] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     fetchProfile();
+//   }, []);
+
+//   const fetchProfile = async () => {
+//     try {
+//       const token = await AsyncStorage.getItem('adminToken');
+//       if (!token) {
+//         navigation.replace('LoginScreen');
+//         return;
+//       }
+
+//       const response = await fetch('http://192.168.1.8:5000/api/admin/profile', {
+//         method: 'GET',
+//         headers: {
+//           'Authorization': `Bearer ${token}`,
+//           'Content-Type': 'application/json'
+//         }
+//       });
+
+//       const data = await response.json();
+      
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Failed to fetch profile');
+//       }
+
+//       setProfile(data);
+//     } catch (error) {
+//       Alert.alert(
+//         'Error',
+//         error.message || 'Failed to load profile',
+//         [
+//           { 
+//             text: 'OK', 
+//             onPress: () => navigation.replace('LoginScreen')
+//           }
+//         ]
+//       );
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // const handleLogout = async () => {
+//   //   try {
+//   //     await AsyncStorage.removeItem('adminToken');
+//   //     navigation.replace('LoginScreen');
+//   //   } catch (error) {
+//   //     Alert.alert('Error', 'Failed to logout. Please try again.');
+//   //   }
+//   // };
+
+//   // const handleLogout = async () => {
+//   //   try {
+//   //     console.log('Logout button pressed'); // Debugging log
+//   //     await AsyncStorage.removeItem('adminToken');
+//   //     console.log('Token removed from AsyncStorage'); // Debugging log
+//   //     // navigation.replace('LoginScreen');
+//   //   } catch (error) {
+//   //     console.error('Error during logout:', error); // Debugging log
+//   //     Alert.alert('Error', 'Failed to logout. Please try again.');
+//   //   }
+//   // };
+  
+
+//   if (loading) {
+//     return (
+//       <View style={styles.loadingContainer}>
+//         <ActivityIndicator size="large" color="#f4511e" />
+//         <Text style={styles.loadingText}>Loading profile...</Text>
+//       </View>
+//     );
+//   }
+
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <View style={styles.content}>
+//         {profile ? (
+//           <>
+//             <View style={styles.profileInfo}>
+//               <View style={styles.infoItem}>
+//                 <Text style={styles.label}>Name</Text>
+//                 <Text style={styles.value}>{profile.name}</Text>
+//               </View>
+              
+//               <View style={styles.infoItem}>
+//                 <Text style={styles.label}>Email</Text>
+//                 <Text style={styles.value}>{profile.email}</Text>
+//               </View>
+//             </View>
+
+            
+//             {/*<TouchableOpacity
+//               style={styles.logoutButton}
+//               onPress={handleLogout}
+//             >
+//               <Text style={styles.logoutText}>Logout</Text>
+//             </TouchableOpacity>*/}
+
+//           </>
+//         ) : (
+//           <Text style={styles.errorText}>Failed to load profile data</Text>
+//         )}
+//       </View>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#f5f5f5',
+//   },
+//   content: {
+//     flex: 1,
+//     padding: 20,
+//   },
+//   loadingContainer: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#f5f5f5',
+//   },
+//   loadingText: {
+//     marginTop: 10,
+//     color: '#666',
+//     fontSize: 16,
+//   },
+//   profileInfo: {
+//     backgroundColor: '#fff',
+//     borderRadius: 10,
+//     padding: 20,
+//     marginBottom: 20,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   infoItem: {
+//     marginBottom: 15,
+//   },
+//   label: {
+//     fontSize: 14,
+//     color: '#666',
+//     marginBottom: 5,
+//   },
+//   value: {
+//     fontSize: 16,
+//     color: '#333',
+//     fontWeight: '500',
+//   },
+//   logoutButton: {
+//     backgroundColor: '#f4511e',
+//     padding: 15,
+//     borderRadius: 10,
+//     alignItems: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   logoutText: {
+//     color: '#fff',
+//     fontSize: 16,
+//     fontWeight: '600',
+//   },
+//   errorText: {
+//     color: '#ff3b30',
+//     textAlign: 'center',
+//     fontSize: 16,
+//   },
+// });
+
+// export default ProfileScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -444,13 +655,16 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-  SafeAreaView
+  SafeAreaView,
+  Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const ProfileScreen = ({ navigation }) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -464,16 +678,16 @@ const ProfileScreen = ({ navigation }) => {
         return;
       }
 
-      const response = await fetch('http://192.168.1.14:5000/api/admin/profile', {
+      const response = await fetch('http://192.168.1.6:5000/api/admin/profile', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to fetch profile');
       }
@@ -484,10 +698,10 @@ const ProfileScreen = ({ navigation }) => {
         'Error',
         error.message || 'Failed to load profile',
         [
-          { 
-            text: 'OK', 
-            onPress: () => navigation.replace('LoginScreen')
-          }
+          {
+            text: 'OK',
+            onPress: () => navigation.replace('LoginScreen'),
+          },
         ]
       );
     } finally {
@@ -495,13 +709,54 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await AsyncStorage.removeItem('adminToken');
-      navigation.replace('LoginScreen');
-    } catch (error) {
-      Alert.alert('Error', 'Failed to logout. Please try again.');
-    }
+  const handleImageUpload = async () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+    };
+
+    launchImageLibrary(options, async (response) => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        Alert.alert('Error', response.errorMessage);
+        return;
+      }
+
+      if (response.assets && response.assets.length > 0) {
+        const image = response.assets[0];
+        const formData = new FormData();
+        formData.append('profilePicture', {
+          uri: image.uri,
+          type: image.type,
+          name: image.fileName,
+        });
+
+        try {
+          setUploading(true);
+          const token = await AsyncStorage.getItem('adminToken');
+          const res = await fetch('http://192.168.1.6:5000/api/admin/profile/upload', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.message || 'Failed to upload image');
+          }
+
+          setProfile((prev) => ({ ...prev, profileImage: data.filePath }));
+          Alert.alert('Success', 'Profile picture updated successfully!');
+        } catch (error) {
+          Alert.alert('Error', error.message || 'Failed to upload image');
+        } finally {
+          setUploading(false);
+        }
+      }
+    });
   };
 
   if (loading) {
@@ -518,24 +773,29 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.content}>
         {profile ? (
           <>
+            <Image
+              source={{ uri: profile.profileImage || 'https://via.placeholder.com/150' }}
+              style={styles.profileImage}
+            />
+            <TouchableOpacity
+              style={styles.uploadButton}
+              onPress={handleImageUpload}
+              disabled={uploading}
+            >
+              <Text style={styles.uploadText}>
+                {uploading ? 'Uploading...' : 'Upload Profile Picture'}
+              </Text>
+            </TouchableOpacity>
             <View style={styles.profileInfo}>
               <View style={styles.infoItem}>
-                <Text style={styles.label}>Name</Text>
+                <Text style={styles.label}>Full Name</Text>
                 <Text style={styles.value}>{profile.name}</Text>
               </View>
-              
               <View style={styles.infoItem}>
                 <Text style={styles.label}>Email</Text>
                 <Text style={styles.value}>{profile.email}</Text>
               </View>
             </View>
-
-            <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={handleLogout}
-            >
-              <Text style={styles.logoutText}>Logout</Text>
-            </TouchableOpacity>
           </>
         ) : (
           <Text style={styles.errorText}>Failed to load profile data</Text>
@@ -554,16 +814,24 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
-  loadingText: {
-    marginTop: 10,
-    color: '#666',
+  uploadButton: {
+    backgroundColor: '#1e90ff',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  uploadText: {
+    color: '#fff',
     fontSize: 16,
+    fontWeight: '600',
   },
   profileInfo: {
     backgroundColor: '#fff',
@@ -571,10 +839,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
@@ -592,24 +857,15 @@ const styles = StyleSheet.create({
     color: '#333',
     fontWeight: '500',
   },
-  logoutButton: {
-    backgroundColor: '#f4511e',
-    padding: 15,
-    borderRadius: 10,
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
-  logoutText: {
-    color: '#fff',
+  loadingText: {
+    marginTop: 10,
     fontSize: 16,
-    fontWeight: '600',
+    color: '#666',
   },
   errorText: {
     color: '#ff3b30',
@@ -619,4 +875,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
-
