@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const courseData = {
   Bachelors: [
@@ -9,48 +10,40 @@ const courseData = {
       name: 'B.Com General',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '69.39 K',
-      colleges: '6740'
+      avgFees: '70.34 K',
+      colleges: '6759'
     },
     {
       id: 2,
-      name: 'BCA General',
+      name: 'B.Ed General',
       type: 'Full Time',
-      duration: '3 Years',
-      avgFees: '1.47 L',
-      colleges: '5173'
+      duration: '2 Years',
+      avgFees: '88.55 K',
+      colleges: '5565'
     },
     {
       id: 3,
-      name: 'BA General',
+      name: 'BCA General',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '45.39 K',
-      colleges: '4012'
+      avgFees: '1.48 L',
+      colleges: '5192'
     },
     {
       id: 4,
-      name: 'B.Tech',
+      name: 'BA General',
       type: 'Full Time',
-      duration: '4 Years',
-      avgFees: '2.75 L',
-      colleges: '3890'
+      duration: '3 Years',
+      avgFees: '46.02 K',
+      colleges: '4060'
     },
     {
       id: 5,
-      name: 'BBA',
+      name: 'BBA General',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '1.85 L',
-      colleges: '3567'
-    },
-    {
-      id: 6,
-      name: 'B.Sc',
-      type: 'Full Time',
-      duration: '3 Years',
-      avgFees: '55.25 K',
-      colleges: '4521'
+      avgFees: '1.77 L',
+      colleges: '3763'
     }
   ],
   Masters: [
@@ -59,198 +52,166 @@ const courseData = {
       name: 'MBA General',
       type: 'Full Time',
       duration: '2 Years',
-      avgFees: '2.85 L',
-      colleges: '5240'
+      avgFees: '2.61 L',
+      colleges: '5775'
     },
     {
       id: 2,
-      name: 'M.Tech',
-      type: 'Full Time',
-      duration: '2 Years',
-      avgFees: '1.95 L',
-      colleges: '3150'
-    },
-    {
-      id: 3,
       name: 'MCA',
       type: 'Full Time',
       duration: '2 Years',
-      avgFees: '1.65 L',
-      colleges: '2890'
+      avgFees: '1.64 L',
+      colleges: '3869'
+    },
+    {
+      id: 3,
+      name: 'M.Com General',
+      type: 'Full Time',
+      duration: '2 Years',
+      avgFees: '51.39 K',
+      colleges: '3212'
     },
     {
       id: 4,
-      name: 'M.Com',
+      name: 'MBA Finance',
       type: 'Full Time',
       duration: '2 Years',
-      avgFees: '75.50 K',
-      colleges: '3450'
+      avgFees: '2.51 L',
+      colleges: '2828'
     },
     {
       id: 5,
-      name: 'MA',
+      name: 'MBA Marketing',
       type: 'Full Time',
       duration: '2 Years',
-      avgFees: '55.75 K',
-      colleges: '3980'
-    },
-    {
-      id: 6,
-      name: 'M.Sc',
-      type: 'Full Time',
-      duration: '2 Years',
-      avgFees: '85.25 K',
-      colleges: '4120'
+      avgFees: '2.50 L',
+      colleges: '2699'
     }
   ],
   Doctorate: [
     {
       id: 1,
-      name: 'Ph.D in Management',
+      name: 'Ph.D in Chemistry',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '3.25 L',
-      colleges: '2150'
+      avgFees: '1.99 L',
+      colleges: '1030'
     },
     {
       id: 2,
-      name: 'Ph.D in Engineering',
+      name: 'Ph.D in Physics',
       type: 'Full Time',
-      duration: '3-5 Years',
-      avgFees: '2.95 L',
-      colleges: '1850'
+      duration: '3 Years',
+      avgFees: '2.02 L',
+      colleges: '963'
     },
     {
       id: 3,
-      name: 'Ph.D in Science',
+      name: 'Ph.D in Mathematics',
       type: 'Full Time',
-      duration: '3-4 Years',
-      avgFees: '2.45 L',
-      colleges: '2250'
+      duration: '3 Years',
+      avgFees: '1.98 L',
+      colleges: '952'
     },
     {
       id: 4,
-      name: 'Ph.D in Arts',
+      name: 'Ph.D.',
       type: 'Full Time',
-      duration: '3 Years',
-      avgFees: '1.95 L',
-      colleges: '1950'
+      duration: '2 Years',
+      avgFees: '1.47 L',
+      colleges: '845'
     },
     {
       id: 5,
-      name: 'Ph.D in Commerce',
+      name: 'Ph.D Mechanical Engineering',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '2.15 L',
-      colleges: '1750'
-    },
-    {
-      id: 6,
-      name: 'Ph.D in Computer Science',
-      type: 'Full Time',
-      duration: '3-4 Years',
-      avgFees: '2.75 L',
-      colleges: '1650'
+      avgFees: '2.32 L',
+      colleges: '792'
     }
   ],
   Diploma: [
     {
       id: 1,
-      name: 'Diploma in Engineering',
+      name: 'Polytechnic Mechanical Engineering',
       type: 'Full Time',
       duration: '3 Years',
-      avgFees: '85.39 K',
-      colleges: '5559'
+      avgFees: '98.85 K',
+      colleges: '3744'
     },
     {
       id: 2,
-      name: 'Diploma in Business',
+      name: 'Polytechnic Civil Engineering',
       type: 'Full Time',
-      duration: '1 Year',
-      avgFees: '75.50 K',
-      colleges: '3250'
+      duration: '3 Year',
+      avgFees: '97.21 K',
+      colleges: '3494'
     },
     {
       id: 3,
-      name: 'Diploma in IT',
+      name: 'Polytechnic Electrical Engineering',
       type: 'Full Time',
-      duration: '1 Year',
-      avgFees: '65.75 K',
-      colleges: '2950'
+      duration: '3 Year',
+      avgFees: '1.01 L',
+      colleges: '2141'
     },
     {
       id: 4,
-      name: 'Diploma in Hotel Management',
+      name: 'D.Pharm Pharmacy',
       type: 'Full Time',
-      duration: '18 Months',
-      avgFees: '95.25 K',
-      colleges: '2450'
+      duration: '2 Years',
+      avgFees: '1.44 L',
+      colleges: '2036'
     },
     {
       id: 5,
-      name: 'Diploma in Fashion Design',
+      name: 'Polytechnic Electronics & Communication',
       type: 'Full Time',
-      duration: '1 Year',
-      avgFees: '1.25 L',
-      colleges: '1850'
-    },
-    {
-      id: 6,
-      name: 'Diploma in Digital Marketing',
-      type: 'Full Time',
-      duration: '6 Months',
-      avgFees: '55.50 K',
-      colleges: '2150'
+      duration: '3 Year',
+      avgFees: '84.38 K',
+      colleges: '1882'
     }
   ],
   Certification: [
     {
       id: 1,
-      name: 'Digital Marketing',
+      name: 'Certification French',
       type: 'Full Time',
-      duration: '6 Months',
-      avgFees: '45.50 K',
-      colleges: '3245'
+      duration: '1 Year',
+      avgFees: '9.24 K',
+      colleges: '193'
     },
     {
       id: 2,
-      name: 'Web Development',
+      name: 'Certification Fashion Design',
       type: 'Full Time',
-      duration: '4 Months',
-      avgFees: '35.75 K',
-      colleges: '2850'
+      duration: '1 Year',
+      avgFees: '77.32 K',
+      colleges: '191'
     },
     {
       id: 3,
-      name: 'Data Science',
+      name: 'Certification Web Designing',
       type: 'Full Time',
-      duration: '6 Months',
-      avgFees: '55.25 K',
-      colleges: '2450'
+      duration: '1.6 Year',
+      avgFees: '30.03 K',
+      colleges: '188'
     },
     {
       id: 4,
-      name: 'Cloud Computing',
+      name: 'Certification Yoga',
       type: 'Full Time',
-      duration: '3 Months',
-      avgFees: '40.50 K',
-      colleges: '1950'
+      duration: '1 Year',
+      avgFees: '9.87 K',
+      colleges: '182'
     },
     {
       id: 5,
-      name: 'Artificial Intelligence',
+      name: 'Certification Interior Design',
       type: 'Full Time',
       duration: '6 Months',
-      avgFees: '65.75 K',
-      colleges: '1750'
-    },
-    {
-      id: 6,
-      name: 'Cyber Security',
-      type: 'Full Time',
-      duration: '4 Months',
-      avgFees: '50.25 K',
-      colleges: '2150'
+      avgFees: '83.26 K',
+      colleges: '172'
     }
   ]
 };
@@ -258,6 +219,7 @@ const courseData = {
 const ExploreCourses = () => {
   const [selectedTab, setSelectedTab] = useState('Bachelors');
   const tabs = ['Bachelors', 'Masters', 'Doctorate', 'Diploma', 'Certification'];
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -296,7 +258,7 @@ const ExploreCourses = () => {
           <TouchableOpacity
             key={course.id}
             style={styles.card}
-            onPress={() => {/* Handle course selection */}}
+            onPress={() => navigation.navigate('CourseDetails', { course })}
           >
             <Text style={styles.courseType}>{course.type}</Text>
             <Text style={styles.courseName}>{course.name}</Text>

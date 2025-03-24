@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const countryData = [
   {
@@ -146,6 +147,14 @@ const countryData = [
 ];
 
 const StudyAbroad = () => {
+  const navigation = useNavigation();
+
+  const handleCardPress = (country) => {
+    navigation.navigate('StudyAbroadContent', {
+      countryData: country
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Study Abroad</Text>
@@ -156,7 +165,11 @@ const StudyAbroad = () => {
         contentContainerStyle={styles.scrollContent}
       >
         {countryData.map((item) => (
-          <View key={item.id} style={styles.card}>
+          <TouchableOpacity 
+            key={item.id} 
+            style={styles.card}
+            onPress={() => handleCardPress(item)}
+          >
             <View style={styles.cardHeader}>
               <Image 
                 source={{ uri: item.icon }}
@@ -202,7 +215,7 @@ const StudyAbroad = () => {
                 </TouchableOpacity>
               ))}
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

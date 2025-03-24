@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
+const PADDING_HORIZONTAL = 16;
 const CARD_WIDTH = width * 0.8;
-const CARD_MARGIN = 10;
+const CARD_MARGIN = 8;
 
 const universities = [
     {
@@ -190,12 +192,18 @@ const universities = [
 ];
 
 const TopUniversities = () => {
+  const navigation = useNavigation();
+
   // Split universities into rows of 3
   const firstRow = universities.slice(0, 6);
   const secondRow = universities.slice(6, 12);
 
   const renderCard = (university) => (
-    <TouchableOpacity key={university.id} style={styles.card}>
+    <TouchableOpacity 
+      key={university.id} 
+      style={styles.card}
+      onPress={() => navigation.navigate('UniversityDetailsPage', { university })}
+    >
       <Image 
         source={{ uri: university.background }} 
         style={styles.backgroundImage}
@@ -245,6 +253,10 @@ const TopUniversities = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.sectionTitle}>
+        Top Universities/Colleges For Diploma In Engineering
+      </Text>
+      
       {/* First Row */}
       <ScrollView 
         horizontal 
@@ -268,17 +280,27 @@ const TopUniversities = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    backgroundColor: '#fff',
+    paddingVertical: 15,
+    paddingHorizontal: PADDING_HORIZONTAL,
+    width: '100%',
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#333',
+    width: '100%',
   },
   scrollContent: {
-    paddingHorizontal: 10,
+    paddingRight: PADDING_HORIZONTAL,
     marginBottom: 15,
   },
   card: {
-    width: CARD_WIDTH,
-    height: 180,
-    marginHorizontal: CARD_MARGIN,
-    borderRadius: 10,
+    width: CARD_WIDTH - (PADDING_HORIZONTAL * 2),
+    height: 140,
+    marginLeft: CARD_MARGIN,
+    borderRadius: 8,
     overflow: 'hidden',
     backgroundColor: '#fff',
     elevation: 3,
@@ -303,18 +325,18 @@ const styles = StyleSheet.create({
   },
   ratingBadge: {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 8,
+    right: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   ratingText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
@@ -322,35 +344,28 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    padding: 12,
+    padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   logoContainer: {
-    marginRight: 12,
-  },
-  logo: {
-    width: 45,
-    height: 45,
-    borderRadius: 23,
-    borderWidth: 2,
-    borderColor: '#fff',
+    marginRight: 10,
   },
   infoContainer: {
     flex: 1,
   },
   name: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 4,
+    marginBottom: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   location: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#fff',
     marginBottom: 2,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -358,9 +373,9 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   accreditation: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
-    marginBottom: 8,
+    marginBottom: 6,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
@@ -369,13 +384,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 6,
+    marginBottom: 4,
   },
   courseContainer: {
     flex: 1,
   },
   courseLabel: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#fff',
     fontWeight: '500',
     marginBottom: 2,
@@ -388,17 +403,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rating: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
-    marginLeft: 4,
+    marginLeft: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   reviews: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
-    marginLeft: 4,
+    marginLeft: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
@@ -407,7 +422,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   fees: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#fff',
     fontWeight: '500',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -415,19 +430,26 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   feesType: {
-    fontSize: 10,
+    fontSize: 9,
     color: '#fff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   ranking: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
-    marginTop: 4,
+    marginTop: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
+  },
+  logo: {
+    width: 35,
+    height: 35,
+    borderRadius: 18,
+    borderWidth: 1.5,
+    borderColor: '#fff',
   },
 });
 

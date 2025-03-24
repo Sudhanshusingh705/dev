@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const courseLinks = [
   {
     id: 1,
     title: 'BE/B.Tech',
+    description: 'Bachelor of Engineering/Technology',
+    duration: '4 Years'
   },
   {
     id: 2,
     title: 'BA',
+    description: 'Bachelor of Arts',
+    duration: '3 Years'
   },
   {
     id: 3,
@@ -71,10 +76,14 @@ const courseLinks = [
 
 const TopCourses = () => {
   const [selectedLink, setSelectedLink] = useState(null);
+  const navigation = useNavigation();
 
-  const handlePress = (id) => {
+  const handlePress = (id, title) => {
     setSelectedLink(id);
-    // Add navigation or other functionality here
+    navigation.navigate('CourseContent', {
+      courseType: title,
+      courseData: courseLinks.find(course => course.id === id)
+    });
   };
 
   return (
@@ -89,7 +98,7 @@ const TopCourses = () => {
               styles.linkButton,
               selectedLink === link.id && styles.activeLinkButton
             ]}
-            onPress={() => handlePress(link.id)}
+            onPress={() => handlePress(link.id, link.title)}
           >
             <Text style={[
               styles.linkText,

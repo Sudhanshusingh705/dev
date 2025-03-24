@@ -1,61 +1,65 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const admissionLinks = [
   {
     id: 1,
-    title: 'B.Ed Admission 2024',
+    title: 'B.Ed Admission 2024'
   },
   {
     id: 2,
-    title: 'MBA Admission 2024',
+    title: 'MBA Admission 2024'
   },
   {
     id: 3,
-    title: 'MBBS Admission 2024',
+    title: 'MBBS Admission 2024'
   },
   {
     id: 4,
-    title: 'BA Admission 2024',
+    title: 'BA Admission 2024'
   },
   {
     id: 5,
-    title: 'M Tech Admission 2024',
+    title: 'M Tech Admission 2024'
   },
   {
     id: 6,
-    title: 'PhD Admission 2024',
+    title: 'PhD Admission 2024'
   },
   {
     id: 7,
-    title: 'LLB Admission 2024',
+    title: 'LLB Admission 2024'
   },
   {
     id: 8,
-    title: 'D.El.Ed Admission 2024',
+    title: 'D.El.Ed Admission 2024'
   },
   {
     id: 9,
-    title: 'BSc Admission 2024',
+    title: 'BSc Admission 2024'
   },
   {
     id: 10,
-    title: 'B Pharmacy Admission 2024',
+    title: 'B Pharmacy Admission 2024'
   }
 ];
 
 const Admission2025 = () => {
   const [selectedLink, setSelectedLink] = useState(null);
+  const navigation = useNavigation();
 
-  const handlePress = (id) => {
+  const handlePress = (id, title) => {
     setSelectedLink(id);
-    // Add navigation or other functionality here
+    navigation.navigate('AdmissionContent', {
+      contentType: title
+    });
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Admission 2024 - 2025</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>Admission Guide 2024-25</Text>
       
       <View style={styles.linksContainer}>
         {admissionLinks.map((link) => (
@@ -65,7 +69,7 @@ const Admission2025 = () => {
               styles.linkButton,
               selectedLink === link.id && styles.activeLinkButton
             ]}
-            onPress={() => handlePress(link.id)}
+            onPress={() => handlePress(link.id, link.title)}
           >
             <Text style={[
               styles.linkText,
@@ -81,38 +85,42 @@ const Admission2025 = () => {
           </TouchableOpacity>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent',
-    padding: 16,
+    flex: 1,
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 20,
+    marginVertical: 20,
+    paddingHorizontal: 16,
+    textAlign: 'left',
   },
   linksContainer: {
+    padding: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    justifyContent: 'space-between',
   },
   linkButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: 'transparent',
+    paddingVertical: 12,
+    backgroundColor: '#fff',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#ddd',
-    minWidth: '45%',
-    maxWidth: '100%',
+    marginBottom: 12,
+    width: '48%',
+    elevation: 2,
   },
   activeLinkButton: {
     backgroundColor: '#007AFF',

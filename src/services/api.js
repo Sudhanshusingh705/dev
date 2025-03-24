@@ -1,29 +1,57 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Create an axios instance with the base URL
+// Dynamically determine the base URL - make sure this matches your backend server address
+const BASE_URL = 'http://192.168.1.11:5000/api';
+
+console.log('API Service initialized with base URL:', BASE_URL);
+
+// Create an Axios instance
 const API = axios.create({
-  baseURL: 'http://192.168.1.14:5000/api/admin', // Replace with your backend URL 192.168.14:8081 (http://192.168.x.x:5000/api/admin), http://localhost:5000/api/admin, http://10.0.2.2:8081/api/admin
+  baseURL: BASE_URL,
 });
 
-// Add a request interceptor to include the token if available
+// Caching token in memory
+let cachedToken = null;
+
+// Request interceptor
 API.interceptors.request.use(
   async (config) => {
-    try {
-      // Retrieve the token from AsyncStorage
-      const token = await AsyncStorage.getItem('adminToken');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } catch (error) {
-      console.error('Error retrieving token:', error);
+    if (!cachedToken) {
+      cachedToken = await AsyncStorage.getItem('authToken');
+      console.log('Token retrieved for API request:', cachedToken ? 'Token exists' : 'No token');
     }
+    if (cachedToken) {
+      config.headers.Authorization = `Bearer ${cachedToken}`;
+    }
+    console.log('API Request:', config.method.toUpperCase(), config.baseURL + config.url);
     return config;
   },
-  (error) => {
-    // Handle request errors
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor for error handling
+API.interceptors.response.use(
+  (response) => {
+    console.log('API Response:', response.status, response.config.url);
+    return response;
+  },
+  async (error) => {
+    console.error('API Error:', 
+      error.response?.status,
+      error.response?.config?.url,
+      error.response?.data?.message || error.message
+    );
+    
+    if (error.response?.status === 401) {
+      // Handle token expiration
+      await AsyncStorage.removeItem('authToken');
+      cachedToken = null;
+      console.error('Session expired. Redirecting to login.');
+      // Redirect to login screen if necessary
+    }
     return Promise.reject(error);
   }
 );
 
-export default API;
+export default API; 

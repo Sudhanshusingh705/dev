@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,70 +7,70 @@ const studyPlaces = [
   {
     id: 1,
     name: 'Delhi NCR',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/2.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/2322/2322277.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 500,
     // courses: 1200
   },
   {
     id: 2,
     name: 'Bangalore',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/1.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/10706/10706892.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 450,
     // courses: 1000
   },
   {
     id: 3,
     name: 'Hyderabad',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/3.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/1235/1235736.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 380,
     // courses: 950
   },
   {
     id: 4,
     name: 'Pune',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/4.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/5337/5337579.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 320,
     // courses: 850
   },
   {
     id: 5,
     name: 'Mumbai',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/6.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/10195/10195887.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 420,
     // courses: 1100
   },
   {
     id: 6,
     name: 'Chennai',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/5.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/1282/1282334.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 350,
     // courses: 900
   },
   {
     id: 7,
     name: 'Kolkata',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/8.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/1354/1354311.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 300,
     // courses: 800
   },
   {
     id: 8,
     name: 'Bhopal',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/7.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/898/898112.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 180,
     // courses: 600
   },
   {
     id: 9,
     name: 'Indore',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/9.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/4294/4294958.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 150,
     // courses: 500
   },
   {
     id: 10,
     name: 'Nagpur',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/10.png',
+    icon: 'https://cdn-icons-png.freepik.com/256/9342/9342080.png?uid=R123767660&ga=GA1.1.422920070.1741165168&semt=ais_hybrid',
     // colleges: 120,
     // courses: 450
   }
@@ -79,39 +79,27 @@ const studyPlaces = [
 const TopStudyPlaces = () => {
   const navigation = useNavigation();
 
-  const handlePlacePress = (place) => {
-    navigation.navigate('StudyPlaceDetails', { place });
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Top Study Places</Text>
-      <ScrollView 
-        horizontal 
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
+      <Text style={styles.sectionTitle}>Top Study Places</Text>
+      <View style={styles.gridContainer}>
         {studyPlaces.map((place) => (
           <TouchableOpacity
             key={place.id}
             style={styles.placeCard}
-            onPress={() => handlePlacePress(place)}
+            onPress={() => navigation.navigate('StudyPlaceDetails', { place })}
           >
             <View style={styles.iconContainer}>
-              <Image 
+              <Image
                 source={{ uri: place.icon }}
                 style={styles.placeIcon}
                 resizeMode="contain"
               />
             </View>
-            <Text style={styles.placeName}>{place.name}</Text>
-            <View style={styles.statsContainer}>
-             {/*  <Text style={styles.statsText}>{place.colleges} Colleges</Text>
-              <Text style={styles.statsText}>{place.courses} Courses</Text> */}
-            </View>
+            <Text numberOfLines={1} style={styles.placeName}>{place.name}</Text>
           </TouchableOpacity>
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -119,64 +107,67 @@ const TopStudyPlaces = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: 16,
+    paddingVertical: 15,
   },
-  title: {
+  sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 15,
+    paddingHorizontal: 15,
     color: '#333',
-    marginBottom: 20,
   },
-  scrollContent: {
-    paddingRight: 16,
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 12,
+    gap: 12,
   },
   placeCard: {
-    width: 180,
-    height: 200,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    marginRight: 16,
-    padding: 16,
+    width: '22%',
+    minWidth: 75,
+    aspectRatio: 0.9,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#f8f9fa',
+    borderRadius: 12,
+    padding: 8,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 3,
+    elevation: 2,
   },
   iconContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
+    width: 45,
+    height: 45,
+    borderRadius: 23,
+    backgroundColor: '#007bff',
     justifyContent: 'center',
-    marginBottom: 12,
-    overflow: 'hidden',
+    alignItems: 'center',
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+    elevation: 3,
   },
   placeIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 25,
+    height: 25,
+    tintColor: '#ffffff',
   },
   placeName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  statsContainer: {
-    alignItems: 'center',
-  },
-  statsText: {
     fontSize: 12,
-    color: '#666',
-    marginTop: 4,
+    fontWeight: '500',
+    color: '#333',
+    textAlign: 'center',
+    paddingHorizontal: 4,
   },
 });
 

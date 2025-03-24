@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const examLinks = [
   {
@@ -47,10 +48,13 @@ const examLinks = [
 
 const CbscX = () => {
   const [selectedLink, setSelectedLink] = useState(null);
+  const navigation = useNavigation();
 
-  const handlePress = (id) => {
+  const handlePress = (id, title) => {
     setSelectedLink(id);
-    // Add navigation or other functionality here
+    navigation.navigate('CbseXContent', {
+      contentType: title
+    });
   };
 
   return (
@@ -65,7 +69,7 @@ const CbscX = () => {
               styles.linkButton,
               selectedLink === link.id && styles.activeLinkButton
             ]}
-            onPress={() => handlePress(link.id)}
+            onPress={() => handlePress(link.id, link.title)}
           >
             <Text style={[
               styles.linkText,

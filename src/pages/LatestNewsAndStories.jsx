@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const newsData = {
   'Exam Alerts': [
@@ -121,6 +122,14 @@ const newsData = {
 
 const LatestNewsAndStories = () => {
   const [selectedTab, setSelectedTab] = useState('Exam Alerts');
+  const navigation = useNavigation();
+
+  const handleNewsPress = (news, category) => {
+    navigation.navigate('NewsContent', {
+      newsData: news,
+      category: category
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -160,7 +169,7 @@ const LatestNewsAndStories = () => {
           <TouchableOpacity
             key={news.id}
             style={styles.newsCard}
-            onPress={() => {/* Handle news item click */}}
+            onPress={() => handleNewsPress(news, selectedTab)}
           >
             <Text style={styles.newsDate}>{news.date}</Text>
             <Text style={styles.newsTitle}>{news.title}</Text>
@@ -169,7 +178,7 @@ const LatestNewsAndStories = () => {
             </Text>
             <View style={styles.readMoreContainer}>
               <Text style={styles.readMoreText}>Read more</Text>
-              <AntDesign name="right" size={14} color="#666" />
+              <AntDesign name="right" size={14} color="#FFA500" />
             </View>
           </TouchableOpacity>
         ))}

@@ -1,28 +1,73 @@
-import React from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Platform, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { 
+  View, 
+  Image, 
+  TouchableOpacity, 
+  StyleSheet, 
+  Platform, 
+  StatusBar, 
+  Animated 
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
+// Import local logo
+import logo from '../../assets/logo-1.png';
 
-const Header = () => {
+const HEADER_MAX_HEIGHT = Platform.OS === 'android' ? 
+  StatusBar.currentHeight + 45 : 45;
+const HEADER_MIN_HEIGHT = 0;
+
+const Header = ({ scrollY = new Animated.Value(0) }) => {
   const navigation = useNavigation();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Animation value for header translation
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT],
+    outputRange: [0, -HEADER_MAX_HEIGHT],
+    extrapolate: 'clamp'
+  });
+
+  // Animation value for header opacity
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_MAX_HEIGHT / 2, HEADER_MAX_HEIGHT],
+    outputRange: [1, 1, 0],
+    extrapolate: 'clamp'
+  });
+
+  useEffect(() => {
+    scrollY.addListener(({ value }) => {
+      // Show header when scrolling up, hide when scrolling down
+      if (value < lastScrollY || value <= 0) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+      setLastScrollY(value);
+    });
+
+    return () => {
+      scrollY.removeAllListeners();
+    };
+  }, [lastScrollY]);
 
   const handleMenuPress = () => {
     navigation.dispatch(DrawerActions.toggleDrawer());
   };
 
   return (
-    <View style={styles.header}>
-      {/* Left Side Logo */}
-      <Image
-        source={{ 
-          uri: 'https://searchmycolleges.com/wp-content/uploads/2024/05/search-my-college.jpg' 
-        }}
-        style={styles.logo}
-        // Add error handling for image loading
-        onError={(error) => console.log('Image loading error:', error)}
-      />
-
-      {/* Right Side Hamburger Menu */}
+    <Animated.View 
+      style={[
+        styles.header,
+        {
+          transform: [{ translateY: headerTranslateY }],
+          opacity: headerOpacity,
+          height: isVisible ? HEADER_MAX_HEIGHT : HEADER_MIN_HEIGHT
+        }
+      ]}
+    >
+      {/* Left Side Hamburger Menu */}
       <TouchableOpacity 
         onPress={handleMenuPress}
         style={styles.menuButton}
@@ -30,18 +75,29 @@ const Header = () => {
       >
         <Icon name="menu" size={28} color="#333" />
       </TouchableOpacity>
-    </View>
+
+      {/* Right Side Logo */}
+      <Image
+        source={logo}
+        style={styles.logo}
+        onError={(error) => console.log('Image loading error:', error)}
+      />
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 10,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight + 5 : 10,
+    padding: 8,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight + 3 : 8,
     elevation: 4,
     shadowColor: '#000',
     shadowOpacity: 0.2,
@@ -50,8 +106,8 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   logo: {
-    width: 120,
-    height: 40,
+    width: 200,
+    height: 45,
     resizeMode: 'contain',
   },
   menuButton: {

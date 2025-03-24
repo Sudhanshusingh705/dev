@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const notificationData = [
   {
@@ -30,6 +31,12 @@ const notificationData = [
 ];
 
 const LatestNotification = () => {
+  const navigation = useNavigation();
+
+  const handleNotificationPress = (id) => {
+    navigation.navigate('NotificationDetail', { id });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Latest Notification</Text>
@@ -43,7 +50,7 @@ const LatestNotification = () => {
           <TouchableOpacity 
             key={notification.id}
             style={styles.notificationCard}
-            onPress={() => {/* Handle notification click */}}
+            onPress={() => handleNotificationPress(notification.id)}
           >
             <Image 
               source={{ uri: notification.image }}
@@ -57,16 +64,19 @@ const LatestNotification = () => {
               <View style={styles.metaContainer}>
                 <Text style={styles.type}>{notification.type}</Text>
                 <View style={styles.dateContainer}>
-                  <AntDesign name="clockcircleo" size={12} color="#666" />
+                  <AntDesign name="clockcircleo" size={10} color="#666" />
                   <Text style={styles.date}>{notification.date}</Text>
                 </View>
               </View>
               <Text style={styles.description} numberOfLines={2}>
                 {notification.description}
               </Text>
-              <TouchableOpacity style={styles.readMoreButton}>
+              <TouchableOpacity 
+                style={styles.readMoreButton}
+                onPress={() => handleNotificationPress(notification.id)}
+              >
                 <Text style={styles.readMoreText}>Read more</Text>
-                <AntDesign name="right" size={12} color="#666" />
+                <AntDesign name="right" size={10} color="#666" />
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -79,13 +89,13 @@ const LatestNotification = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    padding: 16,
+    padding: 12,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   scrollContainer: {
     flexGrow: 0,
@@ -93,72 +103,72 @@ const styles = StyleSheet.create({
   notificationCard: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 10,
+    padding: 12,
     borderWidth: 1,
     borderColor: '#eee',
-    width: 300,
-    marginRight: 16,
+    width: 250,
+    marginRight: 12,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 3,
     elevation: 2,
   },
   notificationImage: {
-    width: 48,
-    height: 48,
-    marginRight: 16,
+    width: 36,
+    height: 36,
+    marginRight: 12,
     borderRadius: 4,
   },
   contentContainer: {
     flex: 1,
   },
   notificationTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     color: '#333',
-    marginBottom: 8,
-    lineHeight: 22,
+    marginBottom: 6,
+    lineHeight: 18,
   },
   metaContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   type: {
-    fontSize: 12,
+    fontSize: 10,
     color: '#666',
     backgroundColor: '#f5f5f5',
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
-    marginRight: 8,
+    marginRight: 6,
   },
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   date: {
-    fontSize: 12,
+    fontSize: 10,
     color: '#666',
     marginLeft: 4,
   },
   description: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#666',
-    lineHeight: 20,
-    marginBottom: 12,
+    lineHeight: 16,
+    marginBottom: 8,
   },
   readMoreButton: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   readMoreText: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#666',
     marginRight: 4,
   },

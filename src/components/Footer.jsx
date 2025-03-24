@@ -1,11 +1,25 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  StyleSheet, 
+  Linking,
+  Animated,
+  Dimensions
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // You can install this package if you don't have it
 
-const Footer = () => {
-  const navigation = useNavigation(); // Access navigation object
+const FOOTER_HEIGHT = 180; // Approximate height of footer
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
+const Footer = ({ scrollY = new Animated.Value(0) }) => {
+  // Remove scroll-based visibility
+  return null; // This will make the footer permanently hidden
+
+  // Original footer code is kept below but will never be reached
+  const navigation = useNavigation();
   const footerLinks = [
     { title: 'About Us', onPress: () => navigation.navigate('AboutUs') },
     { title: 'Contact Us', onPress: () => navigation.navigate('ContactUs') },
@@ -18,7 +32,7 @@ const Footer = () => {
   };
 
   return (
-    <View style={styles.footerContainer}>
+    <Animated.View style={styles.footerContainer}>
       <View style={styles.linksContainer}>
         {footerLinks.map(({ title, onPress }, index) => (
           <React.Fragment key={index}>
@@ -48,7 +62,7 @@ const Footer = () => {
 
       {/* Copyright Text */}
       <Text style={styles.copyright}>© 2025 SearchMyCollege. All rights reserved.</Text>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -57,14 +71,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#0033cc',
     paddingVertical: 20,
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   linksContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    paddingHorizontal: 10,
   },
   linkItem: {
     marginHorizontal: 8,
+    marginVertical: 5,
   },
   linkText: {
     color: '#fff',
@@ -74,6 +105,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     opacity: 0.6,
     fontSize: 14,
+    marginHorizontal: 4,
   },
   socialContainer: {
     flexDirection: 'row',
@@ -82,6 +114,7 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     marginHorizontal: 12,
+    padding: 8,
   },
   copyright: {
     marginTop: 20,
