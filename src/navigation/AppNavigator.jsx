@@ -1,3 +1,373 @@
+// // import React from 'react';
+// // import { createDrawerNavigator } from '@react-navigation/drawer';
+// // import { NavigationContainer } from '@react-navigation/native';
+// // import HomeScreen from '../screens/HomeScreen';
+// // import AboutUs from '../pages/AboutUs';
+// // import ContactUs from '../pages/ContactUs';
+// // import PrivacyPolicy from '../pages/PrivacyPolicy';
+// // import TermsAndConditions from '../pages/TermsAndConditions';
+// // import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+// // // Import other screens as needed
+
+// // const Drawer = createDrawerNavigator();
+// // const Stack = createStackNavigator();
+
+// // const AppNavigator = () => {
+// //   return (
+// //     <NavigationContainer>
+// //       <Drawer.Navigator
+// //         initialRouteName="Home"
+// //         screenOptions={{
+// //           headerShown: false,
+// //         }}
+// //       >
+// //         <Drawer.Screen name="Home" component={HomeScreen} />
+// //         <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+// //         {/* Add other drawer screens here */}
+// //       </Drawer.Navigator>
+// //     </NavigationContainer>
+// //   );
+// // };
+
+// // export default AppNavigator;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import { NavigationContainer } from '@react-navigation/native';
+
+// // Import screens
+// import HomeScreen from '../screens/HomeScreen';
+// import AboutUs from '../pages/AboutUs';
+// import ContactUs from '../pages/ContactUs';
+// import PrivacyPolicy from '../pages/PrivacyPolicy';
+// import TermsAndConditions from '../pages/TermsAndConditions';
+// import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+
+// const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+
+// const DrawerScreens = () => (
+//   <Drawer.Navigator
+//     initialRouteName="Home"
+//     screenOptions={{
+//       headerShown: false,
+//       drawerStyle: {
+//         backgroundColor: '#fff',
+//         width: 280,
+//       },
+//     }}
+//   >
+//     <Drawer.Screen name="Home" component={HomeScreen} />
+//     <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+//   </Drawer.Navigator>
+// );
+
+// const MainStack = () => (
+//   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//     <Stack.Screen name="DrawerScreens" component={DrawerScreens} />
+//     <Stack.Screen name="AboutUs" component={AboutUs} />
+//     <Stack.Screen name="ContactUs" component={ContactUs} />
+//     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+//     <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//   </Stack.Navigator>
+// );
+
+// const AppNavigator = () => (
+//   <NavigationContainer>
+//     <MainStack />
+//   </NavigationContainer>
+// );
+
+// export default AppNavigator;
+
+
+
+
+
+
+
+// import React from 'react';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import { NavigationContainer } from '@react-navigation/native';
+
+// // Import screens
+// import HomeScreen from '../screens/HomeScreen';
+// import AboutUs from '../pages/AboutUs';
+// import ContactUs from '../pages/ContactUs';
+// import PrivacyPolicy from '../pages/PrivacyPolicy';
+// import TermsAndConditions from '../pages/TermsAndConditions';
+// import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+// import LoginSignupScreen from '../screens/LoginSignupScreen';
+// import ProfileScreen from '../screens/ProfileScreen';
+
+// const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+
+// // Drawer Navigation with Login/Signup and Profile
+// const DrawerScreens = () => (
+//   <Drawer.Navigator
+//     initialRouteName="Home"
+//     screenOptions={{
+//       headerShown: false,
+//       drawerStyle: {
+//         backgroundColor: '#fff',
+//         width: 280,
+//       },
+//     }}
+//   >
+//     <Drawer.Screen name="Home" component={HomeScreen} />
+//     <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+//     <Drawer.Screen name="Admin Profile" component={ProfileScreen} />
+//     <Drawer.Screen name="Logout" component={LoginSignupScreen} />
+//   </Drawer.Navigator>
+// );
+
+// // Stack Navigation for Other Pages
+// const MainStack = () => (
+//   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//     <Stack.Screen name="LoginSignup" component={LoginSignupScreen} />
+//     <Stack.Screen name="DrawerScreens" component={DrawerScreens} />
+//     <Stack.Screen name="AboutUs" component={AboutUs} />
+//     <Stack.Screen name="ContactUs" component={ContactUs} />
+//     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+//     <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//   </Stack.Navigator>
+// );
+
+// // Main App Navigator
+// const AppNavigator = () => (
+//   <NavigationContainer>
+//     <MainStack />
+//   </NavigationContainer>
+// );
+
+// export default AppNavigator;
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createStackNavigator } from '@react-navigation/stack';
+
+// // Import screens
+// import HomeScreen from '../screens/HomeScreen';
+// import AboutUs from '../pages/AboutUs';
+// import ContactUs from '../pages/ContactUs';
+// import PrivacyPolicy from '../pages/PrivacyPolicy';
+// import TermsAndConditions from '../pages/TermsAndConditions';
+// import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+
+// const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+
+// const DrawerScreens = () => (
+//   <Drawer.Navigator
+//     initialRouteName="Home"
+//     screenOptions={{
+//       headerShown: false,
+//       drawerStyle: {
+//         backgroundColor: '#fff',
+//         width: 280,
+//       },
+//     }}
+//   >
+//     <Drawer.Screen name="Home" component={HomeScreen} />
+//     <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+//   </Drawer.Navigator>
+// );
+
+// const MainStack = () => (
+//   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//     <Stack.Screen name="DrawerScreens" component={DrawerScreens} />
+//     <Stack.Screen name="AboutUs" component={AboutUs} />
+//     <Stack.Screen name="ContactUs" component={ContactUs} />
+//     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+//     <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//   </Stack.Navigator>
+// );
+
+// const AppNavigator = () => <MainStack />;
+
+// export default AppNavigator;
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import { NavigationContainer } from '@react-navigation/native';
+
+// // Import screens
+// import HomeScreen from '../screens/HomeScreen';
+// import AboutUs from '../pages/AboutUs';
+// import ContactUs from '../pages/ContactUs';
+// import PrivacyPolicy from '../pages/PrivacyPolicy';
+// import TermsAndConditions from '../pages/TermsAndConditions';
+// import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+// import LoginSignupScreen from '../screens/LoginSignupScreen';
+// import ProfileScreen from '../screens/ProfileScreen';
+
+// // Drawer Navigator
+// const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+
+// // Drawer Screens
+// const DrawerScreens = () => (
+//   <Drawer.Navigator
+//     initialRouteName="Home"
+//     screenOptions={{
+//       headerShown: false,
+//       drawerStyle: {
+//         backgroundColor: '#fff',
+//         width: 280,
+//       },
+//     }}
+//   >
+//     <Drawer.Screen name="Home" component={HomeScreen} />
+//     <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+//     <Drawer.Screen name="Admin Profile" component={ProfileScreen} />
+//     <Drawer.Screen name="Logout" component={LoginSignupScreen} />
+//   </Drawer.Navigator>
+// );
+
+// // Stack Navigator
+// const MainStack = () => (
+//   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//     <Stack.Screen name="LoginSignup" component={LoginSignupScreen} />
+//     <Stack.Screen name="DrawerScreens" component={DrawerScreens} />
+//     <Stack.Screen name="AboutUs" component={AboutUs} />
+//     <Stack.Screen name="ContactUs" component={ContactUs} />
+//     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+//     <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//   </Stack.Navigator>
+// );
+
+// // Main App Navigator
+// const AppNavigator = () => (
+//   <NavigationContainer>
+//     <MainStack />
+//   </NavigationContainer>
+// );
+
+// export default AppNavigator;
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import { NavigationContainer } from '@react-navigation/native';
+
+// // Import screens
+// import HomeScreen from '../screens/HomeScreen';
+// import AboutUs from '../pages/AboutUs';
+// import ContactUs from '../pages/ContactUs';
+// import PrivacyPolicy from '../pages/PrivacyPolicy';
+// import TermsAndConditions from '../pages/TermsAndConditions';
+// import StudyPlaceDetails from '../pages/StudyPlaceDetails';
+// import LoginSignupScreen from '../screens/LoginSignupScreen';
+// import ProfileScreen from '../screens/ProfileScreen';
+
+// // Drawer Navigator
+// const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+
+// // Drawer Screens
+// const DrawerScreens = () => (
+//   <Drawer.Navigator
+//     initialRouteName="Home"
+//     screenOptions={{
+//       headerShown: false,
+//       drawerStyle: {
+//         backgroundColor: '#fff',
+//         width: 280,
+//       },
+//     }}
+//   >
+//     <Drawer.Screen name="Home" component={HomeScreen} />
+//     <Drawer.Screen name="StudyPlaceDetails" component={StudyPlaceDetails} />
+//     <Drawer.Screen name="Admin Profile" component={ProfileScreen} />
+//     <Drawer.Screen name="Logout" component={LoginSignupScreen} />
+//   </Drawer.Navigator>
+// );
+
+// // Stack Navigator
+// const MainStack = () => (
+//   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//     <Stack.Screen name="LoginSignup" component={LoginSignupScreen} />
+//     <Stack.Screen name="DrawerScreens" component={DrawerScreens} />
+//     <Stack.Screen name="AboutUs" component={AboutUs} />
+//     <Stack.Screen name="ContactUs" component={ContactUs} />
+//     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+//     <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//   </Stack.Navigator>
+// );
+
+// // Main App Navigator
+// const AppNavigator = () => (
+//   <NavigationContainer>
+//     <MainStack />
+//   </NavigationContainer>
+// );
+
+// export default AppNavigator;
+
+
+
+
+
+
+
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,52 +383,6 @@ import TermsAndConditions from "../pages/TermsAndConditions";
 import StudyPlaceDetails from "../pages/StudyPlaceDetails";
 import LoginSignupScreen from '../screens/LoginSignupScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import AdminDashboard from '../screens/AdminDashboard';
-import CourseDetails from '../pages/CourseDetails';
-import CbseXIIContent from '../pages/CbseXIIContent';
-import CbseXContent from '../pages/CbseXContent';
-import AdmissionContent from '../pages/AdmissionContent';
-import ExamContent from '../pages/ExamContent';
-import NewsContent from '../pages/NewsContent';
-import StudyAbroadContent from '../pages/StudyAbroadContent';
-import CourseContent from '../pages/CourseContent';
-import CourseCollegeList from '../pages/CourseCollegeList';
-import CollegeDetail from '../pages/CollegeDetail';
-import CollegeDetails from '../pages/CollegeDetails';
-import BrowseCategories from '../pages/BrowseCategories';
-import UniversityDetailsPage from '../pages/UniversityDetailsPage';
-import NotificationDetailScreen from '../pages/NotificationDetailScreen';
-import CollegeCompare from '../pages/CollegeCompare';
-import TopUniversities from '../pages/TopUniversities';
-import TopCourses from '../pages/TopCourses';
-import Admission2025 from '../pages/Admission2025';
-import TopExams from '../pages/TopExams';
-import LatestNotification from '../pages/LatestNotification';
-
-// Import college pages
-import BTechColleges from '../pages/courses/BTechColleges.jsx';
-import MBAColleges from '../pages/courses/MBAColleges.jsx';
-import MTechColleges from '../pages/courses/MTechColleges.jsx';
-import MBBSColleges from '../pages/courses/MBBSColleges.jsx';
-import BComColleges from '../pages/courses/BComColleges.jsx';
-import BScColleges from '../pages/courses/BScColleges.jsx';
-import BScNursingColleges from '../pages/courses/BScNursingColleges.jsx';
-import BCAColleges from '../pages/courses/BCAColleges.jsx';
-import MCAColleges from '../pages/courses/MCAColleges.jsx';
-import PharmacyColleges from '../pages/courses/PharmacyColleges.jsx';
-import ParaMedicalColleges from '../pages/courses/ParaMedicalColleges.jsx';
-import VeterinaryScienceColleges from '../pages/courses/VeterinaryScienceColleges.jsx';
-import ComputerApplicationColleges from '../pages/courses/ComputerApplicationColleges.jsx';
-import DentalColleges from '../pages/courses/DentalColleges.jsx';
-import DesignColleges from '../pages/courses/DesignColleges.jsx';
-import EducationColleges from '../pages/courses/EducationColleges.jsx';
-import HotelManagementColleges from '../pages/courses/HotelManagementColleges.jsx';
-import LLBColleges from '../pages/courses/LLBColleges.jsx';
-import LLMColleges from '../pages/courses/LLMColleges.jsx';
-import MPharmColleges from '../pages/courses/MPharmColleges.jsx';
-import MPlanningColleges from '../pages/courses/MPlanningColleges.jsx';
-import MScColleges from '../pages/courses/MScColleges.jsx';
-import MassCommunicationColleges from '../pages/courses/MassCommunicationColleges.jsx';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -224,6 +548,36 @@ const AdminDrawerScreens = () => (
               name: 'LoginSignup',
               params: { source: 'logout' }
             }],
+          });
+        },
+      })}
+    />
+  </Drawer.Navigator>
+);
+
+const AdminDrawerScreens = () => (
+  <Drawer.Navigator
+    initialRouteName="AdminDashboard"
+    screenOptions={{
+      headerShown: false,
+      drawerStyle: {
+        backgroundColor: '#fff',
+        width: 280,
+      },
+    }}
+  >
+    <Drawer.Screen name="AdminDashboard" component={AdminDashboard} />
+    <Drawer.Screen name="Profile" component={ProfileScreen} />
+    <Drawer.Screen 
+      name="Logout" 
+      component={LoginSignupScreen} 
+      listeners={({ navigation }) => ({
+        tabPress: (e) => {
+          e.preventDefault();
+          // Add logout logic here (e.g., clear AsyncStorage, reset state)
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginSignup' }],
           });
         },
       })}
