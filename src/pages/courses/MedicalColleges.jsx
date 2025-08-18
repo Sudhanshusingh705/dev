@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CollegeList from '../../components/CollegeList';
-import { medicalColleges } from '../../data/collegeData';
+import medicalColleges from '../../data/medicalColleges.json';
 
 const MedicalColleges = () => {
   return (
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MedicalColleges; 
+export default MedicalColleges;

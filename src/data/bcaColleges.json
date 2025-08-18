@@ -1,0 +1,102 @@
+[
+  {
+    "id": "bca001",
+    "name": "Christ University",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹2,80,000",
+    "rating": 4.6,
+    "courses": ["BCA", "BCA (Data Science)", "BCA (Cloud Computing)"],
+    "ranking": 1,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,50,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 90
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Leading university for computer applications with modern curriculum",
+    "logo": "https://christuniversity.in/images/christ-logo.png"
+  },
+  {
+    "id": "bca002",
+    "name": "Symbiosis Institute of Computer Studies and Research",
+    "location": "Pune, Maharashtra",
+    "fees": "₹3,20,000",
+    "rating": 4.5,
+    "courses": ["BCA", "BCA (Artificial Intelligence)", "BCA (Cyber Security)"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 88
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "Premier institute for computer applications with industry focus",
+    "logo": "https://sicsr.ac.in/images/sicsr-logo.png"
+  },
+  {
+    "id": "bca003",
+    "name": "Presidency College",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹1,80,000",
+    "rating": 4.4,
+    "courses": ["BCA", "BCA (Mobile Application Development)", "BCA (Web Development)"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 85
+    },
+    "faculty": 65,
+    "infrastructure": "Very Good",
+    "description": "Well-established college with strong IT industry connections",
+    "logo": "https://presidencyuniversity.in/images/presidency-logo.png"
+  },
+  {
+    "id": "bca004",
+    "name": "Lovely Professional University",
+    "location": "Phagwara, Punjab",
+    "fees": "₹2,40,000",
+    "rating": 4.3,
+    "courses": ["BCA", "BCA (Hons.)", "BCA (Cloud Computing & Virtualization Technology)"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,50,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 82
+    },
+    "faculty": 95,
+    "infrastructure": "Very Good",
+    "description": "Large university with comprehensive computer applications program",
+    "logo": "https://lpu.in/images/lpu-logo.png"
+  },
+  {
+    "id": "bca005",
+    "name": "Indira Gandhi National Open University",
+    "location": "New Delhi, Delhi",
+    "fees": "₹54,000",
+    "rating": 4.1,
+    "courses": ["BCA", "BCA (Internet & E-Commerce)", "BCA (Multimedia & Web Design)"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "DEB"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 70
+    },
+    "faculty": 120,
+    "infrastructure": "Good",
+    "description": "Leading open university offering flexible BCA programs",
+    "logo": "https://ignou.ac.in/images/ignou-logo.png"
+  }
+]

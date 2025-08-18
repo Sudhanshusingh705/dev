@@ -1,524 +1,325 @@
-import React, { useState, useCallback, memo, useEffect, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
+  FlatList,
   TouchableOpacity,
-  ActivityIndicator,
-  RefreshControl,
-  Dimensions,
-  ScrollView,
+  Modal,
   TextInput,
-  Modal
+  ScrollView,
+  Dimensions,
+  Platform,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';;
 
 const { width } = Dimensions.get('window');
 
-// Memoized row component for better performance
-const TableRow = memo(({ item, index }) => {
-  const navigation = useNavigation();
-  
-  const handlePress = useCallback(() => {
-    navigation.navigate('CollegeDetails', { college: item });
-  }, [item, navigation]);
-  
-  return (
-    <TouchableOpacity 
-      style={[styles.tableRow, index % 2 === 0 ? styles.evenRow : styles.oddRow]}
-      onPress={handlePress}
-    >
-      <View style={[styles.cell, styles.rankCell]}>
-        <Text style={styles.rankText}>#{item.rank}</Text>
-      </View>
-      
-      <View style={[styles.cell, styles.collegeCell]}>
-        <Text style={styles.collegeName} numberOfLines={1}>{item.name}</Text>
-        <Text style={styles.location} numberOfLines={1}>{item.location}</Text>
-        <Text style={styles.approvals} numberOfLines={1}>{item.approvals}</Text>
-      </View>
-      
-      <View style={[styles.cell, styles.feesCell]}>
-        <Text style={styles.fees}>₹{item.fees}</Text>
-        <Text style={styles.feesDetail} numberOfLines={1}>{item.courseType}</Text>
-        <Text style={styles.feesDetail} numberOfLines={1}>- {item.feesPeriod}</Text>
-      </View>
-      
-      <View style={[styles.cell, styles.placementCell]}>
-        <Text style={styles.placementLabel}>Average Package</Text>
-        <Text style={styles.placement}>₹{item.avgPackage}</Text>
-        <Text style={styles.highestPackage}>₹{item.highestPackage}</Text>
-        <Text style={styles.placementDetail}>Highest Package</Text>
-      </View>
-      
-      <View style={[styles.cell, styles.reviewCell]}>
-        <View style={styles.ratingContainer}>
-          <Text style={styles.rating}>{item.rating}</Text>
-          <Text style={styles.ratingScale}>/5</Text>
-        </View>
-        <Text style={styles.reviewCount}>Based on {item.reviewCount} reviews</Text>
-      </View>
-      
-      <View style={[styles.cell, styles.rankingCell]}>
-        <Text style={styles.ranking}>#{item.nationalRank}</Text>
-        <Text style={styles.rankingDetail}>in India {item.rankingYear}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-});
+const CollegeList = ({ collegeData = [], streamType = 'Colleges' }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedState, setSelectedState] = useState('All');
+  const [selectedCity, setSelectedCity] = useState('All');
+  const [feeRange, setFeeRange] = useState({ min: '', max: '' });
+  const [sortBy, setSortBy] = useState('rank');
 
-// Memoized header component
-const TableHeader = memo(() => (
-  <View style={styles.tableHeader}>
-    <View style={[styles.headerCell, styles.rankCell]}>
-      <Text style={styles.headerText}>CD Rank</Text>
-    </View>
-    <View style={[styles.headerCell, styles.collegeCell]}>
-      <Text style={styles.headerText}>Colleges</Text>
-    </View>
-    <View style={[styles.headerCell, styles.feesCell]}>
-      <Text style={styles.headerText}>Course Fees</Text>
-    </View>
-    <View style={[styles.headerCell, styles.placementCell]}>
-      <Text style={styles.headerText}>Placement</Text>
-    </View>
-    <View style={[styles.headerCell, styles.reviewCell]}>
-      <Text style={styles.headerText}>User Reviews</Text>
-    </View>
-    <View style={[styles.headerCell, styles.rankingCell]}>
-      <Text style={styles.headerText}>Ranking</Text>
-    </View>
-  </View>
-));
-
-// Filter modal component
-const FilterModal = memo(({ visible, onClose, filters, setFilters, applyFilters, cityOptions, courseOptions }) => {
-  const [localFilters, setLocalFilters] = useState({ ...filters });
-
-  useEffect(() => {
-    setLocalFilters({ ...filters });
-  }, [filters, visible]);
-
-  const updateFilter = (key, value) => {
-    setLocalFilters(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handleApply = () => {
-    setFilters(localFilters);
-    applyFilters(localFilters);
-    onClose();
-  };
-
-  const handleReset = () => {
-    const resetFilters = {
-      college: '',
-      city: '',
-      minFees: '',
-      maxFees: '',
-      course: '',
-    };
-    setLocalFilters(resetFilters);
-    setFilters(resetFilters);
-    applyFilters(resetFilters);
-    onClose();
-  };
-
-  return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
-    >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Filter Colleges</Text>
-
-          <Text style={styles.filterLabel}>College Name</Text>
-          <TextInput
-            style={styles.filterInput}
-            placeholder="Search by college name"
-            value={localFilters.college}
-            onChangeText={(text) => updateFilter('college', text)}
-          />
-
-          <Text style={styles.filterLabel}>City</Text>
-          <View style={styles.pickerContainer}>
-            <ScrollView style={styles.optionsScroll}>
-              <TouchableOpacity 
-                key="all-cities" 
-                style={[
-                  styles.optionItem,
-                  !localFilters.city ? styles.selectedOption : null
-                ]}
-                onPress={() => updateFilter('city', '')}
-              >
-                <Text style={styles.optionText}>All Cities</Text>
-              </TouchableOpacity>
-              {cityOptions.map((city, index) => (
-                <TouchableOpacity 
-                  key={index} 
-                  style={[
-                    styles.optionItem,
-                    localFilters.city === city ? styles.selectedOption : null
-                  ]}
-                  onPress={() => updateFilter('city', city)}
-                >
-                  <Text style={styles.optionText}>{city}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-
-          <Text style={styles.filterLabel}>Course Type</Text>
-          <View style={styles.pickerContainer}>
-            <ScrollView style={styles.optionsScroll}>
-              <TouchableOpacity 
-                key="all-courses" 
-                style={[
-                  styles.optionItem,
-                  !localFilters.course ? styles.selectedOption : null
-                ]}
-                onPress={() => updateFilter('course', '')}
-              >
-                <Text style={styles.optionText}>All Courses</Text>
-              </TouchableOpacity>
-              {courseOptions.map((course, index) => (
-                <TouchableOpacity 
-                  key={index} 
-                  style={[
-                    styles.optionItem,
-                    localFilters.course === course ? styles.selectedOption : null
-                  ]}
-                  onPress={() => updateFilter('course', course)}
-                >
-                  <Text style={styles.optionText}>{course}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-
-          <Text style={styles.filterLabel}>Fees Range (₹)</Text>
-          <View style={styles.feeRangeContainer}>
-            <TextInput
-              style={[styles.filterInput, styles.feeInput]}
-              placeholder="Min"
-              value={localFilters.minFees}
-              onChangeText={(text) => updateFilter('minFees', text)}
-              keyboardType="numeric"
-            />
-            <Text style={styles.toText}>to</Text>
-            <TextInput
-              style={[styles.filterInput, styles.feeInput]}
-              placeholder="Max"
-              value={localFilters.maxFees}
-              onChangeText={(text) => updateFilter('maxFees', text)}
-              keyboardType="numeric"
-            />
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
-              <Text style={styles.resetButtonText}>Reset</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.applyButton} onPress={handleApply}>
-              <Text style={styles.applyButtonText}>Apply</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  );
-});
-
-const CollegeList = ({ collegeData, streamType }) => {
-  const [refreshing, setRefreshing] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [filteredData, setFilteredData] = useState(collegeData || []);
-  const [filters, setFilters] = useState({
-    college: '',
-    city: '',
-    minFees: '',
-    maxFees: '',
-    course: '',
-  });
-  
-  // Extract filter options
-  const cityOptions = useMemo(() => {
-    if (!collegeData) return [];
-    // Add major Indian cities that might not be in the current dataset
-    const majorCities = [
-      'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 
-      'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow',
-      'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal',
-      'Visakhapatnam', 'Vadodara', 'Patna', 'Ghaziabad', 'Ludhiana',
-      'Coimbatore', 'Kochi', 'Bhubaneswar', 'Guwahati', 'Chandigarh'
-    ];
-    
-    // Extract cities from college data
-    const citiesFromData = collegeData.map(college => 
-      college.location.split(',')[0].trim()
-    );
-    
-    // Combine both lists and remove duplicates
-    const allCities = [...new Set([...majorCities, ...citiesFromData])];
-    
-    // Sort alphabetically
-    return allCities.sort();
+  // Extract unique states and cities
+  const states = useMemo(() => {
+    const stateSet = new Set(collegeData.map(college => college.state || 'Unknown'));
+    return ['All', ...Array.from(stateSet).sort()];
   }, [collegeData]);
 
-  const courseOptions = useMemo(() => {
-    if (!collegeData) return [];
-    
-    // Add common course types that might not be in the current dataset
-    const commonCourseTypes = [
-      'BE/B.Tech', 'ME/M.Tech', 'BCA', 'MCA', 'B.Sc', 
-      'M.Sc', 'BBA', 'MBA/PGDM', 'B.Com', 'M.Com',
-      'BA', 'MA', 'BFA', 'MFA', 'B.Arch', 'M.Arch',
-      'MBBS', 'MD', 'BDS', 'B.Pharm', 'LLB', 'LLM',
-      'B.Ed', 'M.Ed', 'PhD', 'Diploma', 'Certificate',
-      'B.Des', 'M.Des', 'BHM', 'BJMC', 'MJMC'
-    ];
-    
-    // Extract course types from college data
-    const coursesFromData = collegeData.map(college => college.courseType);
-    
-    // Combine both lists and remove duplicates
-    const allCourses = [...new Set([...commonCourseTypes, ...coursesFromData])];
-    
-    // Sort alphabetically
-    return allCourses.sort();
-  }, [collegeData]);
+  const cities = useMemo(() => {
+    if (selectedState === 'All') {
+      const citySet = new Set(collegeData.map(college => college.city || 'Unknown'));
+      return ['All', ...Array.from(citySet).sort()];
+    } else {
+      const citySet = new Set(
+        collegeData
+          .filter(college => (college.state || 'Unknown') === selectedState)
+          .map(college => college.city || 'Unknown')
+      );
+      return ['All', ...Array.from(citySet).sort()];
+    }
+  }, [collegeData, selectedState]);
 
-  // Apply filters to data
-  const applyFilters = useCallback((filterValues) => {
-    if (!collegeData) return;
-    
-    let result = [...collegeData];
-    
-    if (filterValues.college) {
-      result = result.filter(college => 
-        college.name.toLowerCase().includes(filterValues.college.toLowerCase())
+  // Filter and sort colleges
+  const filteredColleges = useMemo(() => {
+    let filtered = [...collegeData];
+
+    // Search filter
+    if (searchQuery) {
+      filtered = filtered.filter(college =>
+        college.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        college.location?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        college.city?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
+
+    // State filter
+    if (selectedState !== 'All') {
+      filtered = filtered.filter(college => (college.state || 'Unknown') === selectedState);
+    }
+
+    // City filter
+    if (selectedCity !== 'All') {
+      filtered = filtered.filter(college => (college.city || 'Unknown') === selectedCity);
+    }
+
+    // Fee range filter
+    if (feeRange.min || feeRange.max) {
+      filtered = filtered.filter(college => {
+        const fees = parseFloat(college.fees?.replace(/[^\d.]/g, '') || 0);
+        const min = parseFloat(feeRange.min) || 0;
+        const max = parseFloat(feeRange.max) || Infinity;
+        return fees >= min && fees <= max;
+      });
+    }
+
+    // Sort
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'rank':
+          return (a.rank || 999) - (b.rank || 999);
+        case 'name':
+          return (a.name || '').localeCompare(b.name || '');
+        case 'fees':
+          return parseFloat(a.fees?.replace(/[^\d.]/g, '') || 0) - parseFloat(b.fees?.replace(/[^\d.]/g, '') || 0);
+        case 'placement':
+          return parseFloat(b.placement?.replace(/[^\d.]/g, '') || 0) - parseFloat(a.placement?.replace(/[^\d.]/g, '') || 0);
+        default:
+          return 0;
+      }
+    });
+
+    return filtered;
+  }, [collegeData, searchQuery, selectedState, selectedCity, feeRange, sortBy]);
+
+  // Reset filters
+  const resetFilters = () => {
+    setSelectedState('All');
+    setSelectedCity('All');
+    setFeeRange({ min: '', max: '' });
+    setSortBy('rank');
+    setSearchQuery('');
+  };
+
+  // Render college card
+  const renderCollegeCard = ({ item }) => {
+    const isMobile = width < 768;
     
-    if (filterValues.city) {
-      result = result.filter(college => 
-        college.location.toLowerCase().includes(filterValues.city.toLowerCase())
+    if (isMobile) {
+      return (
+        <TouchableOpacity style={styles.mobileCard}>
+          <View style={styles.mobileCardHeader}>
+            <Text style={styles.mobileRank}>#{item.rank || 'N/A'}</Text>
+          </View>
+          
+          <Text style={styles.mobileCollegeName} numberOfLines={2}>
+            {item.name || 'College Name'}
+          </Text>
+          
+          <Text style={styles.mobileCollegeLocation} numberOfLines={1}>
+            {item.location || item.city || 'Location not specified'}
+          </Text>
+          
+          <View style={styles.mobileInfoRow}>
+            <Text style={styles.mobileInfoLabel}>Fees:</Text>
+            <Text style={styles.mobileInfoValue}>{item.fees || 'N/A'}</Text>
+          </View>
+          
+          <View style={styles.mobileInfoRow}>
+            <Text style={styles.mobileInfoLabel}>Placement:</Text>
+            <Text style={styles.mobileInfoValue}>{item.placement || 'N/A'}</Text>
+          </View>
+          
+          <View style={styles.mobileInfoRow}>
+            <Text style={styles.mobileInfoLabel}>Rating:</Text>
+            <Text style={styles.mobileInfoValue}>{item.rating || 'N/A'}/5</Text>
+          </View>
+          
+          <View style={styles.mobileRatingContainer}>
+            <Ionicons name="star" size={16} color="#ff9800" />
+            <Text style={styles.mobileRatingText}>{item.rating || 'N/A'}</Text>
+          </View>
+        </TouchableOpacity>
       );
     }
-    
-    if (filterValues.course) {
-      result = result.filter(college => 
-        college.courseType.toLowerCase() === filterValues.course.toLowerCase()
-      );
-    }
-    
-    if (filterValues.minFees) {
-      const minFeesValue = parseFloat(filterValues.minFees);
-      if (!isNaN(minFeesValue)) {
-        result = result.filter(college => {
-          const feesValue = parseFloat(college.fees.replace(/,/g, ''));
-          return !isNaN(feesValue) && feesValue >= minFeesValue;
-        });
-      }
-    }
-    
-    if (filterValues.maxFees) {
-      const maxFeesValue = parseFloat(filterValues.maxFees);
-      if (!isNaN(maxFeesValue)) {
-        result = result.filter(college => {
-          const feesValue = parseFloat(college.fees.replace(/,/g, ''));
-          return !isNaN(feesValue) && feesValue <= maxFeesValue;
-        });
-      }
-    }
-    
-    setFilteredData(result);
-  }, [collegeData]);
-  
-  // Update dimensions on screen rotation
-  useEffect(() => {
-    const updateLayout = () => {
-      setScreenWidth(Dimensions.get('window').width);
-    };
-    
-    Dimensions.addEventListener('change', updateLayout);
-    return () => {
-      // Remove event listener on cleanup
-      // Note: This depends on your React Native version
-      if (Dimensions.removeEventListener) {
-        Dimensions.removeEventListener('change', updateLayout);
-      }
-    };
-  }, []);
-  
-  // Initialize filtered data when collegeData changes
-  useEffect(() => {
-    setFilteredData(collegeData || []);
-  }, [collegeData]);
-  
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    // Reset filters on refresh
-    const resetFilters = {
-      college: '',
-      city: '',
-      minFees: '',
-      maxFees: '',
-      course: '',
-    };
-    setFilters(resetFilters);
-    setFilteredData(collegeData || []);
-    
-    // Simulate a refresh
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
-  }, [collegeData]);
 
-  // Item separator for better list performance
-  const ItemSeparatorComponent = useCallback(() => <View style={styles.separator} />, []);
-  
-  // Extract key for FlatList optimization
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
-  
-  // Render item function
-  const renderItem = useCallback(({ item, index }) => (
-    <TableRow item={item} index={index} />
-  ), []);
-
-  if (!collegeData || collegeData.length === 0) {
     return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#0066cc" />
-        <Text style={styles.loadingText}>Loading colleges...</Text>
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Text style={styles.rank}>#{item.rank || 'N/A'}</Text>
+          {item.logo && (
+            <Image
+              source={{ uri: item.logo }}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          )}
+        </View>
+        
+        <View style={styles.cardContent}>
+          <Text style={styles.collegeName} numberOfLines={2}>
+            {item.name || 'College Name'}
+          </Text>
+          <Text style={styles.location} numberOfLines={1}>
+            {item.location || item.city || 'Location not specified'}
+          </Text>
+          
+          <View style={styles.detailsGrid}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>Fees</Text>
+              <Text style={styles.detailValue}>{item.fees || 'N/A'}</Text>
+            </View>
+            
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>Placement</Text>
+              <Text style={styles.detailValue}>{item.placement || 'N/A'}</Text>
+            </View>
+            
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>Rating</Text>
+              <Text style={styles.detailValue}>{item.rating || 'N/A'}/5</Text>
+            </View>
+          </View>
+        </View>
       </View>
     );
-  }
-
-  // Use ScrollView if screen is smaller than needed table width
-  const needsHorizontalScroll = screenWidth < 720;
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>{streamType} Colleges</Text>
-        <View style={styles.filterSection}>
-          <TouchableOpacity 
-            style={styles.filterButton} 
-            onPress={() => setModalVisible(true)}
-          >
-            <Text style={styles.filterButtonText}>Filter</Text>
-          </TouchableOpacity>
-          {Object.values(filters).some(val => val !== '') && (
-            <TouchableOpacity 
-              style={styles.clearButton} 
-              onPress={() => {
-                const resetFilters = {
-                  college: '',
-                  city: '',
-                  minFees: '',
-                  maxFees: '',
-                  course: '',
-                };
-                setFilters(resetFilters);
-                applyFilters(resetFilters);
-              }}
-            >
-              <Text style={styles.clearButtonText}>Clear Filters</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+      <View style={styles.header}>
+        <Text style={styles.title}>{streamType} Colleges</Text>
+        <Text style={styles.count}>{filteredColleges.length} colleges found</Text>
       </View>
-      
-      {filteredData.length === 0 ? (
-        <View style={styles.noResultsContainer}>
-          <Text style={styles.noResultsText}>No colleges match your filters</Text>
-          <TouchableOpacity 
-            style={styles.resetButton} 
-            onPress={() => {
-              const resetFilters = {
-                college: '',
-                city: '',
-                minFees: '',
-                maxFees: '',
-                course: '',
-              };
-              setFilters(resetFilters);
-              applyFilters(resetFilters);
-            }}
-          >
-            <Text style={styles.resetButtonText}>Reset Filters</Text>
-          </TouchableOpacity>
+
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search colleges..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
         </View>
-      ) : (
-        <>
-          {needsHorizontalScroll ? (
-            <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-              <View style={styles.tableContainerWithWidth}>
-                <TableHeader />
-                
-                <FlatList
-                  data={filteredData}
-                  renderItem={renderItem}
-                  keyExtractor={keyExtractor}
-                  ItemSeparatorComponent={ItemSeparatorComponent}
-                  initialNumToRender={10}
-                  maxToRenderPerBatch={20}
-                  windowSize={10}
-                  removeClippedSubviews={true}
-                  refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                  }
-                  getItemLayout={(data, index) => (
-                    { length: 130, offset: 130 * index, index }
-                  )}
-                  contentContainerStyle={styles.listContainer}
+        
+        <TouchableOpacity
+          style={styles.filterButton}
+          onPress={() => setShowFilters(true)}
+        >
+          <Ionicons name="filter" size={20} color="#fff" />
+          <Text style={styles.filterButtonText}>Filters</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={filteredColleges}
+        renderItem={renderCollegeCard}
+        keyExtractor={(item, index) => `${item.id || index}`}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No colleges found</Text>
+          </View>
+        }
+      />
+
+      {/* Filter Modal */}
+      <Modal
+        visible={showFilters}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowFilters(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Filter Colleges</Text>
+            
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={styles.filterLabel}>State</Text>
+              <View style={styles.pickerContainer}>
+                {states.map(state => (
+                  <TouchableOpacity
+                    key={state}
+                    style={[styles.optionItem, selectedState === state && styles.selectedOption]}
+                    onPress={() => setSelectedState(state)}
+                  >
+                    <Text style={styles.optionText}>{state}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <Text style={styles.filterLabel}>City</Text>
+              <View style={styles.pickerContainer}>
+                {cities.map(city => (
+                  <TouchableOpacity
+                    key={city}
+                    style={[styles.optionItem, selectedCity === city && styles.selectedOption]}
+                    onPress={() => setSelectedCity(city)}
+                  >
+                    <Text style={styles.optionText}>{city}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <Text style={styles.filterLabel}>Fee Range (Lakhs)</Text>
+              <View style={styles.feeRangeContainer}>
+                <TextInput
+                  style={[styles.filterInput, styles.feeInput]}
+                  placeholder="Min"
+                  value={feeRange.min}
+                  onChangeText={(text) => setFeeRange({ ...feeRange, min: text })}
+                  keyboardType="numeric"
+                />
+                <Text style={styles.toText}>to</Text>
+                <TextInput
+                  style={[styles.filterInput, styles.feeInput]}
+                  placeholder="Max"
+                  value={feeRange.max}
+                  onChangeText={(text) => setFeeRange({ ...feeRange, max: text })}
+                  keyboardType="numeric"
                 />
               </View>
+
+              <Text style={styles.filterLabel}>Sort By</Text>
+              <View style={styles.pickerContainer}>
+                {['rank', 'name', 'fees', 'placement'].map(option => (
+                  <TouchableOpacity
+                    key={option}
+                    style={[styles.optionItem, sortBy === option && styles.selectedOption]}
+                    onPress={() => setSortBy(option)}
+                  >
+                    <Text style={styles.optionText}>
+                      {option.charAt(0).toUpperCase() + option.slice(1)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </ScrollView>
-          ) : (
-            <View style={styles.tableContainer}>
-              <TableHeader />
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.resetButton}
+                onPress={resetFilters}
+              >
+                <Text style={styles.resetButtonText}>Reset</Text>
+              </TouchableOpacity>
               
-              <FlatList
-                data={filteredData}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-                initialNumToRender={10}
-                maxToRenderPerBatch={20}
-                windowSize={10}
-                removeClippedSubviews={true}
-                refreshControl={
-                  <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-                getItemLayout={(data, index) => (
-                  { length: 130, offset: 130 * index, index }
-                )}
-                contentContainerStyle={styles.listContainer}
-              />
+              <TouchableOpacity
+                style={styles.applyButton}
+                onPress={() => setShowFilters(false)}
+              >
+                <Text style={styles.applyButtonText}>Apply</Text>
+              </TouchableOpacity>
             </View>
-          )}
-        </>
-      )}
-      
-      <FilterModal 
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        filters={filters}
-        setFilters={setFilters}
-        applyFilters={applyFilters}
-        cityOptions={cityOptions}
-        courseOptions={courseOptions}
-      />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -526,214 +327,136 @@ const CollegeList = ({ collegeData, streamType }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#666',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    backgroundColor: '#f5f5f5',
+    paddingTop: 8,
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    marginBottom: 8,
   },
-  filterSection: {
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 2,
+  },
+  count: {
+    fontSize: 13,
+    color: '#666',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    marginBottom: 8,
+  },
+  searchBar: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    marginRight: 12,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingVertical: 8,
   },
   filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#0066cc',
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 4,
-    marginLeft: 8,
+    borderRadius: 8,
   },
   filterButtonText: {
     color: '#fff',
+    fontSize: 14,
     fontWeight: 'bold',
-  },
-  clearButton: {
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 4,
-    marginLeft: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  clearButtonText: {
-    color: '#666',
-  },
-  tableContainer: {
-    flex: 1,
-    width: '100%',
-  },
-  tableContainerWithWidth: {
-    flex: 1,
-    width: 720, // Fixed width for horizontal scroll
+    marginLeft: 4,
   },
   listContainer: {
-    flexGrow: 1,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
   },
-  tableHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#a7d1d2',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  headerCell: {
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  tableRow: {
-    flexDirection: 'row',
-    height: 130,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#eee',
-  },
-  evenRow: {
+  card: {
     backgroundColor: '#fff',
+    marginHorizontal: 16,
+    marginVertical: 4,
+    borderRadius: 10,
+    padding: 12,
+    elevation: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    flexDirection: 'row',
   },
-  oddRow: {
-    backgroundColor: '#f9f9f9',
-  },
-  cell: {
-    padding: 8,
-    justifyContent: 'center',
-  },
-  rankCell: {
-    width: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  collegeCell: {
-    width: 180,
-    paddingHorizontal: 10,
-  },
-  feesCell: {
-    width: 120,
-    paddingHorizontal: 5,
-  },
-  placementCell: {
-    width: 150,
-    paddingHorizontal: 5,
-  },
-  reviewCell: {
-    width: 100,
+  cardHeader: {
+    marginRight: 16,
     alignItems: 'center',
   },
-  rankingCell: {
-    width: 110,
-    alignItems: 'center',
-  },
-  rankText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  collegeName: {
-    fontSize: 16,
+  rank: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#0066cc',
-    marginBottom: 5,
+    marginBottom: 8,
+  },
+  logo: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  collegeName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
   },
   location: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 2,
+    marginBottom: 12,
   },
-  approvals: {
-    fontSize: 12,
-    color: '#888',
-  },
-  fees: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#444',
-  },
-  feesDetail: {
-    fontSize: 12,
-    color: '#666',
-  },
-  placementLabel: {
-    fontSize: 10,
-    color: '#666',
-    marginBottom: 2,
-  },
-  placement: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#28a745',
-    marginBottom: 8,
-  },
-  placementDetail: {
-    fontSize: 10,
-    color: '#666',
-  },
-  highestPackage: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#28a745',
-    marginBottom: 2,
-  },
-  ratingContainer: {
+  detailsGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffc107',
-    borderRadius: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginBottom: 5,
+    justifyContent: 'space-between',
   },
-  rating: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
+  detailItem: {
+    flex: 1,
   },
-  ratingScale: {
+  detailLabel: {
     fontSize: 12,
-    color: '#fff',
-    marginLeft: 2,
-  },
-  reviewCount: {
-    fontSize: 10,
     color: '#666',
-    textAlign: 'center',
+    marginBottom: 2,
   },
-  ranking: {
-    fontSize: 16,
+  detailValue: {
+    fontSize: 14,
     fontWeight: 'bold',
-    color: '#444',
+    color: '#333',
   },
-  rankingDetail: {
-    fontSize: 10,
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyText: {
+    fontSize: 16,
     color: '#666',
-    textAlign: 'center',
   },
   modalOverlay: {
     flex: 1,
@@ -744,10 +467,10 @@ const styles = StyleSheet.create({
   modalContent: {
     width: '90%',
     maxWidth: 400,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 20,
     maxHeight: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
   },
   modalTitle: {
     fontSize: 20,
@@ -759,13 +482,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#444',
+    color: '#333',
   },
   filterInput: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 4,
-    padding: 10,
+    borderRadius: 8,
+    padding: 12,
     marginBottom: 16,
     fontSize: 14,
   },
@@ -782,56 +505,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     color: '#666',
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  applyButton: {
-    backgroundColor: '#0066cc',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 4,
-    flex: 1,
-    marginLeft: 10,
-    alignItems: 'center',
-  },
-  applyButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  resetButton: {
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    flex: 1,
-    alignItems: 'center',
-  },
-  resetButtonText: {
-    color: '#666',
-  },
-  closeButton: {
-    marginTop: 16,
-    padding: 8,
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: '#666',
-  },
   pickerContainer: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 4,
+    borderRadius: 8,
     marginBottom: 16,
-  },
-  optionsScroll: {
-    maxHeight: 120,
+    maxHeight: 150,
   },
   optionItem: {
-    padding: 10,
+    padding: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
@@ -840,18 +522,107 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 14,
+    color: '#333',
   },
-  noResultsContainer: {
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  resetButton: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 12,
+    borderRadius: 8,
+    marginRight: 8,
     alignItems: 'center',
-    padding: 20,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
-  noResultsText: {
-    fontSize: 16,
+  resetButtonText: {
     color: '#666',
-    marginBottom: 16,
+    fontWeight: 'bold',
+  },
+  applyButton: {
+    flex: 1,
+    backgroundColor: '#0066cc',
+    padding: 12,
+    borderRadius: 8,
+    marginLeft: 8,
+    alignItems: 'center',
+  },
+  applyButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+
+  // Mobile styles
+  mobileCard: {
+    backgroundColor: '#fff',
+    marginHorizontal: 16,
+    marginVertical: 4,
+    borderRadius: 10,
+    padding: 12,
+    elevation: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+  },
+  mobileCardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  mobileRank: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#0066cc',
+    backgroundColor: '#e6f2ff',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  mobileCollegeName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
+  },
+  mobileCollegeLocation: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 12,
+  },
+  mobileInfoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  mobileInfoLabel: {
+    fontSize: 12,
+    color: '#666',
+    flex: 1,
+  },
+  mobileInfoValue: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#333',
+    flex: 1,
+    textAlign: 'right',
+  },
+  mobileRatingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  mobileRatingText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#ff9800',
+    marginLeft: 4,
   },
 });
 
-export default React.memo(CollegeList); 
+export default React.memo(CollegeList);

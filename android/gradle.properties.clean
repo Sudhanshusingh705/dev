@@ -1,0 +1,22 @@
+# Clean Gradle Properties - Working Configuration
+org.gradle.jvmargs=-Xmx8g -XX:MaxMetaspaceSize=2g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+org.gradle.daemon=true
+org.gradle.parallel=true
+org.gradle.configureondemand=true
+android.useAndroidX=true
+android.enableJetifier=true
+org.gradle.java.installations.auto-detect=false
+org.gradle.java.installations.auto-download=false
+org.gradle.toolchains.foojay-resolver-convention.enabled=false
+
+# Java compatibility settings
+org.gradle.java.home=C:\\Program Files\\Java\\jdk-17
+
+# Android build optimizations (compatible with AGP 8.1.4)
+android.enableR8.fullMode=true
+android.experimental.enableNewResourceShrinker=true
+
+# React Native optimizations
+reactNativeArchitectures=armeabi-v7a,arm64-v8a
+org.gradle.unsafe.configuration-cache=false
+org.gradle.configuration-cache=false

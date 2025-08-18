@@ -11,7 +11,10 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
-import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';;
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "bba001",
+    "name": "Shaheed Sukhdev College of Business Studies",
+    "location": "Delhi, Delhi",
+    "fees": "₹35,000",
+    "rating": 4.6,
+    "courses": ["BBA", "BBA (FIA)", "BBA (CAM)"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,50,000",
+      "highestPackage": "₹22,00,000",
+      "placementRate": 95
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "Premier business college with excellent placement record",
+    "logo": "https://sscbs.du.ac.in/images/sscbs-logo.png"
+  },
+  {
+    "id": "bba002",
+    "name": "Christ University",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹2,50,000",
+    "rating": 4.5,
+    "courses": ["BBA", "BBA (Honours)", "BBA (International Business)"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,80,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 92
+    },
+    "faculty": 120,
+    "infrastructure": "Excellent",
+    "description": "Renowned private university with strong business programs",
+    "logo": "https://christuniversity.in/images/christ-logo.png"
+  },
+  {
+    "id": "bba003",
+    "name": "Symbiosis Centre for Management Studies",
+    "location": "Pune, Maharashtra",
+    "fees": "₹3,80,000",
+    "rating": 4.4,
+    "courses": ["BBA", "BBA (Computer Applications)", "BBA (Entrepreneurship)"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,20,000",
+      "highestPackage": "₹16,00,000",
+      "placementRate": 88
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Leading management institute with industry connections",
+    "logo": "https://www.scms.edu.in/images/scms-logo.png"
+  },
+  {
+    "id": "bba004",
+    "name": "Narsee Monjee Institute of Management Studies",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹4,20,000",
+    "rating": 4.3,
+    "courses": ["BBA", "BBA (Branding & Advertising)", "BBA (Finance)"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,80,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 85
+    },
+    "faculty": 95,
+    "infrastructure": "Very Good",
+    "description": "Well-established business school with strong alumni network",
+    "logo": "https://nmims.edu/images/nmims-logo.png"
+  },
+  {
+    "id": "bba005",
+    "name": "Amity University",
+    "location": "Noida, Uttar Pradesh",
+    "fees": "₹3,60,000",
+    "rating": 4.2,
+    "courses": ["BBA", "BBA (International Business)", "BBA (Digital Marketing)"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,40,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 82
+    },
+    "faculty": 110,
+    "infrastructure": "Very Good",
+    "description": "Modern university with comprehensive business education",
+    "logo": "https://amity.edu/images/amity-logo.png"
+  }
+]

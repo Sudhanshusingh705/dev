@@ -13,8 +13,11 @@ import {
   Alert,
   Platform
 } from 'react-native';
-import { AntDesign, MaterialIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';;
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 const HEADER_HEIGHT = 280;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';;
 
 const CourseDetails = ({ route, navigation }) => {
   const { course } = route.params;

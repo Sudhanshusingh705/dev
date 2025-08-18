@@ -1,28 +1,46 @@
 {
   "expo": {
-    "name": "dev",
-    "slug": "dev",
-    "version": "1.0.0",
+    "name": "searchmycollege",
+    "slug": "search-my-college",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash-icon1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.searchmycollege.smcapp"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.searchmycollege.smcapp",
+      "versionCode": 2,
+      "googleServicesFile": "./google-services.json",
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/icon.png",
+      "bundler": "webpack",
+      "build": {
+        "babel": {
+          "include": ["react-native-vector-icons"]
+        }
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "31e9d87a-a988-46b0-834a-82fd7d2b9c82"
+      },
+      "bannerImage": "./assets/Mobile Banner.png"
+    },
+    "owner": "searchmycollege"
   }
 }

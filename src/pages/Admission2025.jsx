@@ -1,48 +1,48 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';;
 import { useNavigation } from '@react-navigation/native';
 
 const admissionLinks = [
   {
     id: 1,
-    title: 'B.Ed Admission 2024'
+    title: 'B.Ed Admission 2025'
   },
   {
     id: 2,
-    title: 'MBA Admission 2024'
+    title: 'MBA Admission 2025'
   },
   {
     id: 3,
-    title: 'MBBS Admission 2024'
+    title: 'MBBS Admission 2025'
   },
   {
     id: 4,
-    title: 'BA Admission 2024'
+    title: 'BA Admission 2025'
   },
   {
     id: 5,
-    title: 'M Tech Admission 2024'
+    title: 'M Tech Admission 2025'
   },
   {
     id: 6,
-    title: 'PhD Admission 2024'
+    title: 'PhD Admission 2025'
   },
   {
     id: 7,
-    title: 'LLB Admission 2024'
+    title: 'LLB Admission 2025'
   },
   {
     id: 8,
-    title: 'D.El.Ed Admission 2024'
+    title: 'D.El.Ed Admission 2025'
   },
   {
     id: 9,
-    title: 'BSc Admission 2024'
+    title: 'BSc Admission 2025'
   },
   {
     id: 10,
-    title: 'B Pharmacy Admission 2024'
+    title: 'B Pharmacy Admission 2025'
   }
 ];
 
@@ -59,7 +59,7 @@ const Admission2025 = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Admission Guide 2024-25</Text>
+      <Text style={styles.title}>Admission Guide 2025-26</Text>
       
       <View style={styles.linksContainer}>
         {admissionLinks.map((link) => (

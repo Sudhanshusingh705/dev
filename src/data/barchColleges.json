@@ -1,0 +1,102 @@
+[
+  {
+    "id": "barch001",
+    "name": "School of Planning and Architecture",
+    "location": "New Delhi, Delhi",
+    "fees": "₹85,000",
+    "rating": 4.8,
+    "courses": ["B.Arch", "B.Planning", "M.Arch"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "COA"],
+    "placements": {
+      "averagePackage": "₹8,50,000",
+      "highestPackage": "₹25,00,000",
+      "placementRate": 95
+    },
+    "faculty": 65,
+    "infrastructure": "Excellent",
+    "description": "Premier architecture institute with excellent reputation",
+    "logo": "https://spa.ac.in/images/spa-logo.png"
+  },
+  {
+    "id": "barch002",
+    "name": "Sir J.J. College of Architecture",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹75,000",
+    "rating": 4.7,
+    "courses": ["B.Arch", "M.Arch", "Ph.D Architecture"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["NAAC A+", "UGC", "COA"],
+    "placements": {
+      "averagePackage": "₹7,80,000",
+      "highestPackage": "₹20,00,000",
+      "placementRate": 92
+    },
+    "faculty": 55,
+    "infrastructure": "Very Good",
+    "description": "Historic architecture college with strong alumni network",
+    "logo": "https://jjcoa.ac.in/images/jjcoa-logo.png"
+  },
+  {
+    "id": "barch003",
+    "name": "CEPT University",
+    "location": "Ahmedabad, Gujarat",
+    "fees": "₹3,50,000",
+    "rating": 4.6,
+    "courses": ["B.Arch", "B.Planning", "M.Arch", "M.Planning"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "COA"],
+    "placements": {
+      "averagePackage": "₹7,20,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 88
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Leading private university for architecture and planning",
+    "logo": "https://cept.ac.in/images/cept-logo.png"
+  },
+  {
+    "id": "barch004",
+    "name": "Chandigarh College of Architecture",
+    "location": "Chandigarh, Chandigarh",
+    "fees": "₹95,000",
+    "rating": 4.5,
+    "courses": ["B.Arch", "M.Arch (Landscape Architecture)", "M.Arch (Urban Design)"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["NAAC A+", "UGC", "COA"],
+    "placements": {
+      "averagePackage": "₹6,80,000",
+      "highestPackage": "₹16,00,000",
+      "placementRate": 85
+    },
+    "faculty": 45,
+    "infrastructure": "Very Good",
+    "description": "Government college known for innovative architecture programs",
+    "logo": "https://cca.gov.in/images/cca-logo.png"
+  },
+  {
+    "id": "barch005",
+    "name": "Manipal School of Architecture and Planning",
+    "location": "Manipal, Karnataka",
+    "fees": "₹4,20,000",
+    "rating": 4.4,
+    "courses": ["B.Arch", "M.Arch", "M.Planning"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "COA"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 82
+    },
+    "faculty": 60,
+    "infrastructure": "Very Good",
+    "description": "Well-established architecture school with modern facilities",
+    "logo": "https://manipal.edu/images/manipal-logo.png"
+  }
+]

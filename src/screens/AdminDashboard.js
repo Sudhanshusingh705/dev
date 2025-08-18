@@ -14,11 +14,14 @@ import {
   Image,
   Animated,
 } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SessionManager } from '../utils/secureStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LineChart, BarChart, PieChart } from 'react-native-chart-kit';
 import { Card, Button, Divider, Avatar } from '@rneui/themed';
+import { API_BASE_URL, ENDPOINTS, createAuthHeader } from '../api';
 
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.75;
@@ -106,6 +109,8 @@ const AdminDashboard = () => {
   ];
 
   const sections = [
+    { name: 'Profile', screen: 'Profile', icon: 'account-circle' },
+    { name: 'Newsletter', screen: 'NewsletterSubscriptions', icon: 'email' },
     { name: 'College Listings', screen: 'CollegeListing', icon: 'school' },
     { name: 'Courses Listings', screen: 'CoursesListing', icon: 'book-open-variant' },
     { name: 'Admissions', screen: 'AdmissionsListing', icon: 'clipboard-text' },
@@ -120,29 +125,218 @@ const AdminDashboard = () => {
     loadAdminProfile();
   }, []);
 
+  // Add a helper to check if API is available
+  const isAPIAvailable = async () => {
+    try {
+      console.log('Checking API availability...');
+      
+      // First check network connectivity
+      const netInfo = await NetInfo.fetch();
+      if (!netInfo.isConnected) {
+        console.log('Network not connected');
+        return false;
+      }
+      
+      // Try an unauthenticated request first
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/status`, {
+          method: 'GET',
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response && response.ok) {
+          console.log('API is available (unauthenticated)');
+          return true;
+        }
+      } catch (error) {
+        console.log('Unauthenticated API check failed, trying authenticated');
+        clearTimeout(timeoutId);
+        // Continue to try authenticated request
+      }
+      
+      // If unauthenticated fails, try with authentication
+      const token = await AsyncStorage.getItem('authToken');
+      if (!token) {
+        console.log('No auth token available');
+        return false;
+      }
+      
+      const controller2 = new AbortController();
+      const timeoutId2 = setTimeout(() => controller2.abort(), 3000);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}${ENDPOINTS.GET_USER_PROFILE}`, {
+          method: 'GET',
+          headers: {
+            ...createAuthHeader(token),
+            'Accept': 'application/json'
+          },
+          signal: controller2.signal
+        });
+        
+        clearTimeout(timeoutId2);
+        
+        if (response && (response.ok || response.status === 401 || response.status === 403)) {
+          // Even auth errors mean the API is available
+          console.log('API is available (authenticated)');
+          return true;
+        }
+      } catch (error) {
+        clearTimeout(timeoutId2);
+        console.log('Authenticated API check failed');
+      }
+      
+      console.log('API not available after both checks');
+      return false;
+    } catch (error) {
+      console.log('Error checking API:', error);
+      return false;
+    }
+  }
+
+  // Update loadAdminProfile to check for stored userName
   const loadAdminProfile = async () => {
     try {
-      const token = await AsyncStorage.getItem('authToken');
-      const userRole = await AsyncStorage.getItem('userRole');
+      setLoading(true);
+      const sessionData = await SessionManager.getSession();
+      const token = sessionData?.token;
+      const userRole = sessionData?.userData?.role;
+      const lastLoginTime = sessionData?.userData?.lastLogin;
+      // Get stored user name from secure storage
+      const storedUserName = sessionData?.userData?.name;
+      
+      // Format last login time
+      const formatLoginTime = (timestamp) => {
+        if (!timestamp) return new Date().toLocaleString();
+        try {
+          return new Date(timestamp).toLocaleString();
+        } catch (e) {
+          return new Date().toLocaleString();
+        }
+      };
       
       if (token && userRole === 'Admin') {
-        // In a real app, you'd fetch admin profile data from API
-        // For now we'll use mock data
+        // For mock token, use cached profile data with real timestamp
+        if (token === 'mock-admin-token') {
+          console.log('Using mock admin profile data with real timestamp');
+          setAdminData({
+            name: storedUserName || 'Admin User',
+            email: 'admin@example.com',
+            lastLogin: formatLoginTime(lastLoginTime),
+          });
+          setLoading(false);
+          return;
+        }
+        
+        // Try to get cached profile data first
+        const cachedAdminData = await AsyncStorage.getItem('adminProfileCache');
+        
+        if (cachedAdminData) {
+          const profileData = JSON.parse(cachedAdminData);
+          console.log('Using cached admin profile data');
+          setAdminData({
+            name: storedUserName || profileData.name || 'Admin User',
+            email: profileData.email || 'admin@example.com',
+            lastLogin: profileData.lastLogin ? formatLoginTime(profileData.lastLogin) : formatLoginTime(lastLoginTime),
+          });
+          setLoading(false);
+          
+          // Check if API is available before trying to refresh
+          const apiAvailable = await isAPIAvailable();
+          if (!apiAvailable) {
+            console.log('API not available, using cached data only');
+            return;
+          }
+        }
+        
+        // Try to fetch updated profile data from API
+        try {
+          console.log('Fetching admin profile from API...');
+          const response = await fetch(`${API_BASE_URL}${ENDPOINTS.GET_ADMIN_PROFILE}`, {
+            method: 'GET',
+            headers: {
+              ...createAuthHeader(token),
+              'Accept': 'application/json'
+            },
+          });
+          
+          if (response.status === 401 || response.status === 403) {
+            console.log('Authentication error fetching admin profile');
+            // Use cached or default data
+            const defaultName = storedUserName || 'Admin User';
+            setAdminData({
+              name: defaultName,
+              email: 'admin@example.com',
+              lastLogin: formatLoginTime(lastLoginTime),
+            });
+            setLoading(false);
+            return;
+          }
+          
+          if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+          }
+          
+          const data = await response.json();
+          console.log('Admin profile data received:', data);
+          
+          // Create a formatted profile object
+          const profileData = {
+            name: data.user?.name || storedUserName || 'Admin User',
+            email: data.user?.email || 'admin@example.com',
+            lastLogin: formatLoginTime(data.user?.lastLogin || lastLoginTime),
+          };
+          
+          // Update state
+          setAdminData(profileData);
+          
+          // Cache the profile data
+          await AsyncStorage.setItem('adminProfileCache', JSON.stringify(profileData));
+          // Update the stored user name if it's different
+          if (profileData.name && (!storedUserName || storedUserName !== profileData.name)) {
+            await AsyncStorage.setItem('userName', profileData.name);
+          }
+          
+        } catch (error) {
+          console.log('Error fetching admin profile:', error);
+          // Use cached or default data if API call fails
+          setAdminData({
+            name: storedUserName || 'Admin User',
+            email: 'admin@example.com',
+            lastLogin: formatLoginTime(lastLoginTime),
+          });
+        }
+      } else {
+        // Not admin or no token, use default data
         setAdminData({
-          name: 'Admin User',
-          email: 'admin@test.com',
-          lastLogin: new Date().toLocaleString(),
+          name: storedUserName || 'Admin User',
+          email: 'admin@example.com',
+          lastLogin: formatLoginTime(lastLoginTime),
         });
       }
+      setLoading(false);
     } catch (error) {
       console.error('Error loading admin profile:', error);
+      // Use default values on error
+      setAdminData({
+        name: 'Admin User',
+        email: 'admin@example.com',
+        lastLogin: new Date().toLocaleString(),
+      });
+      setLoading(false);
     }
   };
 
-  const handleNavigation = (screen) => {
+  const handleNavigation = (screenName) => {
     closeDrawer();
+    // Navigation delay to ensure drawer closes first
     setTimeout(() => {
-      navigation.navigate(screen);
+      navigation.navigate(screenName);
     }, 300);
   };
 
@@ -161,9 +355,7 @@ const AdminDashboard = () => {
           onPress: async () => {
             setLoading(true);
             try {
-              // Remove auth data
-              await AsyncStorage.removeItem('authToken');
-              await AsyncStorage.removeItem('userRole');
+              await SessionManager.destroySession();
               
               // Navigate to login screen
               navigation.reset({
@@ -183,13 +375,61 @@ const AdminDashboard = () => {
     );
   };
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    // Simulate fetch data
-    setTimeout(() => {
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      
+      // Check API availability
+      const apiAvailable = await isAPIAvailable();
+      if (!apiAvailable) {
+        console.log('API not available, cannot refresh data');
+        setRefreshing(false);
+        return;
+      }
+      
+      // Get auth token
+      const token = await AsyncStorage.getItem('authToken');
+      
+      // Refresh dashboard stats
+      try {
+        const response = await fetch(`${API_BASE_URL}${ENDPOINTS.DASHBOARD_STATS}`, {
+          method: 'GET',
+          headers: {
+            ...createAuthHeader(token),
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.status === 401 || response.status === 403) {
+          console.log('Authentication error fetching dashboard stats');
+        } else if (response.ok) {
+          const data = await response.json();
+          console.log('Dashboard stats refreshed:', data);
+          
+          // Update stats with real data if available
+          setStats({
+            totalColleges: data.totalColleges || stats.totalColleges,
+            totalCourses: data.totalCourses || stats.totalCourses,
+            totalStudents: data.totalStudents || stats.totalStudents,
+            totalAdmissions: data.totalAdmissions || stats.totalAdmissions,
+            newSignups: data.newSignups || stats.newSignups,
+            pendingApplications: data.pendingApplications || stats.pendingApplications,
+          });
+        }
+      } catch (error) {
+        console.log('Error refreshing dashboard stats:', error);
+      }
+      
+      // Refresh admin profile
+      await loadAdminProfile();
+      
       setRefreshing(false);
-    }, 2000);
-  }, []);
+      
+    } catch (error) {
+      console.error('Error during refresh:', error);
+      setRefreshing(false);
+    }
+  };
 
   const toggleDrawer = () => {
     if (drawerOpen) {
@@ -232,6 +472,60 @@ const AdminDashboard = () => {
     });
   };
 
+  // Add the same helper function from ProfileScreen.js for gender detection
+  const isLikelyFemale = (name) => {
+    if (!name) return false;
+    
+    const femaleName = name.toLowerCase();
+    
+    // Common female name endings
+    const femaleEndings = ['a', 'e', 'i', 'ie', 'y', 'ah', 'na', 'la', 'ine', 'een'];
+    // Common explicit female names
+    const femaleNames = [
+      'mary', 'elizabeth', 'patricia', 'jennifer', 'linda', 'barbara', 'susan', 'jessica',
+      'sarah', 'karen', 'lisa', 'nancy', 'betty', 'margaret', 'sandra', 'ashley',
+      'kimberly', 'emily', 'donna', 'michelle', 'dorothy', 'carol', 'amanda', 'melissa',
+      'deborah', 'stephanie', 'rebecca', 'laura', 'sharon', 'cynthia', 'kathleen', 'amy',
+      'anna', 'sophia', 'emma', 'olivia', 'ava', 'isabella', 'mia', 'abigail', 'charlotte'
+    ];
+    
+    // Check for exact matches in common female names
+    const nameParts = femaleName.split(' ');
+    const firstName = nameParts[0];
+    
+    if (femaleNames.includes(firstName)) {
+      return true;
+    }
+    
+    // Check name endings
+    for (const ending of femaleEndings) {
+      if (firstName.endsWith(ending)) {
+        return true;
+      }
+    }
+    
+    return false;
+  };
+
+  // Import the local avatar images
+  const maleAvatar = require('../assets/man.png');
+  const femaleAvatar = require('../assets/woman.png');
+
+  // Add a function to get time-based greeting
+  const getTimeBasedGreeting = () => {
+    const hour = new Date().getHours();
+    
+    if (hour >= 5 && hour < 12) {
+      return 'Good Morning';
+    } else if (hour >= 12 && hour < 17) {
+      return 'Good Afternoon';
+    } else if (hour >= 17 && hour < 21) {
+      return 'Good Evening';
+    } else {
+      return 'Good Night';
+    }
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -256,7 +550,7 @@ const AdminDashboard = () => {
           <Avatar
             rounded
             size={70}
-            source={{ uri: `https://ui-avatars.com/api/?name=${adminData.name.replace(' ', '+')}&background=0D8ABC&color=fff` }}
+            source={isLikelyFemale(adminData.name) ? femaleAvatar : maleAvatar}
             containerStyle={styles.drawerAvatar}
           />
           <Text style={styles.drawerName}>{adminData.name}</Text>
@@ -264,11 +558,11 @@ const AdminDashboard = () => {
         </View>
         
         <ScrollView style={styles.drawerContent}>
-          {sections.map((section, index) => (
-            <TouchableOpacity
-              key={index}
+        {sections.map((section, index) => (
+          <TouchableOpacity
+            key={index}
               style={styles.drawerItem}
-              onPress={() => handleNavigation(section.screen)}
+            onPress={() => handleNavigation(section.screen)}
             >
               <Icon name={section.icon} size={24} color="#333" />
               <Text style={styles.drawerItemText}>{section.name}</Text>
@@ -314,9 +608,22 @@ const AdminDashboard = () => {
                 <Text style={styles.subHeaderText}>{adminData.name}</Text>
               </View>
             </View>
-            <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-              <Icon name="logout" size={24} color="#fff" />
-            </TouchableOpacity>
+            <View style={styles.headerRight}>
+              <TouchableOpacity 
+                onPress={() => navigation.navigate('Profile')} 
+                style={styles.profileButton}
+              >
+                <Avatar
+                  rounded
+                  size={36}
+                  source={isLikelyFemale(adminData.name) ? femaleAvatar : maleAvatar}
+                  containerStyle={styles.headerAvatar}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+                <Icon name="logout" size={24} color="#fff" />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         
@@ -327,6 +634,24 @@ const AdminDashboard = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
+          {/* Greeting message */}
+          <View style={styles.greetingCard}>
+            <View style={styles.greetingContent}>
+              <Icon name="hand-wave" size={24} color="#0066cc" style={styles.greetingIcon} />
+              <View style={styles.greetingTextContainer}>
+                <Text style={styles.greetingText}>
+                  {getTimeBasedGreeting()}, {adminData.name}
+                </Text>
+                <Text style={styles.welcomeText}>
+                  Welcome back to Search My College
+                </Text>
+                <Text style={styles.lastLoginText}>
+                  Last login: {adminData.lastLogin}
+                </Text>
+              </View>
+            </View>
+          </View>
+          
           {/* Quick Stats Cards in rows of two */}
           <View style={styles.statsRow}>
             <Card containerStyle={styles.statCard}>
@@ -460,8 +785,8 @@ const AdminDashboard = () => {
               buttonStyle={styles.logoutFullButton}
               icon={<Icon name="logout" size={20} color="#fff" style={{ marginRight: 10 }} />}
             />
-          </View>
-        </ScrollView>
+      </View>
+    </ScrollView>
       </Animated.View>
     </SafeAreaView>
   );
@@ -488,6 +813,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -647,6 +976,52 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     color: '#666',
+  },
+  profileButton: {
+    marginRight: 15,
+  },
+  headerAvatar: {
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  greetingCard: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    borderLeftWidth: 4,
+    borderLeftColor: '#0066cc',
+  },
+  greetingContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  greetingIcon: {
+    marginRight: 15,
+  },
+  greetingTextContainer: {
+    flex: 1,
+  },
+  greetingText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#0066cc',
+    marginBottom: 5,
+  },
+  welcomeText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
+  },
+  lastLoginText: {
+    fontSize: 12,
+    color: '#888',
+    fontStyle: 'italic',
   },
 });
 

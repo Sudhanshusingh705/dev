@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import CollegeList from '../../components/CollegeList';
-import { generateCollegeData } from '../../data';
+import hotelManagementColleges from '../../data/hotelmanagementColleges.json';
 
 const HotelManagementColleges = () => {
   // State management with useRef for better performance
@@ -23,8 +23,8 @@ const HotelManagementColleges = () => {
         // Use setTimeout to allow UI to render loading indicator first
         setTimeout(() => {
           try {
-            // Get college data - this will be fast as it's optimized to return initial data quickly
-            const data = generateCollegeData('Hotel Management');
+            // Use real hotel management college data
+            const data = hotelManagementColleges;
             collegeDataRef.current = data;
             setCollegeData(data);
             setLoading(false);

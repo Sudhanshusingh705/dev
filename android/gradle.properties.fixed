@@ -1,0 +1,13 @@
+# Pure React Native - Java Toolchain Issue Fixed
+org.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
+android.useAndroidX=true
+android.enableJetifier=true
+
+# Disable Java toolchain auto-detection (fixes the build error)
+org.gradle.java.installations.auto-detect=false
+org.gradle.java.installations.auto-download=false
+org.gradle.toolchains.foojay-resolver-convention.enabled=false
+
+# React Native optimizations
+reactNativeArchitectures=armeabi-v7a,arm64-v8a
+hermesEnabled=true

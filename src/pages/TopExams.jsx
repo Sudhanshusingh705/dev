@@ -5,59 +5,73 @@ import { useNavigation } from '@react-navigation/native';
 const examCards = [
   {
     id: 1,
-    title: 'NEET 2024',
+    title: 'NEET 2025-26',
     subtitle: 'National Eligibility cum Entrance Test',
-    date: 'May 5, 2024',
+    date: 'May 4, 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/NTA-%20Logo.png?h=44&w=44&mode=stretch' }
   },
   {
     id: 2,
-    title: 'JEE Advanced 2024',
+    title: 'JEE Advanced 2025',
     subtitle: 'Joint Entrance Examination (Advanced)',
-    date: 'May 26, 2024',
+    date: 'May 25, 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/jee%20advance.jpg?h=44&w=44&mode=stretch' }
   },
   {
     id: 3,
-    title: 'JEE Main 2024',
+    title: 'JEE Main 2025',
     subtitle: 'Joint Entrance Examination (Main)',
-    date: 'Session 1: January 24-31, 2024\nSession 2: April 1-15, 2024',
+    date: 'Session 1: Jan 22-31, 2025\nSession 2: Mar 31-Apr 12, 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/NTA%20Logo.jpg?h=44&w=44&mode=stretch' }
   },
   {
     id: 4,
-    title: 'CAT 2024',
+    title: 'CAT 2025',
     subtitle: 'Common Admission Test',
-    date: 'November 24, 2024',
+    date: 'November 30, 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/IIM-calcutta.png?h=44&w=44&mode=stretch' }
   },
   {
     id: 5,
-    title: 'GATE 2024',
+    title: 'GATE 2026',
     subtitle: 'Graduate Aptitude Test in Engineering',
-    date: 'February 3-11, 2024',
+    date: 'January 31, February 1, 7, 8, 2026',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/GATE%202025%20Logo.png?h=44&w=44&mode=stretch' }
   },
   {
     id: 6,
-    title: 'BITSAT 2024',
+    title: 'BITSAT 2025',
     subtitle: 'BITS Admission Test',
-    date: 'June 15-20, 2024',
+    date: 'May 19-June 2, 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/BITS%20Pilani%20Logo.png?h=44&w=44&mode=stretch' }
   },
   {
     id: 7,
-    title: 'MAT 2024',
+    title: 'MAT 2025',
     subtitle: 'Management Aptitude Test',
-    date: 'February, May, August, December 2024',
+    date: 'May, Aug, Sep, Dec 2025',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/MAT%20Exam%20Logo.jpg?h=44&w=44&mode=stretch' }
   },
   {
     id: 8,
-    title: 'XAT 2024',
+    title: 'XAT 2026',
     subtitle: 'Xavier Aptitude Test',
-    date: 'January 7, 2024',
+    date: 'January 4, 2026',
     image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/XAT_0.jpg?h=44&w=44&mode=stretch' }
+  },
+  {
+    id: 9,
+    title: 'CUET 2025',
+    subtitle: 'Common University Entrance Test',
+    date: 'May 15-31, 2025',
+    image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/cuet-logo.png?h=44&w=44&mode=stretch' }
+  },
+  {
+    id: 10,
+    title: 'CLAT 2026',
+    subtitle: 'Common Law Admission Test',
+    date: 'December 7, 2025',
+    image: { uri: 'https://image-static.collegedunia.com/public/college_data/images/logos/clat-logo.png?h=44&w=44&mode=stretch' }
   }
 ];
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CollegeList from '../../components/CollegeList';
-import { generateCollegeData } from '../../data/collegeData';
+import pharmacyColleges from '../../data/pharmacyColleges.json';
 
-const bpharmColleges = generateCollegeData('B.Pharm');
+const bpharmColleges = pharmacyColleges;
 
 const BPharmColleges = () => {
   return (
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BPharmColleges; 
+export default BPharmColleges;

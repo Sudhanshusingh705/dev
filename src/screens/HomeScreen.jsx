@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   View,
   ScrollView,
@@ -7,7 +7,6 @@ import {
   ImageBackground,
   TextInput,
   Text,
-  Dimensions,
   Animated,
   Platform,
   StatusBar,
@@ -36,10 +35,7 @@ import TopCourses from '../pages/TopCourses';
 import LatestNewsAndStories from '../pages/LatestNewsAndStories';
 import LatestNotification from '../pages/LatestNotification';
 import Newsletter from '../pages/Newsletter';
-
-const { width } = Dimensions.get('window');
-const HERO_HEIGHT = 250;
-const HEADER_HEIGHT = Platform.OS === 'android' ? StatusBar.currentHeight + 60 : 60;
+import { responsive, fontSizes, spacing, dimensions, deviceStyles, debounce, HERO_HEIGHT } from '../utils/responsive';
 
 // Mock data for search suggestions and results
 const searchSuggestions = [
@@ -112,21 +108,28 @@ const HomeScreen = () => {
   };
 
   const heroTranslateY = scrollY.interpolate({
-    inputRange: [0, HERO_HEIGHT],
-    outputRange: [0, -HERO_HEIGHT/2],
+    inputRange: [0, responsive(200)],
+    outputRange: [0, -responsive(100)],
     extrapolate: 'clamp',
   });
+
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    debounce((query) => {
+      if (query.length > 0) {
+        searchData(query);
+      } else {
+        setSearchResults([]);
+      }
+    }, 300),
+    []
+  );
 
   // Function to handle search query changes
   const handleSearchChange = (text) => {
     setSearchQuery(text);
-    if (text.length > 0) {
-      setIsSearching(true);
-      searchData(text);
-    } else {
-      setIsSearching(false);
-      setSearchResults([]);
-    }
+    setIsSearching(text.length > 0);
+    debouncedSearch(text);
   };
 
   // Function to search data based on query
@@ -338,7 +341,7 @@ const HomeScreen = () => {
             ]}
           >
             <ImageBackground
-              source={{ uri: 'https://searchmycolleges.com/wp-content/uploads/2024/12/Mobile.png' }}
+              source={require('../../assets/Mobile Banner.png')}
               style={styles.heroBackground}
               resizeMode="cover"
             >
@@ -399,6 +402,8 @@ const HomeScreen = () => {
             <Divider />
             <Section component={Newsletter} />
           </View>
+
+
         </Animated.ScrollView>
         <Footer scrollY={scrollY} />
 
@@ -558,57 +563,54 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   heroTitle: {
-    fontSize: 20,
+    fontSize: fontSizes.xxl,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20,
+    marginBottom: spacing.md,
     textAlign: 'center',
     width: '100%',
-    paddingHorizontal: 10,
+    paddingHorizontal: spacing.md,
   },
   searchContainer: {
-    width: '100%',
-    maxWidth: 400,
-    paddingHorizontal: 20,
+    position: 'absolute',
+    bottom: responsive(20),
+    left: spacing.md,
+    right: spacing.md,
   },
   searchInputWrapper: {
     backgroundColor: '#fff',
-    borderRadius: 25,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    borderRadius: responsive(25),
+    paddingHorizontal: spacing.md,
+    paddingVertical: responsive(12),
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    ...deviceStyles.shadow,
   },
   searchIcon: {
-    marginRight: 10,
+    marginRight: spacing.sm,
   },
   searchPlaceholder: {
-    fontSize: 16,
+    fontSize: fontSizes.md,
     color: '#666',
     flex: 1,
   },
   sectionsContainer: {
     backgroundColor: '#fff',
-    paddingTop: 10,
+    paddingTop: spacing.sm,
   },
   section: {
     backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: fontSizes.lg,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: spacing.sm,
     color: '#333',
   },
   sectionDivider: {
-    height: 4,
+    height: responsive(4),
     backgroundColor: '#f5f5f5',
   },
   
@@ -643,8 +645,8 @@ const styles = StyleSheet.create({
   },
   modalSearchInput: {
     flex: 1,
-    fontSize: 16,
-    height: 45,
+    fontSize: fontSizes.md,
+    height: responsive(45),
   },
   clearButton: {
     padding: 8,
@@ -659,8 +661,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   loadingText: {
-    marginTop: 10,
-    fontSize: 16,
+    marginTop: spacing.sm,
+    fontSize: fontSizes.md,
     color: '#666',
   },
   resultsList: {
@@ -681,23 +683,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   resultTitle: {
-    fontSize: 16,
+    fontSize: fontSizes.md,
     fontWeight: '500',
     color: '#333',
   },
   resultSubtitle: {
-    fontSize: 14,
+    fontSize: fontSizes.sm,
     color: '#666',
-    marginTop: 2,
+    marginTop: spacing.xxs,
   },
   suggestionsContainer: {
     flex: 1,
     padding: 15,
   },
   suggestionsTitle: {
-    fontSize: 18,
+    fontSize: fontSizes.lg,
     fontWeight: '600',
-    marginBottom: 15,
+    marginBottom: spacing.md,
     color: '#333',
   },
   suggestionsList: {
@@ -715,7 +717,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   suggestionText: {
-    fontSize: 15,
+    fontSize: fontSizes.sm,
     color: '#333',
   },
   searchCategoriesContainer: {
@@ -742,7 +744,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   categoryTitle: {
-    fontSize: 14,
+    fontSize: fontSizes.xs,
     color: '#333',
     textAlign: 'center',
   },
@@ -753,18 +755,19 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   noResultsText: {
-    fontSize: 16,
+    fontSize: fontSizes.md,
     fontWeight: '500',
     color: '#333',
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: spacing.md,
   },
   noResultsSubtext: {
-    fontSize: 14,
+    fontSize: fontSizes.sm,
     color: '#666',
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: spacing.xs,
   },
+
 });
 
 export default HomeScreen;

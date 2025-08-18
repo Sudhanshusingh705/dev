@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';;
 import { useNavigation } from '@react-navigation/native';
 
 const countryData = [
   {
     id: 1,
     country: 'USA',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/usa.png',
+    icon: 'https://www.shutterstock.com/image-vector/usa-america-set-circular-circle-600nw-2479083185.jpg',
     colleges: '1012',
     avgCost: '33.37 K USD/Year',
     checkColleges: 'Check 1012 Colleges',
@@ -21,7 +22,7 @@ const countryData = [
   {
     id: 2,
     country: 'UK',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/svgviewer-png-output.png',
+    icon: 'https://media.istockphoto.com/id/1324673683/vector/great-britain-flag-union-jack-round-logo-circle-icon-of-united-kingdom-flag-vector.jpg?s=612x612&w=0&k=20&c=Uebd1fcMXZ3QkOoVoOjteIXlej3KoTpEjqgnwEehk8g=',
     colleges: '170',
     avgCost: '21.75 K USD/Year',
     checkColleges: 'Check 170 Colleges',
@@ -35,7 +36,7 @@ const countryData = [
   {
     id: 3,
     country: 'Canada',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/canada.png',
+    icon: 'https://www.shutterstock.com/image-vector/canada-round-country-flag-circular-600nw-2102323963.jpg',
     colleges: '215',
     avgCost: '21.5 K USD/Year',
     checkColleges: 'Check 215 Colleges',
@@ -49,7 +50,7 @@ const countryData = [
   {
     id: 4,
     country: 'Australia',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/astrelia.png',
+    icon: 'https://media.istockphoto.com/id/1409313783/vector/australia-flag-round-icon-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=4Wu0Uo-mtUE0RiTpT49UMO1yBs1hi7QFYmF7_xp50JU=',
     colleges: '185',
     avgCost: '25.8 K USD/Year',
     checkColleges: 'Check 185 Colleges',
@@ -63,7 +64,7 @@ const countryData = [
   {
     id: 5,
     country: 'Germany',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/germany.png',
+    icon: 'https://media.istockphoto.com/id/1059005644/vector/flag-of-germany-round-glossy-badge.jpg?s=612x612&w=0&k=20&c=c64gFo-wugMjdNt175zu1197BIdhQdwl0yu85m4oNOU=',
     colleges: '150',
     avgCost: '15.2 K USD/Year',
     checkColleges: 'Check 150 Colleges',
@@ -77,7 +78,7 @@ const countryData = [
   {
     id: 6,
     country: 'Ireland',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/ireland.png',
+    icon: 'https://media.istockphoto.com/id/2156176817/vector/ireland-flag-irishman-flag-ireland-circle-flag.jpg?s=612x612&w=0&k=20&c=GhbfRdtDKAzmwTkoRZ_KuT7eDkunV4PdnQbrhXtp-uU=',
     colleges: '95',
     avgCost: '18.9 K USD/Year',
     checkColleges: 'Check 95 Colleges',
@@ -91,7 +92,7 @@ const countryData = [
   {
     id: 7,
     country: 'New Zealand',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/neweland.png',
+    icon: 'https://media.istockphoto.com/id/1492356409/vector/round-flag-of-new-zealand.jpg?s=612x612&w=0&k=20&c=Llb3k8FqNgSu_uuILAz_uN2TDX5-D4f7TgDz7nNJX3A=',
     colleges: '78',
     avgCost: '23.4 K USD/Year',
     checkColleges: 'Check 78 Colleges',
@@ -105,7 +106,7 @@ const countryData = [
   {
     id: 8,
     country: 'Singapore',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/singapore.png',
+    icon: 'https://img.freepik.com/premium-vector/round-flag-singapore-vector-illustration_739746-124.jpg',
     colleges: '65',
     avgCost: '28.5 K USD/Year',
     checkColleges: 'Check 65 Colleges',
@@ -119,7 +120,7 @@ const countryData = [
   {
     id: 9,
     country: 'Netherlands',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/Newtherland.png',
+    icon: 'https://cdn-icons-png.flaticon.com/512/323/323275.png',
     colleges: '85',
     avgCost: '16.8 K USD/Year',
     checkColleges: 'Check 85 Colleges',
@@ -133,7 +134,7 @@ const countryData = [
   {
     id: 10,
     country: 'France',
-    icon: 'https://blogs.searchmycolleges.com/wp-content/uploads/2025/01/France.png',
+    icon: 'https://media.istockphoto.com/id/949014238/vector/france-flag-illustration.jpg?s=612x612&w=0&k=20&c=7eRs1otOtAxYrRsFU3lE3SCmpANUmArja_RJ_9w4O3Q=',
     colleges: '110',
     avgCost: '17.5 K USD/Year',
     checkColleges: 'Check 110 Colleges',
@@ -251,9 +252,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   countryIcon: {
-    width: 48,
-    height: 48,
+    width: 50,
+    height: 50,
     marginRight: 12,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#eee',
   },
   headerContent: {
     flex: 1,

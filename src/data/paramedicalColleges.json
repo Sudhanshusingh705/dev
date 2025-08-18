@@ -1,0 +1,382 @@
+[
+  {
+    "id": "para001",
+    "name": "All India Institute of Medical Sciences",
+    "location": "Delhi, Delhi",
+    "fees": "₹1,500",
+    "rating": 4.9,
+    "courses": ["B.Sc Nursing", "BPT", "BOT", "B.Sc Radiology"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹8,00,000",
+      "highestPackage": "₹20,00,000",
+      "placementRate": 100
+    },
+    "faculty": 200,
+    "infrastructure": "World-class",
+    "description": "Premier medical institute with excellent paramedical programs"
+  },
+  {
+    "id": "para002",
+    "name": "Christian Medical College",
+    "location": "Vellore, Tamil Nadu",
+    "fees": "₹50,000",
+    "rating": 4.8,
+    "courses": ["BPT", "BOT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,50,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 98
+    },
+    "faculty": 180,
+    "infrastructure": "Excellent",
+    "description": "Leading medical college with top paramedical education"
+  },
+  {
+    "id": "para003",
+    "name": "Armed Forces Medical College",
+    "location": "Pune, Maharashtra",
+    "fees": "₹25,000",
+    "rating": 4.7,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,00,000",
+      "highestPackage": "₹16,00,000",
+      "placementRate": 95
+    },
+    "faculty": 150,
+    "infrastructure": "Excellent",
+    "description": "Prestigious military medical college with excellent programs"
+  },
+  {
+    "id": "para004",
+    "name": "JIPMER",
+    "location": "Puducherry, Puducherry",
+    "fees": "₹15,000",
+    "rating": 4.6,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 93
+    },
+    "faculty": 120,
+    "infrastructure": "Excellent",
+    "description": "Premier government medical institute with paramedical programs"
+  },
+  {
+    "id": "para005",
+    "name": "Seth GS Medical College",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹1,00,000",
+    "rating": 4.5,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,00,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 90
+    },
+    "faculty": 100,
+    "infrastructure": "Very Good",
+    "description": "Established medical college with good paramedical education"
+  },
+  {
+    "id": "para006",
+    "name": "Kasturba Medical College",
+    "location": "Manipal, Karnataka",
+    "fees": "₹2,50,000",
+    "rating": 4.4,
+    "courses": ["BPT", "BOT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 6,
+    "type": "Private",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,80,000",
+      "highestPackage": "₹13,00,000",
+      "placementRate": 88
+    },
+    "faculty": 90,
+    "infrastructure": "Excellent",
+    "description": "Leading private medical college with comprehensive programs"
+  },
+  {
+    "id": "para007",
+    "name": "St. John's Medical College",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹1,80,000",
+    "rating": 4.3,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 7,
+    "type": "Private",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,50,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 85
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Reputed medical college with excellent paramedical programs"
+  },
+  {
+    "id": "para008",
+    "name": "Grant Medical College",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹1,20,000",
+    "rating": 4.2,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 8,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹11,50,000",
+      "placementRate": 82
+    },
+    "faculty": 80,
+    "infrastructure": "Good",
+    "description": "Established government medical college with paramedical courses"
+  },
+  {
+    "id": "para009",
+    "name": "Lady Hardinge Medical College",
+    "location": "Delhi, Delhi",
+    "fees": "₹80,000",
+    "rating": 4.1,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 9,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,00,000",
+      "highestPackage": "₹11,00,000",
+      "placementRate": 80
+    },
+    "faculty": 75,
+    "infrastructure": "Good",
+    "description": "Leading women's medical college with paramedical programs"
+  },
+  {
+    "id": "para010",
+    "name": "Madras Medical College",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹60,000",
+    "rating": 4.0,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 10,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹10,50,000",
+      "placementRate": 78
+    },
+    "faculty": 70,
+    "infrastructure": "Good",
+    "description": "Oldest medical college in India with paramedical programs"
+  },
+  {
+    "id": "para011",
+    "name": "King George's Medical University",
+    "location": "Lucknow, Uttar Pradesh",
+    "fees": "₹90,000",
+    "rating": 3.9,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 11,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,60,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 75
+    },
+    "faculty": 65,
+    "infrastructure": "Good",
+    "description": "State medical university with paramedical education"
+  },
+  {
+    "id": "para012",
+    "name": "Institute of Medical Sciences",
+    "location": "Varanasi, Uttar Pradesh",
+    "fees": "₹75,000",
+    "rating": 3.8,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 12,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,40,000",
+      "highestPackage": "₹9,50,000",
+      "placementRate": 72
+    },
+    "faculty": 60,
+    "infrastructure": "Good",
+    "description": "Established medical college with paramedical programs"
+  },
+  {
+    "id": "para013",
+    "name": "Government Medical College",
+    "location": "Nagpur, Maharashtra",
+    "fees": "₹85,000",
+    "rating": 3.7,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 13,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹9,00,000",
+      "placementRate": 70
+    },
+    "faculty": 55,
+    "infrastructure": "Good",
+    "description": "Government medical college with paramedical courses"
+  },
+  {
+    "id": "para014",
+    "name": "BJ Medical College",
+    "location": "Ahmedabad, Gujarat",
+    "fees": "₹95,000",
+    "rating": 3.6,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 14,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,00,000",
+      "highestPackage": "₹8,50,000",
+      "placementRate": 68
+    },
+    "faculty": 50,
+    "infrastructure": "Good",
+    "description": "Established medical college with paramedical programs"
+  },
+  {
+    "id": "para015",
+    "name": "Government Medical College",
+    "location": "Surat, Gujarat",
+    "fees": "₹80,000",
+    "rating": 3.5,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 15,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 65
+    },
+    "faculty": 45,
+    "infrastructure": "Good",
+    "description": "Government medical college with paramedical courses"
+  },
+  {
+    "id": "para016",
+    "name": "Maulana Azad Medical College",
+    "location": "Delhi, Delhi",
+    "fees": "₹1,00,000",
+    "rating": 3.4,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 16,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,60,000",
+      "highestPackage": "₹7,50,000",
+      "placementRate": 62
+    },
+    "faculty": 40,
+    "infrastructure": "Good",
+    "description": "Leading government medical college with paramedical programs"
+  },
+  {
+    "id": "para017",
+    "name": "SMS Medical College",
+    "location": "Jaipur, Rajasthan",
+    "fees": "₹70,000",
+    "rating": 3.3,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 17,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,40,000",
+      "highestPackage": "₹7,20,000",
+      "placementRate": 60
+    },
+    "faculty": 35,
+    "infrastructure": "Good",
+    "description": "Established medical college with paramedical programs"
+  },
+  {
+    "id": "para018",
+    "name": "Government Medical College",
+    "location": "Thiruvananthapuram, Kerala",
+    "fees": "₹65,000",
+    "rating": 3.2,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 18,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,20,000",
+      "highestPackage": "₹7,00,000",
+      "placementRate": 58
+    },
+    "faculty": 30,
+    "infrastructure": "Good",
+    "description": "Government medical college with paramedical courses"
+  },
+  {
+    "id": "para019",
+    "name": "Government Medical College",
+    "location": "Kozhikode, Kerala",
+    "fees": "₹60,000",
+    "rating": 3.1,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 19,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,10,000",
+      "highestPackage": "₹6,80,000",
+      "placementRate": 55
+    },
+    "faculty": 25,
+    "infrastructure": "Good",
+    "description": "Government medical college with paramedical programs"
+  },
+  {
+    "id": "para020",
+    "name": "Government Medical College",
+    "location": "Thrissur, Kerala",
+    "fees": "₹55,000",
+    "rating": 3.0,
+    "courses": ["BPT", "B.Sc Nursing", "B.Sc Radiology"],
+    "ranking": 20,
+    "type": "Government",
+    "accreditation": ["MCI", "INC", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,00,000",
+      "highestPackage": "₹6,50,000",
+      "placementRate": 52
+    },
+    "faculty": 20,
+    "infrastructure": "Good",
+    "description": "Government medical college with paramedical courses"
+  }
+]

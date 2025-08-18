@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import CollegeList from '../../components/CollegeList';
-import { generateCollegeData } from '../../data';
+import pharmacyColleges from '../../data/pharmacyColleges.json';
 
 const MPharmColleges = () => {
   // State management with useRef for better performance
@@ -23,10 +23,14 @@ const MPharmColleges = () => {
         // Use setTimeout to allow UI to render loading indicator first
         setTimeout(() => {
           try {
-            // Get college data - this will be fast as it's optimized to return initial data quickly
-            const data = generateCollegeData('M.Pharm');
-            collegeDataRef.current = data;
-            setCollegeData(data);
+            // Filter pharmacy colleges to show only those offering M.Pharm courses
+            const mPharmColleges = pharmacyColleges.filter(college => 
+              college.courses && college.courses.some(course => 
+                course === 'M.Pharm' || course.toLowerCase().includes('m.pharm')
+              )
+            );
+            collegeDataRef.current = mPharmColleges;
+            setCollegeData(mPharmColleges);
             setLoading(false);
             dataFetchedRef.current = true;
           } catch (error) {
