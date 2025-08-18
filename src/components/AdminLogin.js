@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { loginAdmin } from '../services/adminService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AdminLogin = () => {
     const [formData, setFormData] = useState({
@@ -15,11 +16,13 @@ const AdminLogin = () => {
         e.preventDefault();
         try {
             const data = await loginAdmin(formData);
-            localStorage.setItem('token', data.token);
-            alert(`Welcome, ${data.name}`);
+            await AsyncStorage.setItem('authToken', data.token);
+            await AsyncStorage.setItem('userRole', 'Admin');
+            await AsyncStorage.setItem('userName', data.name || 'Admin');
+            alert(`Welcome, ${data.name || 'Admin'}`);
         } catch (error) {
-            console.error(error);
-            alert('Login failed');
+            console.error('Login error:', error);
+            alert('Login failed: ' + (error.message || 'Unknown error'));
         }
     };
 

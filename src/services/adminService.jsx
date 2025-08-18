@@ -1,4 +1,5 @@
 import API from '../api/axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Register Admin
 export const registerAdmin = async (adminData) => {
@@ -19,7 +20,20 @@ export const getAdminProfile = async () => {
 };
 
 // Logout Admin (Frontend only)
-export const logoutAdmin = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
+export const logoutAdmin = async (navigation) => {
+    try {
+        await AsyncStorage.removeItem('authToken');
+        await AsyncStorage.removeItem('userRole');
+        await AsyncStorage.removeItem('userName');
+        
+        // If navigation is provided, use it to navigate to login screen
+        if (navigation) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'LoginSignup', params: { source: 'logout' } }],
+            });
+        }
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
 };

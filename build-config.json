@@ -1,0 +1,12 @@
+{
+  "name": "SMC App",
+  "version": "1.0.0",
+  "optimizations": {
+    "responsive": true,
+    "imageCaching": true,
+    "debouncedSearch": true,
+    "memoization": true,
+    "lazyLoading": true
+  },
+  "buildDate": "2025-08-05T06:55:30.373Z"
+}

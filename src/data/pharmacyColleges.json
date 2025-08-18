@@ -1,0 +1,382 @@
+[
+  {
+    "id": "pharm001",
+    "name": "National Institute of Pharmaceutical Education and Research",
+    "location": "Mohali, Punjab",
+    "fees": "₹1,50,000",
+    "rating": 4.8,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹12,00,000",
+      "highestPackage": "₹35,00,000",
+      "placementRate": 98
+    },
+    "faculty": 95,
+    "infrastructure": "World-class",
+    "description": "Premier pharmaceutical institute with excellent research facilities"
+  },
+  {
+    "id": "pharm002",
+    "name": "Jamia Hamdard",
+    "location": "Delhi, Delhi",
+    "fees": "₹2,50,000",
+    "rating": 4.7,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 2,
+    "type": "Deemed University",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹10,00,000",
+      "highestPackage": "₹30,00,000",
+      "placementRate": 95
+    },
+    "faculty": 90,
+    "infrastructure": "Excellent",
+    "description": "Leading deemed university with strong pharmaceutical programs"
+  },
+  {
+    "id": "pharm003",
+    "name": "Panjab University",
+    "location": "Chandigarh, Chandigarh",
+    "fees": "₹1,20,000",
+    "rating": 4.6,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹9,00,000",
+      "highestPackage": "₹25,00,000",
+      "placementRate": 93
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Prestigious university with excellent pharmaceutical education"
+  },
+  {
+    "id": "pharm004",
+    "name": "Institute of Chemical Technology",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹1,80,000",
+    "rating": 4.5,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹8,50,000",
+      "highestPackage": "₹22,00,000",
+      "placementRate": 92
+    },
+    "faculty": 80,
+    "infrastructure": "Excellent",
+    "description": "Leading institute with focus on chemical and pharmaceutical technology"
+  },
+  {
+    "id": "pharm005",
+    "name": "Birla Institute of Technology",
+    "location": "Ranchi, Jharkhand",
+    "fees": "₹2,20,000",
+    "rating": 4.4,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹8,00,000",
+      "highestPackage": "₹20,00,000",
+      "placementRate": 90
+    },
+    "faculty": 75,
+    "infrastructure": "Very Good",
+    "description": "Reputed institute with strong pharmaceutical programs"
+  },
+  {
+    "id": "pharm006",
+    "name": "Manipal College of Pharmaceutical Sciences",
+    "location": "Manipal, Karnataka",
+    "fees": "₹3,50,000",
+    "rating": 4.3,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 6,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,50,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 88
+    },
+    "faculty": 70,
+    "infrastructure": "Excellent",
+    "description": "Leading private college with excellent pharmaceutical education"
+  },
+  {
+    "id": "pharm007",
+    "name": "JSS College of Pharmacy",
+    "location": "Ooty, Tamil Nadu",
+    "fees": "₹2,80,000",
+    "rating": 4.2,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 7,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,00,000",
+      "highestPackage": "₹16,00,000",
+      "placementRate": 85
+    },
+    "faculty": 65,
+    "infrastructure": "Very Good",
+    "description": "Established pharmacy college with strong academic programs"
+  },
+  {
+    "id": "pharm008",
+    "name": "Poona College of Pharmacy",
+    "location": "Pune, Maharashtra",
+    "fees": "₹2,50,000",
+    "rating": 4.1,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 8,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 82
+    },
+    "faculty": 60,
+    "infrastructure": "Very Good",
+    "description": "Reputed pharmacy college in Pune with good industry connections"
+  },
+  {
+    "id": "pharm009",
+    "name": "Delhi Institute of Pharmaceutical Sciences",
+    "location": "Delhi, Delhi",
+    "fees": "₹1,60,000",
+    "rating": 4.0,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 9,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,00,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 80
+    },
+    "faculty": 55,
+    "infrastructure": "Good",
+    "description": "Government pharmacy college with good academic reputation"
+  },
+  {
+    "id": "pharm010",
+    "name": "Bombay College of Pharmacy",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹2,20,000",
+    "rating": 4.0,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 10,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,00,000",
+      "highestPackage": "₹13,00,000",
+      "placementRate": 78
+    },
+    "faculty": 50,
+    "infrastructure": "Very Good",
+    "description": "Established pharmacy college in Mumbai with good placement record"
+  },
+  {
+    "id": "pharm011",
+    "name": "Amrita School of Pharmacy",
+    "location": "Kochi, Kerala",
+    "fees": "₹3,00,000",
+    "rating": 3.9,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 11,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,50,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 75
+    },
+    "faculty": 45,
+    "infrastructure": "Very Good",
+    "description": "Leading private pharmacy school with modern facilities"
+  },
+  {
+    "id": "pharm012",
+    "name": "KLE College of Pharmacy",
+    "location": "Belgaum, Karnataka",
+    "fees": "₹2,40,000",
+    "rating": 3.8,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 12,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,00,000",
+      "highestPackage": "₹11,00,000",
+      "placementRate": 72
+    },
+    "faculty": 42,
+    "infrastructure": "Good",
+    "description": "Established pharmacy college with good academic record"
+  },
+  {
+    "id": "pharm013",
+    "name": "SRM College of Pharmacy",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹2,60,000",
+    "rating": 3.7,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 13,
+    "type": "Private",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹10,50,000",
+      "placementRate": 70
+    },
+    "faculty": 40,
+    "infrastructure": "Good",
+    "description": "Private pharmacy college with modern infrastructure"
+  },
+  {
+    "id": "pharm014",
+    "name": "Annamalai University",
+    "location": "Chidambaram, Tamil Nadu",
+    "fees": "₹1,20,000",
+    "rating": 3.6,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 14,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,50,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 68
+    },
+    "faculty": 38,
+    "infrastructure": "Good",
+    "description": "State university with established pharmacy programs"
+  },
+  {
+    "id": "pharm015",
+    "name": "Andhra University",
+    "location": "Visakhapatnam, Andhra Pradesh",
+    "fees": "₹1,10,000",
+    "rating": 3.5,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 15,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹9,50,000",
+      "placementRate": 65
+    },
+    "faculty": 35,
+    "infrastructure": "Good",
+    "description": "Established university with good pharmacy education"
+  },
+  {
+    "id": "pharm016",
+    "name": "Osmania University",
+    "location": "Hyderabad, Telangana",
+    "fees": "₹1,00,000",
+    "rating": 3.4,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 16,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,00,000",
+      "highestPackage": "₹9,00,000",
+      "placementRate": 62
+    },
+    "faculty": 32,
+    "infrastructure": "Good",
+    "description": "State university with established pharmacy programs"
+  },
+  {
+    "id": "pharm017",
+    "name": "Kakatiya University",
+    "location": "Warangal, Telangana",
+    "fees": "₹90,000",
+    "rating": 3.3,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 17,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹8,50,000",
+      "placementRate": 60
+    },
+    "faculty": 30,
+    "infrastructure": "Good",
+    "description": "State university with good pharmacy education"
+  },
+  {
+    "id": "pharm018",
+    "name": "Gujarat Technological University",
+    "location": "Ahmedabad, Gujarat",
+    "fees": "₹85,000",
+    "rating": 3.2,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 18,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,60,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 58
+    },
+    "faculty": 28,
+    "infrastructure": "Good",
+    "description": "State university with established pharmacy programs"
+  },
+  {
+    "id": "pharm019",
+    "name": "Rajiv Gandhi University of Health Sciences",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹95,000",
+    "rating": 3.1,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 19,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,50,000",
+      "highestPackage": "₹7,80,000",
+      "placementRate": 55
+    },
+    "faculty": 25,
+    "infrastructure": "Good",
+    "description": "Health sciences university with comprehensive pharmacy programs"
+  },
+  {
+    "id": "pharm020",
+    "name": "Maharishi Dayanand University",
+    "location": "Rohtak, Haryana",
+    "fees": "₹80,000",
+    "rating": 3.0,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D"],
+    "ranking": 20,
+    "type": "Government",
+    "accreditation": ["PCI", "AICTE", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,40,000",
+      "highestPackage": "₹7,50,000",
+      "placementRate": 52
+    },
+    "faculty": 22,
+    "infrastructure": "Good",
+    "description": "State university with established pharmacy education programs"
+  }
+]

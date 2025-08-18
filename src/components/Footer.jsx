@@ -9,7 +9,7 @@ import {
   Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons'; // You can install this package if you don't have it
+import Ionicons from 'react-native-vector-icons/Ionicons';; // You can install this package if you don't have it
 
 const FOOTER_HEIGHT = 180; // Approximate height of footer
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');

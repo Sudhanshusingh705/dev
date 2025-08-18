@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';;
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');

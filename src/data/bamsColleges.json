@@ -1,0 +1,102 @@
+[
+  {
+    "id": "bams001",
+    "name": "Institute of Medical Sciences, BHU",
+    "location": "Varanasi, Uttar Pradesh",
+    "fees": "₹45,000",
+    "rating": 4.6,
+    "courses": ["BAMS", "MD (Ayurveda)", "MS (Ayurveda)"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "CCIM"],
+    "placements": {
+      "averagePackage": "₹3,50,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 75
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Premier Ayurvedic medical college with research facilities",
+    "logo": "https://bhu.ac.in/images/bhu-logo.png"
+  },
+  {
+    "id": "bams002",
+    "name": "Gujarat Ayurved University",
+    "location": "Jamnagar, Gujarat",
+    "fees": "₹65,000",
+    "rating": 4.5,
+    "courses": ["BAMS", "MD (Ayurveda)", "MS (Ayurveda)", "Ph.D"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["NAAC A+", "UGC", "CCIM"],
+    "placements": {
+      "averagePackage": "₹3,20,000",
+      "highestPackage": "₹7,00,000",
+      "placementRate": 70
+    },
+    "faculty": 120,
+    "infrastructure": "Very Good",
+    "description": "Specialized university for Ayurvedic education and research",
+    "logo": "https://ayurveduniversity.com/images/gau-logo.png"
+  },
+  {
+    "id": "bams003",
+    "name": "National Institute of Ayurveda",
+    "location": "Jaipur, Rajasthan",
+    "fees": "₹35,000",
+    "rating": 4.7,
+    "courses": ["BAMS", "MD (Ayurveda)", "MS (Ayurveda)"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "CCIM"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹9,00,000",
+      "placementRate": 80
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "National institute for Ayurvedic medicine with modern facilities",
+    "logo": "https://nia.nic.in/images/nia-logo.png"
+  },
+  {
+    "id": "bams004",
+    "name": "Tilak Ayurved Mahavidyalaya",
+    "location": "Pune, Maharashtra",
+    "fees": "₹1,80,000",
+    "rating": 4.3,
+    "courses": ["BAMS", "MD (Ayurveda)", "MS (Ayurveda)"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A", "UGC", "CCIM"],
+    "placements": {
+      "averagePackage": "₹2,80,000",
+      "highestPackage": "₹6,00,000",
+      "placementRate": 65
+    },
+    "faculty": 65,
+    "infrastructure": "Good",
+    "description": "Established Ayurvedic college with clinical training",
+    "logo": "https://tilakayurved.com/images/tilak-logo.png"
+  },
+  {
+    "id": "bams005",
+    "name": "Rajiv Gandhi University of Health Sciences",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹95,000",
+    "rating": 4.4,
+    "courses": ["BAMS", "MD (Ayurveda)", "MS (Ayurveda)"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["NAAC A+", "UGC", "CCIM"],
+    "placements": {
+      "averagePackage": "₹3,00,000",
+      "highestPackage": "₹6,50,000",
+      "placementRate": 68
+    },
+    "faculty": 90,
+    "infrastructure": "Good",
+    "description": "State health university with comprehensive Ayurvedic programs",
+    "logo": "https://rguhs.ac.in/images/rguhs-logo.png"
+  }
+]

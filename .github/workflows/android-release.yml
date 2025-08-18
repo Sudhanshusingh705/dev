@@ -1,0 +1,75 @@
+name: Android Release (Minify on Linux)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Detect project layout
+        id: paths
+        shell: bash
+        run: |
+          if [ -f dev/package.json ]; then
+            echo "project_dir=dev" >> "$GITHUB_OUTPUT"
+          else
+            echo "project_dir=." >> "$GITHUB_OUTPUT"
+          fi
+          if [ -f dev/android/gradlew ]; then
+            echo "android_dir=dev/android" >> "$GITHUB_OUTPUT"
+          elif [ -f android/gradlew ]; then
+            echo "android_dir=android" >> "$GITHUB_OUTPUT"
+          else
+            echo "android_dir=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install JS dependencies
+        working-directory: ${{ steps.paths.outputs.project_dir }}
+        run: npm ci
+
+      - name: Make Gradle wrapper executable
+        if: ${{ steps.paths.outputs.android_dir != '' }}
+        working-directory: ${{ steps.paths.outputs.android_dir }}
+        run: chmod +x ./gradlew
+
+      - name: Run R8 minification to generate mapping.txt
+        working-directory: ${{ steps.paths.outputs.android_dir }}
+        run: ./gradlew :app:minifyReleaseWithR8 --no-daemon --stacktrace --info
+
+      - name: Upload mapping outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapping
+          path: ${{ steps.paths.outputs.android_dir }}/app/build/outputs/mapping/release
+
+      - name: Build Release AAB (optional)
+        working-directory: ${{ steps.paths.outputs.android_dir }}
+        run: ./gradlew :app:bundleRelease --no-daemon --stacktrace
+        continue-on-error: true
+
+      - name: Upload AAB
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab
+          path: ${{ steps.paths.outputs.android_dir }}/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: ignore

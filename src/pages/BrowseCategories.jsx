@@ -19,7 +19,8 @@ const BrowseCategories = () => {
     { name: 'MBA', icon: 'chart-line', type: 'MaterialCommunityIcons', component: 'MBAColleges', category: 'management', ranking: 'top' },
     { name: 'M.Tech', icon: 'cog', type: 'FontAwesome', component: 'MTechColleges', category: 'engineering', subcategory: 'pg-engineering' },
     { name: 'MBBS', icon: 'medical-bag', type: 'MaterialCommunityIcons', component: 'MBBSColleges', category: 'medical', ranking: 'top' },
-    { name: 'B.Com', icon: 'calculator', type: 'MaterialCommunityIcons', component: 'BComColleges', category: 'commerce', ranking: 'top' },
+    { name: 'Commerce', icon: 'calculator', type: 'MaterialCommunityIcons', component: 'CommerceColleges', category: 'commerce', ranking: 'top' },
+    { name: 'B.Com', icon: 'calculator', type: 'MaterialCommunityIcons', component: 'BComColleges', category: 'commerce', subcategory: 'bcom' },
     { name: 'B.Sc', icon: 'flask', type: 'FontAwesome', component: 'BScColleges', category: 'science', ranking: 'top' },
     { name: 'B.Sc (Nursing)', icon: 'hospital-user', type: 'FontAwesome5', component: 'BScNursingColleges', category: 'medical' },
     { name: 'BCA', icon: 'desktop-classic', type: 'MaterialCommunityIcons', component: 'BCAColleges', category: 'programming', subcategory: 'software' },
@@ -29,7 +30,7 @@ const BrowseCategories = () => {
     { name: 'Veterinary Science', icon: 'paw', type: 'FontAwesome', component: 'VeterinaryScienceColleges', category: 'medical' },
     { name: 'Computer Application', icon: 'desktop', type: 'FontAwesome', component: 'ComputerApplicationColleges', category: 'programming' },
     { name: 'Dental', icon: 'tooth', type: 'MaterialCommunityIcons', component: 'DentalColleges', category: 'medical' },
-    { name: 'Design', icon: 'palette', type: 'MaterialCommunityIcons', component: 'DesignColleges', category: 'arts', subcategory: 'liberal-arts' },
+    { name: 'Design', icon: 'palette', type: 'MaterialCommunityIcons', component: 'DesignColleges', category: 'design', subcategory: 'design' },
     { name: 'Education', icon: 'school', type: 'MaterialCommunityIcons', component: 'EducationColleges', category: 'humanities' },
     { name: 'Hotel Management', icon: 'food-fork-drink', type: 'MaterialCommunityIcons', component: 'HotelManagementColleges', category: 'business' },
     { name: 'LLB', icon: 'gavel', type: 'MaterialCommunityIcons', component: 'LLBColleges', category: 'humanities' },
@@ -37,7 +38,45 @@ const BrowseCategories = () => {
     { name: 'M.Pharm', icon: 'pill', type: 'MaterialCommunityIcons', component: 'MPharmColleges', category: 'medical' },
     { name: 'M.Planning', icon: 'city', type: 'MaterialCommunityIcons', component: 'MPlanningColleges', category: 'engineering', subcategory: 'pg-engineering' },
     { name: 'M.Sc', icon: 'microscope', type: 'MaterialCommunityIcons', component: 'MScColleges', category: 'science', subcategory: 'research' },
-    { name: 'Mass Communication', icon: 'newspaper', type: 'MaterialCommunityIcons', component: 'MassCommunicationColleges', category: 'arts' }
+    { name: 'Mass Communication', icon: 'newspaper', type: 'MaterialCommunityIcons', component: 'MassCommunicationColleges', category: 'arts' },
+    
+    // New Categories
+    { name: 'B.Com', icon: 'calculator', type: 'MaterialCommunityIcons', component: 'BComColleges', category: 'commerce' },
+    { name: 'BA', icon: 'book-open', type: 'MaterialCommunityIcons', component: 'BAColleges', category: 'arts' },
+    { name: 'BBA', icon: 'briefcase', type: 'MaterialCommunityIcons', component: 'BBAColleges', category: 'management' },
+    { name: 'BCA', icon: 'desktop-classic', type: 'MaterialCommunityIcons', component: 'BCAColleges', category: 'computer' },
+    { name: 'B.Arch', icon: 'home-city', type: 'MaterialCommunityIcons', component: 'BArchColleges', category: 'architecture' },
+    { name: 'B.Ed', icon: 'school', type: 'MaterialCommunityIcons', component: 'BEdColleges', category: 'education' },
+    { name: 'B.Pharm', icon: 'pill', type: 'MaterialCommunityIcons', component: 'BPharmColleges', category: 'pharmacy' },
+    { name: 'BAMS', icon: 'leaf', type: 'MaterialCommunityIcons', component: 'BAMSColleges', category: 'medical' },
+    { name: 'LLB', icon: 'gavel', type: 'MaterialCommunityIcons', component: 'LLBColleges', category: 'law' },
+    { name: 'LLM', icon: 'scale-balance', type: 'MaterialCommunityIcons', component: 'LLMColleges', category: 'law' },
+    { name: 'M.Pharm', icon: 'pill', type: 'MaterialCommunityIcons', component: 'MPharmColleges', category: 'pharmacy' },
+    { name: 'M.Sc', icon: 'microscope', type: 'MaterialCommunityIcons', component: 'MScColleges', category: 'science' },
+    { name: 'MCA', icon: 'code', type: 'FontAwesome', component: 'MCAColleges', category: 'computer' },
+    { name: 'Bachelor of Physiotherapy', icon: 'human-handsup', type: 'MaterialCommunityIcons', component: 'PhysiotherapyColleges', category: 'paramedical' },
+    { name: 'B.Des', icon: 'palette', type: 'MaterialCommunityIcons', component: 'BDesColleges', category: 'design' },
+    { name: 'M.Planning', icon: 'city', type: 'MaterialCommunityIcons', component: 'MPlanningColleges', category: 'architecture' },
+    { name: 'B.Planning', icon: 'city-variant', type: 'MaterialCommunityIcons', component: 'BPlanningColleges', category: 'architecture' },
+    { name: 'Agriculture', icon: 'sprout', type: 'MaterialCommunityIcons', component: 'AgricultureColleges', category: 'agriculture' },
+    { name: 'Arts', icon: 'palette-swatch', type: 'MaterialCommunityIcons', component: 'ArtsColleges', category: 'arts' },
+    { name: 'Computer Application', icon: 'desktop', type: 'FontAwesome', component: 'ComputerApplicationColleges', category: 'computer' },
+    { name: 'Design', icon: 'palette', type: 'MaterialCommunityIcons', component: 'DesignColleges', category: 'design' },
+    { name: 'Engineering', icon: 'cog', type: 'FontAwesome', component: 'EngineeringColleges', category: 'engineering' },
+    { name: 'Law', icon: 'balance-scale', type: 'FontAwesome', component: 'LawColleges', category: 'law' },
+    { name: 'Management', icon: 'chart-line', type: 'MaterialCommunityIcons', component: 'ManagementColleges', category: 'management' },
+    { name: 'Medical', icon: 'medical-bag', type: 'MaterialCommunityIcons', component: 'MedicalColleges', category: 'medical' },
+    { name: 'Paramedical', icon: 'ambulance', type: 'FontAwesome', component: 'ParamedicalColleges', category: 'paramedical' },
+    { name: 'Pharmacy', icon: 'pill', type: 'MaterialCommunityIcons', component: 'PharmacyColleges', category: 'pharmacy' },
+    { name: 'Science', icon: 'flask', type: 'FontAwesome', component: 'ScienceColleges', category: 'science' },
+    { name: 'Architecture', icon: 'home-city-outline', type: 'MaterialCommunityIcons', component: 'ArchitectureColleges', category: 'architecture' },
+    { name: 'Aviation', icon: 'airplane', type: 'MaterialCommunityIcons', component: 'AviationColleges', category: 'aviation' },
+    { name: 'Dental', icon: 'tooth', type: 'MaterialCommunityIcons', component: 'DentalColleges', category: 'medical' },
+    { name: 'Education', icon: 'school', type: 'MaterialCommunityIcons', component: 'EducationColleges', category: 'education' },
+    { name: 'Hotel Management', icon: 'food-fork-drink', type: 'MaterialCommunityIcons', component: 'HotelManagementColleges', category: 'hospitality' },
+    { name: 'Mass Communication', icon: 'newspaper', type: 'MaterialCommunityIcons', component: 'MassCommunicationColleges', category: 'media' },
+    { name: 'Veterinary Science', icon: 'paw', type: 'FontAwesome', component: 'VeterinaryScienceColleges', category: 'veterinary' },
+    { name: 'Animation', icon: 'animation-play', type: 'MaterialCommunityIcons', component: 'AnimationColleges', category: 'media' }
   ];
 
   // Apply filters based on route params
@@ -140,22 +179,22 @@ const BrowseCategories = () => {
       <ScrollView style={styles.scrollView}>
         {filteredStreams.length > 0 ? (
           filteredStreams.map((stream, index) => (
-            <TouchableOpacity
-              key={index}
+          <TouchableOpacity
+            key={index}
               style={[
                 styles.streamItem, 
                 compareMode && selectedColleges.includes(stream.component) && styles.selectedStream
               ]}
               onPress={() => handleStreamPress(stream)}
-            >
-              <View style={styles.iconContainer}>
-                {renderIcon(stream)}
-              </View>
-              <View style={styles.streamInfo}>
-                <Text style={styles.streamName}>{stream.name}</Text>
-                <Icon name="chevron-right" size={24} color="#666" />
-              </View>
-            </TouchableOpacity>
+          >
+            <View style={styles.iconContainer}>
+              {renderIcon(stream)}
+            </View>
+            <View style={styles.streamInfo}>
+              <Text style={styles.streamName}>{stream.name}</Text>
+              <Icon name="chevron-right" size={24} color="#666" />
+            </View>
+          </TouchableOpacity>
           ))
         ) : (
           <Text style={styles.noResults}>No courses found matching your criteria</Text>
@@ -263,4 +302,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrowseCategories; 
+export default BrowseCategories;

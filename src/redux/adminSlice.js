@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginAdmin, registerAdmin, getAdminProfile } from '../services/adminService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const adminSlice = createSlice({
     name: 'admin',
@@ -23,16 +24,22 @@ export const { setAdminInfo, clearAdminInfo } = adminSlice.actions;
 export const login = (adminData) => async (dispatch) => {
     try {
         const data = await loginAdmin(adminData);
-        localStorage.setItem('token', data.token);
+        await AsyncStorage.setItem('authToken', data.token);
+        await AsyncStorage.setItem('userRole', 'Admin');
         dispatch(setAdminInfo(data));
     } catch (error) {
-        console.error(error);
+        console.error('Login error:', error);
     }
 };
 
-export const logout = () => (dispatch) => {
-    localStorage.removeItem('token');
-    dispatch(clearAdminInfo());
+export const logout = () => async (dispatch) => {
+    try {
+        await AsyncStorage.removeItem('authToken');
+        await AsyncStorage.removeItem('userRole');
+        dispatch(clearAdminInfo());
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
 };
 
 export default adminSlice.reducer;

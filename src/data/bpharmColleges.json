@@ -1,0 +1,97 @@
+[
+  {
+    "id": "bpharm001",
+    "name": "Jamia Hamdard",
+    "location": "New Delhi, Delhi",
+    "fees": "₹2,80,000",
+    "rating": 4.6,
+    "courses": ["B.Pharm", "Pharm.D", "M.Pharm"],
+    "ranking": 1,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "PCI"],
+    "placements": {
+      "averagePackage": "₹4,50,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 85
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "Premier pharmacy institute with strong research focus"
+  },
+  {
+    "id": "bpharm002",
+    "name": "Manipal College of Pharmaceutical Sciences",
+    "location": "Manipal, Karnataka",
+    "fees": "₹3,20,000",
+    "rating": 4.5,
+    "courses": ["B.Pharm", "Pharm.D", "M.Pharm", "Ph.D"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "PCI"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 82
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Well-established pharmacy college with modern facilities"
+  },
+  {
+    "id": "bpharm003",
+    "name": "Institute of Chemical Technology",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹1,80,000",
+    "rating": 4.7,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D Pharmacy"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "PCI"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 90
+    },
+    "faculty": 65,
+    "infrastructure": "Very Good",
+    "description": "Premier chemical technology institute with pharmacy programs"
+  },
+  {
+    "id": "bpharm004",
+    "name": "National Institute of Pharmaceutical Education and Research",
+    "location": "Mohali, Punjab",
+    "fees": "₹95,000",
+    "rating": 4.8,
+    "courses": ["B.Pharm", "M.Pharm", "Ph.D", "M.S. (Pharm)"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "PCI"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 95
+    },
+    "faculty": 55,
+    "infrastructure": "Excellent",
+    "description": "Top government pharmacy institute with excellent research"
+  },
+  {
+    "id": "bpharm005",
+    "name": "Poona College of Pharmacy",
+    "location": "Pune, Maharashtra",
+    "fees": "₹2,40,000",
+    "rating": 4.4,
+    "courses": ["B.Pharm", "M.Pharm", "Pharm.D"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC", "PCI"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹9,00,000",
+      "placementRate": 78
+    },
+    "faculty": 70,
+    "infrastructure": "Very Good",
+    "description": "Historic pharmacy college with strong industry connections"
+  }
+]

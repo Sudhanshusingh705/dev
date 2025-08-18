@@ -1,117 +1,507 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
-import CollegeList from '../../components/CollegeList';
-import { generateCollegeData } from '../../data';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, ActivityIndicator, Dimensions } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';;
+import commerceCollegesData from '../../data/commerceColleges.json';
 
 const BComColleges = () => {
-  // State management with useRef for better performance
-  const collegeDataRef = useRef([]);
-  const [collegeData, setCollegeData] = useState([]);
+  const [colleges, setColleges] = useState([]);
+  const [filteredColleges, setFilteredColleges] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const dataFetchedRef = useRef(false);
+  const [activeFilters, setActiveFilters] = useState({
+    state: 'All',
+    city: 'All',
+  });
+  const [sortBy, setSortBy] = useState('rank');
 
   useEffect(() => {
-    // Avoid duplicate data fetching on re-renders
-    if (dataFetchedRef.current) return;
+    const bcomColleges = commerceCollegesData.filter(college => 
+      college.specializations && 
+      college.specializations.some(spec => 
+        spec.toLowerCase().includes('b.com') ||
+        spec.toLowerCase().includes('bcom')
+      )
+    );
     
-    const fetchData = async () => {
-      try {
-        // Start loading indicator
-        setLoading(true);
-        
-        // Use setTimeout to allow UI to render loading indicator first
-        setTimeout(() => {
-          try {
-            // Get college data - this will be fast as it's optimized to return initial data quickly
-            const data = generateCollegeData('B.Com');
-            collegeDataRef.current = data;
-            setCollegeData(data);
-            setLoading(false);
-            dataFetchedRef.current = true;
-          } catch (error) {
-            console.error("Error loading B.Com colleges:", error);
-            setError("Failed to load college data. Please try again.");
-            setLoading(false);
-          }
-        }, 0);
-      } catch (error) {
-        console.error("Error setting up B.Com colleges:", error);
-        setError("Failed to load college data. Please try again.");
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-    
-    // Clean up function
-    return () => {
-      // Any cleanup needed
-    };
+    setColleges(bcomColleges);
+    setLoading(false);
   }, []);
 
-  if (error) {
-    return (
-      <View style={styles.centerContainer}>
-        <Text style={styles.errorText}>{error}</Text>
-        <Text style={styles.tryAgainText} onPress={() => {
-          dataFetchedRef.current = false;
-          setLoading(true);
-          fetchData();
-        }}>
-          Tap to try again
+  useEffect(() => {
+    if (!loading) {
+      let filtered = [...colleges];
+
+      if (searchQuery) {
+        filtered = filtered.filter(college =>
+          college.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          college.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (college.specializations && college.specializations.some(spec => 
+            spec.toLowerCase().includes(searchQuery.toLowerCase())
+          ))
+        );
+      }
+
+      if (activeFilters.state !== 'All') {
+        filtered = filtered.filter(college =>
+          college.location.split(',').pop().trim() === activeFilters.state
+        );
+      }
+
+      if (activeFilters.city !== 'All') {
+        filtered = filtered.filter(college =>
+          college.location.split(',')[0].trim() === activeFilters.city
+        );
+      }
+
+      filtered = filtered.map(college => ({
+        ...college,
+        rank: college.nationalRank,
+        city: college.location.split(',')[0].trim(),
+        state: college.location.split(',').pop().trim()
+      }));
+
+      switch (sortBy) {
+        case 'rank':
+          filtered.sort((a, b) => parseInt(a.rank || '999') - parseInt(b.rank || '999'));
+          break;
+        case 'fees':
+          filtered.sort((a, b) => parseInt(a.fees.replace(/[₹,]/g, '')) - parseInt(b.fees.replace(/[₹,]/g, '')));
+          break;
+        case 'rating':
+          filtered.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'placement':
+          filtered.sort((a, b) => b.placementRate - a.placementRate);
+          break;
+      }
+
+      setFilteredColleges(filtered);
+    }
+  }, [colleges, searchQuery, activeFilters, sortBy, loading]);
+
+  const getStates = () => {
+    const states = [...new Set(colleges.map(college => college.location.split(',').pop().trim()))];
+    return ['All', ...states.sort()];
+  };
+
+  const getCities = () => {
+    if (activeFilters.state === 'All') {
+      const cities = [...new Set(colleges.map(college => college.location.split(',')[0].trim()))];
+      return ['All', ...cities.sort()];
+    } else {
+      const cities = [...new Set(colleges
+        .filter(college => college.location.split(',').pop().trim() === activeFilters.state)
+        .map(college => college.location.split(',')[0].trim()))];
+      return ['All', ...cities.sort()];
+    }
+  };
+
+  const formatFees = (fees) => {
+    if (fees >= 100000) {
+      return `₹${(fees / 100000).toFixed(1)}L`;
+    }
+    return `₹${fees.toLocaleString()}`;
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <Text key={i} style={[styles.star, i <= rating ? styles.starFilled : null]}>
+          ★
         </Text>
-      </View>
-    );
-  }
+      );
+    }
+    return stars;
+  };
 
   if (loading) {
     return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#0066cc" />
-        <Text style={styles.loadingText}>Loading B.Com colleges...</Text>
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#FFA500" />
+        <Text style={styles.loadingText}>Loading BCom colleges...</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <CollegeList 
-        collegeData={collegeData}
-        streamType="B.Com"
-      />
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>BCom Colleges</Text>
+        <Text style={styles.subtitle}>
+          {filteredColleges.length} colleges found
+        </Text>
+      </View>
+
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search colleges by name or location..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+      </View>
+
+      <View style={styles.filtersContainer}>
+        <View style={styles.filterSection}>
+          <Text style={styles.filterTitle}>State</Text>
+          <View style={styles.filterOptions}>
+            {getStates().map(state => (
+              <TouchableOpacity
+                key={state}
+                style={[
+                  styles.filterOption,
+                  activeFilters.state === state && styles.activeFilter
+                ]}
+                onPress={() => setActiveFilters({
+                  ...activeFilters,
+                  state: state,
+                  city: 'All'
+                })}
+              >
+                <Text style={[
+                  styles.filterText,
+                  activeFilters.state === state && styles.activeFilterText
+                ]}>
+                  {state}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.filterSection}>
+          <Text style={styles.filterTitle}>City</Text>
+          <View style={styles.filterOptions}>
+            {getCities().map(city => (
+              <TouchableOpacity
+                key={city}
+                style={[
+                  styles.filterOption,
+                  activeFilters.city === city && styles.activeFilter
+                ]}
+                onPress={() => setActiveFilters({
+                  ...activeFilters,
+                  city: city
+                })}
+              >
+                <Text style={[
+                  styles.filterText,
+                  activeFilters.city === city && styles.activeFilterText
+                ]}>
+                  {city}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.sortContainer}>
+          <Text style={styles.sortTitle}>Sort by</Text>
+          <View style={styles.sortOptions}>
+            {[
+              { key: 'rank', label: 'Ranking' },
+              { key: 'fees', label: 'Fees' },
+              { key: 'rating', label: 'Rating' },
+              { key: 'placement', label: 'Placement' }
+            ].map(sort => (
+              <TouchableOpacity
+                key={sort.key}
+                style={[
+                  styles.sortButton,
+                  sortBy === sort.key && styles.activeSort
+                ]}
+                onPress={() => setSortBy(sort.key)}
+              >
+                <Text style={[
+                  styles.sortText,
+                  sortBy === sort.key && styles.activeSortText
+                ]}>
+                  {sort.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.collegesContainer}>
+        {filteredColleges.map((college, index) => (
+          <View key={college.id} style={styles.collegeCard}>
+            <View style={styles.collegeHeader}>
+              <Image 
+                source={{ uri: college.logo }}
+                style={styles.collegeLogo}
+                resizeMode="contain"
+              />
+              <View style={styles.collegeInfo}>
+                <Text style={styles.collegeName} numberOfLines={2}>
+                  {college.name}
+                </Text>
+                <Text style={styles.collegeLocation}>
+                  {college.location}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.collegeStats}>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>National Rank</Text>
+                <Text style={styles.statValue}>#{college.nationalRank || 'N/A'}</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>Fees</Text>
+                <Text style={styles.statValue}>{formatFees(parseInt(college.fees.replace(/[^0-9]/g, '')) || 0)}</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>Rating</Text>
+                <View style={styles.ratingContainer}>
+                  {renderStars(college.rating)}
+                  <Text style={styles.ratingText}>{college.rating}</Text>
+                </View>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>Placement</Text>
+                <Text style={styles.statValue}>{college.placementRate || 'N/A'}%</Text>
+              </View>
+            </View>
+
+            <View style={styles.collegeFooter}>
+              <Text style={styles.established}>Est. {college.establishedYear}</Text>
+              <Text style={styles.reviews}>{college.reviewCount || 0} reviews</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f9fa',
   },
-  centerContainer: {
+  loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    backgroundColor: '#f8f9fa',
   },
   loadingText: {
-    marginTop: 10,
+    marginTop: 12,
     fontSize: 16,
     color: '#666',
-    textAlign: 'center',
   },
-  errorText: {
-    fontSize: 16,
-    color: '#e74c3c',
-    textAlign: 'center',
-    marginBottom: 10,
+  headerContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e9ecef',
+    alignItems: 'center',
   },
-  tryAgainText: {
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 4,
+  },
+  subtitle: {
     fontSize: 16,
-    color: '#0066cc',
-    textAlign: 'center',
-    textDecorationLine: 'underline',
+    color: '#6c757d',
+  },
+  searchContainer: {
+    position: 'relative',
+    margin: 16,
+    marginBottom: 8,
+  },
+  searchInput: {
+    height: 48,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+    borderRadius: 24,
+    paddingHorizontal: 48,
+    paddingVertical: 12,
+    fontSize: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  searchIcon: {
+    position: 'absolute',
+    left: 16,
+    top: 14,
+  },
+  filtersContainer: {
+    margin: 16,
+    marginTop: 8,
+  },
+  filterSection: {
+    marginBottom: 20,
+  },
+  filterTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 12,
+  },
+  filterOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  filterOption: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+    borderRadius: 20,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  activeFilter: {
+    backgroundColor: '#FFA500',
+    borderColor: '#FFA500',
+  },
+  filterText: {
+    fontSize: 14,
+    color: '#495057',
+  },
+  activeFilterText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  sortContainer: {
+    marginBottom: 20,
+  },
+  sortTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 12,
+  },
+  sortOptions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  sortButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+    borderRadius: 20,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  activeSort: {
+    backgroundColor: '#FFA500',
+    borderColor: '#FFA500',
+  },
+  sortText: {
+    fontSize: 14,
+    color: '#495057',
+  },
+  activeSortText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  collegesContainer: {
+    padding: 16,
+  },
+  collegeCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  collegeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  collegeLogo: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    marginRight: 12,
+    backgroundColor: '#f8f9fa',
+  },
+  collegeInfo: {
+    flex: 1,
+  },
+  collegeName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 4,
+  },
+  collegeLocation: {
+    fontSize: 14,
+    color: '#6c757d',
+  },
+  collegeStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  statItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#6c757d',
+    marginBottom: 4,
+  },
+  statValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ratingText: {
+    marginLeft: 4,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+  },
+  collegeFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#e9ecef',
+  },
+  established: {
+    fontSize: 12,
+    color: '#6c757d',
+  },
+  reviews: {
+    fontSize: 12,
+    color: '#6c757d',
+  },
+  star: {
+    fontSize: 14,
+    color: '#ddd',
+  },
+  starFilled: {
+    color: '#FFA500',
   }
 });
 

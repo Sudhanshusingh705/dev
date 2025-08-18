@@ -1,0 +1,97 @@
+[
+  {
+    "id": "bed001",
+    "name": "Regional Institute of Education",
+    "location": "Bhubaneswar, Odisha",
+    "fees": "₹45,000",
+    "rating": 4.7,
+    "courses": ["B.Ed", "M.Ed", "B.Ed (Special Education)"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "NCTE"],
+    "placements": {
+      "averagePackage": "₹4,50,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 95
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "Premier teacher education institute under NCERT"
+  },
+  {
+    "id": "bed002",
+    "name": "Jamia Millia Islamia",
+    "location": "New Delhi, Delhi",
+    "fees": "₹35,000",
+    "rating": 4.6,
+    "courses": ["B.Ed", "M.Ed", "B.Ed (Elementary Education)"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "NCTE"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹7,50,000",
+      "placementRate": 92
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Central university with strong education programs"
+  },
+  {
+    "id": "bed003",
+    "name": "Lady Shri Ram College for Women",
+    "location": "New Delhi, Delhi",
+    "fees": "₹40,000",
+    "rating": 4.5,
+    "courses": ["B.Ed", "B.Ed (Special Education)", "M.Ed"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "NCTE"],
+    "placements": {
+      "averagePackage": "₹4,00,000",
+      "highestPackage": "₹7,00,000",
+      "placementRate": 88
+    },
+    "faculty": 65,
+    "infrastructure": "Very Good",
+    "description": "Premier women's college with excellent teacher training"
+  },
+  {
+    "id": "bed004",
+    "name": "Christ University",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹1,80,000",
+    "rating": 4.4,
+    "courses": ["B.Ed", "M.Ed", "B.Ed (Physical Education)"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "NCTE"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹6,50,000",
+      "placementRate": 85
+    },
+    "faculty": 70,
+    "infrastructure": "Excellent",
+    "description": "Leading private university for teacher education"
+  },
+  {
+    "id": "bed005",
+    "name": "Banaras Hindu University",
+    "location": "Varanasi, Uttar Pradesh",
+    "fees": "₹25,000",
+    "rating": 4.3,
+    "courses": ["B.Ed", "M.Ed", "B.Ed (Sanskrit Education)"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "NCTE"],
+    "placements": {
+      "averagePackage": "₹3,60,000",
+      "highestPackage": "₹6,00,000",
+      "placementRate": 82
+    },
+    "faculty": 95,
+    "infrastructure": "Good",
+    "description": "Historic central university with comprehensive education programs"
+  }
+]

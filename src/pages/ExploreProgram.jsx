@@ -4,12 +4,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
   Dimensions,
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { RankingIcon, FindCollegeIcon, CompareIcon, ExamIcon } from '../components/icons';
 
 const { width } = Dimensions.get('window');
 const PADDING_HORIZONTAL = 20;
@@ -35,7 +35,7 @@ const ExploreProgram = () => {
     '4': { params: { filter: 'exams' } }, // Exams
 
     // BE/B.Tech tab - Engineering focused options
-    '5': { params: { filter: 'engineering', ranking: true } }, // Top Engineering Colleges
+    '5': { params: { screen: 'EngineeringSection' } }, // Engineering Section
     '6': { params: { filter: 'engineering', exam: 'JEE Main' } }, // JEE Preparation
     '7': { params: { filter: 'engineering' } }, // Engineering Specializations
     '8': { params: { filter: 'engineering', sortBy: 'placement' } }, // Campus Placements
@@ -91,13 +91,18 @@ const ExploreProgram = () => {
       const navigationConfig = cardNavigation[id];
       
       if (navigationConfig) {
-        // All cards now navigate to BrowseCategories through UserDrawer
-        navigation.navigate("UserDrawer", { 
-          screen: "BrowseCategories",
-          params: navigationConfig.params || {}
-        });
+        if (navigationConfig.params && navigationConfig.params.screen === 'EngineeringSection') {
+          // Direct navigation to EngineeringSection
+          navigation.navigate("EngineeringSection");
+        } else {
+          // Navigate to BrowseCategories through UserDrawer
+          navigation.navigate("UserDrawer", { 
+            screen: "BrowseCategories",
+            params: navigationConfig.params || {}
+          });
+        }
         
-        console.log(`Navigating to BrowseCategories with params:`, navigationConfig.params || {});
+        console.log(`Navigating with params:`, navigationConfig.params || {});
       } else {
         // Fallback if card ID not found in navigation mapping
         console.warn(`No navigation config found for card ID: ${id}`);
@@ -115,58 +120,58 @@ const ExploreProgram = () => {
 
   const programsData = {
     'All': [
-      { id: '1', title: 'Ranking', description: 'College ranked based on real data', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '2', title: 'Find Colleges', description: 'Discover 19000+ colleges via preferences', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '3', title: 'Compare Colleges', description: 'Compare on the basis of rank, fees, etc.', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '4', title: 'Exams', description: 'Know more about your exams', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '1', title: 'Ranking', description: 'College ranked based on real data', icon: 'ranking' },
+      { id: '2', title: 'Find Colleges', description: 'Discover 19000+ colleges via preferences', icon: 'findcollege' },
+      { id: '3', title: 'Compare Colleges', description: 'Compare on the basis of rank, fees, etc.', icon: 'compare' },
+      { id: '4', title: 'Exams', description: 'Know more about your exams', icon: 'exam' },
     ],
     'BE/B.Tech': [
-      { id: '5', title: 'Top Engineering Colleges', description: 'Explore top engineering institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '6', title: 'JEE Preparation', description: 'Prepare for JEE Main and Advanced', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '7', title: 'Engineering Specializations', description: 'Discover various engineering fields', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '8', title: 'Campus Placements', description: 'Engineering placement statistics', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '5', title: 'Engineering Section', description: 'Explore all engineering colleges', icon: 'ranking' },
+      { id: '6', title: 'JEE Preparation', description: 'Prepare for JEE Main and Advanced', icon: 'findcollege' },
+      { id: '7', title: 'Engineering Specializations', description: 'Discover various engineering fields', icon: 'compare' },
+      { id: '8', title: 'Campus Placements', description: 'Engineering placement statistics', icon: 'exam' },
     ],
     'MBA/PGDM': [
-      { id: '9', title: 'Top B-Schools', description: 'Explore top management institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '10', title: 'CAT Preparation', description: 'Prepare for CAT exam', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '11', title: 'MBA Specializations', description: 'Discover various MBA fields', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '12', title: 'Corporate Placements', description: 'MBA placement statistics', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '9', title: 'Top B-Schools', description: 'Explore top management institutions', icon: 'ranking' },
+      { id: '10', title: 'CAT Preparation', description: 'Prepare for CAT exam', icon: 'findcollege' },
+      { id: '11', title: 'MBA Specializations', description: 'Discover various MBA fields', icon: 'compare' },
+      { id: '12', title: 'Corporate Placements', description: 'MBA placement statistics', icon: 'exam' },
     ],
     'MBBS': [
-      { id: '13', title: 'Top Medical Colleges', description: 'Explore top medical institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '14', title: 'NEET Preparation', description: 'Prepare for NEET exam', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '15', title: 'Medical Specializations', description: 'Discover various medical fields', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '16', title: 'Residency Programs', description: 'Explore residency opportunities', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '13', title: 'Top Medical Colleges', description: 'Explore top medical institutions', icon: 'ranking' },
+      { id: '14', title: 'NEET Preparation', description: 'Prepare for NEET exam', icon: 'findcollege' },
+      { id: '15', title: 'Medical Specializations', description: 'Discover various medical fields', icon: 'compare' },
+      { id: '16', title: 'Residency Programs', description: 'Explore residency opportunities', icon: 'exam' },
     ],
     'ME/M.Tech': [
-      { id: '17', title: 'Top PG Engineering', description: 'Top PG engineering colleges', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '18', title: 'GATE Preparation', description: 'Prepare for GATE exam', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '19', title: 'Research Opportunities', description: 'Discover research prospects', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '20', title: 'Industry Collaborations', description: 'Explore industry partnerships', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '17', title: 'Top PG Engineering', description: 'Top PG engineering colleges', icon: 'ranking' },
+      { id: '18', title: 'GATE Preparation', description: 'Prepare for GATE exam', icon: 'findcollege' },
+      { id: '19', title: 'Research Opportunities', description: 'Discover research prospects', icon: 'compare' },
+      { id: '20', title: 'Industry Collaborations', description: 'Explore industry partnerships', icon: 'exam' },
     ],
     'B.Sc': [
-      { id: '21', title: 'Top Science Colleges', description: 'Explore top science institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '22', title: 'Science Streams', description: 'Discover various science streams', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '23', title: 'Research Projects', description: 'Explore undergraduate research', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '24', title: 'Career Prospects', description: 'Explore career options', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '21', title: 'Top Science Colleges', description: 'Explore top science institutions', icon: 'ranking' },
+      { id: '22', title: 'Science Streams', description: 'Discover various science streams', icon: 'findcollege' },
+      { id: '23', title: 'Research Projects', description: 'Explore undergraduate research', icon: 'compare' },
+      { id: '24', title: 'Career Prospects', description: 'Explore career options', icon: 'exam' },
     ],
     'BA': [
-      { id: '25', title: 'Top Arts Colleges', description: 'Explore top arts institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '26', title: 'Humanities Subjects', description: 'Discover humanities fields', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '27', title: 'Liberal Arts', description: 'Explore liberal arts education', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '28', title: 'Career Options', description: 'Explore career paths after BA', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '25', title: 'Top Arts Colleges', description: 'Explore top arts institutions', icon: 'ranking' },
+      { id: '26', title: 'Humanities Subjects', description: 'Discover humanities fields', icon: 'findcollege' },
+      { id: '27', title: 'Liberal Arts', description: 'Explore liberal arts education', icon: 'compare' },
+      { id: '28', title: 'Career Options', description: 'Explore career paths after BA', icon: 'exam' },
     ],
     'B.Com': [
-      { id: '29', title: 'Top Commerce Colleges', description: 'Explore commerce colleges', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '30', title: 'Accounting & Finance', description: 'Learn accounting & finance', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '31', title: 'Business Studies', description: 'Explore business subjects', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '32', title: 'Career Opportunities', description: 'Explore job prospects', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '29', title: 'Top Commerce Colleges', description: 'Explore commerce colleges', icon: 'ranking' },
+      { id: '30', title: 'Accounting & Finance', description: 'Learn accounting & finance', icon: 'findcollege' },
+      { id: '31', title: 'Business Studies', description: 'Explore business subjects', icon: 'compare' },
+      { id: '32', title: 'Career Opportunities', description: 'Explore job prospects', icon: 'exam' },
     ],
     'BCA': [
-      { id: '33', title: 'Top BCA Colleges', description: 'Explore top BCA institutions', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/ranking.png' },
-      { id: '34', title: 'Programming', description: 'Learn programming languages', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/findcollege.png' },
-      { id: '35', title: 'Software Development', description: 'Learn software development', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/compare.png' },
-      { id: '36', title: 'IT Industry', description: 'Explore IT industry trends', icon: 'https://searchmycolleges.com/wp-content/uploads/2024/12/exam.png' },
+      { id: '33', title: 'Top BCA Colleges', description: 'Explore top BCA institutions', icon: 'ranking' },
+      { id: '34', title: 'Programming', description: 'Learn programming languages', icon: 'findcollege' },
+      { id: '35', title: 'Software Development', description: 'Learn software development', icon: 'compare' },
+      { id: '36', title: 'IT Industry', description: 'Explore IT industry trends', icon: 'exam' },
     ],
   };
 
@@ -194,11 +199,10 @@ const ExploreProgram = () => {
                 }}
               >
                 <View style={styles.circularIcon}>
-                  <Image 
-                    source={{ uri: item.icon }} 
-                    style={styles.icon}
-                    resizeMode="contain"
-                  />
+                  {item.icon === 'ranking' && <RankingIcon width={32} height={32} />}
+                  {item.icon === 'findcollege' && <FindCollegeIcon width={32} height={32} />}
+                  {item.icon === 'compare' && <CompareIcon width={32} height={32} />}
+                  {item.icon === 'exam' && <ExamIcon width={32} height={32} />}
                 </View>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardDescription}>{item.description}</Text>

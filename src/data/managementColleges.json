@@ -1,0 +1,382 @@
+[
+  {
+    "id": "mgmt001",
+    "name": "Indian Institute of Management Ahmedabad",
+    "location": "Ahmedabad, Gujarat",
+    "fees": "₹23,00,000",
+    "rating": 4.8,
+    "courses": ["PGPM", "PGP-FABM", "ePGP"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA", "EQUIS"],
+    "placements": {
+      "averagePackage": "₹32,00,000",
+      "highestPackage": "₹1,15,00,000",
+      "placementRate": 100
+    },
+    "faculty": 95,
+    "infrastructure": "World-class",
+    "description": "Premier management institute with excellent faculty and global recognition"
+  },
+  {
+    "id": "mgmt002",
+    "name": "Indian Institute of Management Bangalore",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹23,00,000",
+    "rating": 4.7,
+    "courses": ["PGP", "PGPPM", "PGP-BA"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA", "EQUIS"],
+    "placements": {
+      "averagePackage": "₹31,00,000",
+      "highestPackage": "₹1,10,00,000",
+      "placementRate": 100
+    },
+    "faculty": 110,
+    "infrastructure": "Excellent",
+    "description": "Leading IIM with strong industry connections and research focus"
+  },
+  {
+    "id": "mgmt003",
+    "name": "XLRI Xavier School of Management",
+    "location": "Jamshedpur, Jharkhand",
+    "fees": "₹25,00,000",
+    "rating": 4.6,
+    "courses": ["PGDM-BM", "PGDM-HRM", "PGDM-GM"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹28,00,000",
+      "highestPackage": "₹75,00,000",
+      "placementRate": 98
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Oldest management institute in India with strong ethics and values"
+  },
+  {
+    "id": "mgmt004",
+    "name": "Indian Institute of Management Calcutta",
+    "location": "Kolkata, West Bengal",
+    "fees": "₹23,00,000",
+    "rating": 4.6,
+    "courses": ["PGP", "PGP-VLM", "PGPEX-VLM"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA", "EQUIS"],
+    "placements": {
+      "averagePackage": "₹30,00,000",
+      "highestPackage": "₹1,20,00,000",
+      "placementRate": 100
+    },
+    "faculty": 90,
+    "infrastructure": "Excellent",
+    "description": "First IIM with strong finance and analytics programs"
+  },
+  {
+    "id": "mgmt005",
+    "name": "Indian Institute of Management Lucknow",
+    "location": "Lucknow, Uttar Pradesh",
+    "fees": "₹19,25,000",
+    "rating": 4.5,
+    "courses": ["PGP", "PGP-ABM", "PGP-SM"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹27,00,000",
+      "highestPackage": "₹65,00,000",
+      "placementRate": 100
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Leading IIM with strong focus on entrepreneurship and innovation"
+  },
+  {
+    "id": "mgmt006",
+    "name": "Indian School of Business",
+    "location": "Hyderabad, Telangana",
+    "fees": "₹38,50,000",
+    "rating": 4.7,
+    "courses": ["PGP", "PGPMAX", "PGPBA"],
+    "ranking": 6,
+    "type": "Private",
+    "accreditation": ["AACSB", "EQUIS"],
+    "placements": {
+      "averagePackage": "₹34,00,000",
+      "highestPackage": "₹1,20,00,000",
+      "placementRate": 100
+    },
+    "faculty": 75,
+    "infrastructure": "World-class",
+    "description": "Premier business school with global faculty and strong industry connections"
+  },
+  {
+    "id": "mgmt007",
+    "name": "SP Jain Institute of Management",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹20,00,000",
+    "rating": 4.4,
+    "courses": ["PGDM", "PGPM", "PGDM-BFS"],
+    "ranking": 7,
+    "type": "Private",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹26,00,000",
+      "highestPackage": "₹53,00,000",
+      "placementRate": 98
+    },
+    "faculty": 65,
+    "infrastructure": "Excellent",
+    "description": "Leading Mumbai-based B-school with strong corporate connections"
+  },
+  {
+    "id": "mgmt008",
+    "name": "Faculty of Management Studies",
+    "location": "Delhi, Delhi",
+    "fees": "₹1,92,000",
+    "rating": 4.5,
+    "courses": ["MBA", "MBA-Executive", "MBA-MS"],
+    "ranking": 8,
+    "type": "Government",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹25,00,000",
+      "highestPackage": "₹48,00,000",
+      "placementRate": 100
+    },
+    "faculty": 55,
+    "infrastructure": "Good",
+    "description": "Premier management institute under Delhi University with excellent ROI"
+  },
+  {
+    "id": "mgmt009",
+    "name": "Indian Institute of Management Kozhikode",
+    "location": "Kozhikode, Kerala",
+    "fees": "₹20,50,000",
+    "rating": 4.4,
+    "courses": ["PGP", "PGP-BL", "PGP-F"],
+    "ranking": 9,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹24,00,000",
+      "highestPackage": "₹60,00,000",
+      "placementRate": 100
+    },
+    "faculty": 75,
+    "infrastructure": "Excellent",
+    "description": "Leading IIM with strong focus on finance and operations"
+  },
+  {
+    "id": "mgmt010",
+    "name": "Indian Institute of Management Indore",
+    "location": "Indore, Madhya Pradesh",
+    "fees": "₹21,00,000",
+    "rating": 4.3,
+    "courses": ["PGP", "PGP-HRM", "EPGP"],
+    "ranking": 10,
+    "type": "Government",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹23,00,000",
+      "highestPackage": "₹55,00,000",
+      "placementRate": 100
+    },
+    "faculty": 70,
+    "infrastructure": "Very Good",
+    "description": "Rapidly growing IIM with strong industry interface"
+  },
+  {
+    "id": "mgmt011",
+    "name": "Management Development Institute",
+    "location": "Gurgaon, Haryana",
+    "fees": "₹21,34,000",
+    "rating": 4.3,
+    "courses": ["PGDM", "PGDM-HRM", "PGPM"],
+    "ranking": 11,
+    "type": "Private",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹22,00,000",
+      "highestPackage": "₹50,00,000",
+      "placementRate": 97
+    },
+    "faculty": 60,
+    "infrastructure": "Excellent",
+    "description": "Leading private B-school with strong corporate training programs"
+  },
+  {
+    "id": "mgmt012",
+    "name": "Indian Institute of Management Shillong",
+    "location": "Shillong, Meghalaya",
+    "fees": "₹18,00,000",
+    "rating": 4.2,
+    "courses": ["PGP", "PGP-Ex", "PGPWE"],
+    "ranking": 12,
+    "type": "Government",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹21,00,000",
+      "highestPackage": "₹45,00,000",
+      "placementRate": 98
+    },
+    "faculty": 45,
+    "infrastructure": "Very Good",
+    "description": "Scenic IIM with focus on sustainable management practices"
+  },
+  {
+    "id": "mgmt013",
+    "name": "Institute of Management Technology",
+    "location": "Ghaziabad, Uttar Pradesh",
+    "fees": "₹19,50,000",
+    "rating": 4.2,
+    "courses": ["PGDM", "PGDM-BFS", "PGDM-Marketing"],
+    "ranking": 13,
+    "type": "Private",
+    "accreditation": ["AACSB", "AMBA"],
+    "placements": {
+      "averagePackage": "₹20,00,000",
+      "highestPackage": "₹48,00,000",
+      "placementRate": 96
+    },
+    "faculty": 55,
+    "infrastructure": "Excellent",
+    "description": "Leading private B-school with strong international collaborations"
+  },
+  {
+    "id": "mgmt014",
+    "name": "Great Lakes Institute of Management",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹16,00,000",
+    "rating": 4.1,
+    "courses": ["PGPM", "PGDM", "PGPM-Ex"],
+    "ranking": 14,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹18,00,000",
+      "highestPackage": "₹42,00,000",
+      "placementRate": 95
+    },
+    "faculty": 50,
+    "infrastructure": "Very Good",
+    "description": "Leading one-year MBA program with focus on analytics and sustainability"
+  },
+  {
+    "id": "mgmt015",
+    "name": "Goa Institute of Management",
+    "location": "Goa, Goa",
+    "fees": "₹17,50,000",
+    "rating": 4.1,
+    "courses": ["PGDM", "PGDM-BDA", "PGDM-HCM"],
+    "ranking": 15,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹19,00,000",
+      "highestPackage": "₹40,00,000",
+      "placementRate": 94
+    },
+    "faculty": 48,
+    "infrastructure": "Excellent",
+    "description": "Scenic campus with strong focus on big data and healthcare management"
+  },
+  {
+    "id": "mgmt016",
+    "name": "KJ Somaiya Institute of Management",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹16,00,000",
+    "rating": 4.0,
+    "courses": ["PGDM", "PGDM-IB", "PGDM-FS"],
+    "ranking": 16,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹17,00,000",
+      "highestPackage": "₹38,00,000",
+      "placementRate": 93
+    },
+    "faculty": 45,
+    "infrastructure": "Very Good",
+    "description": "Mumbai-based B-school with strong industry connections and diverse programs"
+  },
+  {
+    "id": "mgmt017",
+    "name": "Symbiosis Institute of Business Management",
+    "location": "Pune, Maharashtra",
+    "fees": "₹20,00,000",
+    "rating": 4.0,
+    "courses": ["MBA", "MBA-IB", "MBA-IM"],
+    "ranking": 17,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹19,00,000",
+      "highestPackage": "₹45,00,000",
+      "placementRate": 95
+    },
+    "faculty": 60,
+    "infrastructure": "Excellent",
+    "description": "Leading Pune B-school with strong international business focus"
+  },
+  {
+    "id": "mgmt018",
+    "name": "Birla Institute of Management Technology",
+    "location": "Greater Noida, Uttar Pradesh",
+    "fees": "₹13,00,000",
+    "rating": 3.9,
+    "courses": ["PGDM", "PGDM-IB", "PGDM-RM"],
+    "ranking": 18,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹15,00,000",
+      "highestPackage": "₹35,00,000",
+      "placementRate": 92
+    },
+    "faculty": 42,
+    "infrastructure": "Very Good",
+    "description": "Delhi NCR B-school with strong focus on retail and international business"
+  },
+  {
+    "id": "mgmt019",
+    "name": "TAPMI Manipal",
+    "location": "Manipal, Karnataka",
+    "fees": "₹15,00,000",
+    "rating": 3.9,
+    "courses": ["PGDM", "PGDM-BKFS", "PGDM-HRM"],
+    "ranking": 19,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹16,00,000",
+      "highestPackage": "₹32,00,000",
+      "placementRate": 90
+    },
+    "faculty": 40,
+    "infrastructure": "Excellent",
+    "description": "Karnataka-based B-school with strong banking and finance focus"
+  },
+  {
+    "id": "mgmt020",
+    "name": "Narsee Monjee Institute of Management",
+    "location": "Mumbai, Maharashtra",
+    "fees": "₹18,00,000",
+    "rating": 3.8,
+    "courses": ["PGDM", "PGDM-BFS", "PGDM-Business Analytics"],
+    "ranking": 20,
+    "type": "Private",
+    "accreditation": ["AACSB"],
+    "placements": {
+      "averagePackage": "₹17,50,000",
+      "highestPackage": "₹38,00,000",
+      "placementRate": 93
+    },
+    "faculty": 55,
+    "infrastructure": "Very Good",
+    "description": "Mumbai-based B-school with strong finance and analytics programs"
+  }
+]

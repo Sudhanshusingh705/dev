@@ -1,10 +1,17 @@
-import 'react-native-gesture-handler';
-import { registerRootComponent } from 'expo';
+// Import global polyfills first
+import './src/utils/global';
 
+import 'react-native-gesture-handler';
+import { AppRegistry } from 'react-native';
+
+// Import and initialize TurboModule system
+import { initializeTurboModules } from './src/utils/TurboModuleSetup';
+import './src/utils/NativeModules';
+
+// Initialize TurboModules before importing App
+initializeTurboModules();
 
 import App from './App';
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+// Register the main application component with the correct app name
+AppRegistry.registerComponent('SMCApp', () => App);

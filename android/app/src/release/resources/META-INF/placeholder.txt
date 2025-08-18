@@ -1,0 +1,1 @@
+placeholder to force creation of merged_java_res/base.jar

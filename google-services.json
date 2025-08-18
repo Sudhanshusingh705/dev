@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "123456789",
+    "project_id": "smc-app-dev",
+    "storage_bucket": "smc-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789:android:abcdef123456",
+        "android_client_info": {
+          "package_name": "com.searchmycollege.smcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123456789-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "dummy-key-for-development"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123456789-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,9 @@ import {
   StatusBar,
   Linking
 } from 'react-native';
-import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';;
 
 // Additional detailed notification data
 const notificationDetails = {

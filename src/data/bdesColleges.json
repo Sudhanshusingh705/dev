@@ -1,0 +1,97 @@
+[
+  {
+    "id": "bdes001",
+    "name": "National Institute of Design",
+    "location": "Ahmedabad, Gujarat",
+    "fees": "₹3,50,000",
+    "rating": 4.9,
+    "courses": ["B.Des", "M.Des", "Ph.D Design"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹8,50,000",
+      "highestPackage": "₹25,00,000",
+      "placementRate": 95
+    },
+    "faculty": 85,
+    "infrastructure": "Excellent",
+    "description": "Premier design institute with world-class facilities"
+  },
+  {
+    "id": "bdes002",
+    "name": "Indian Institute of Art and Design",
+    "location": "New Delhi, Delhi",
+    "fees": "₹4,80,000",
+    "rating": 4.6,
+    "courses": ["B.Des", "M.Des", "Diploma in Design"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,20,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 88
+    },
+    "faculty": 65,
+    "infrastructure": "Excellent",
+    "description": "Leading private design institute with industry focus"
+  },
+  {
+    "id": "bdes003",
+    "name": "MIT Institute of Design",
+    "location": "Pune, Maharashtra",
+    "fees": "₹5,20,000",
+    "rating": 4.5,
+    "courses": ["B.Des", "M.Des"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,80,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 85
+    },
+    "faculty": 55,
+    "infrastructure": "Very Good",
+    "description": "Well-established design institute with modern curriculum"
+  },
+  {
+    "id": "bdes004",
+    "name": "Pearl Academy",
+    "location": "New Delhi, Delhi",
+    "fees": "₹4,20,000",
+    "rating": 4.4,
+    "courses": ["B.Des", "M.Des", "Fashion Design"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 82
+    },
+    "faculty": 70,
+    "infrastructure": "Very Good",
+    "description": "Specialized design academy with fashion and lifestyle focus"
+  },
+  {
+    "id": "bdes005",
+    "name": "Srishti Institute of Art, Design and Technology",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹3,80,000",
+    "rating": 4.3,
+    "courses": ["B.Des", "M.Des", "M.A. Design"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["NAAC A", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 78
+    },
+    "faculty": 60,
+    "infrastructure": "Good",
+    "description": "Creative institute focusing on art, design and technology"
+  }
+]

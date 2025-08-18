@@ -1,0 +1,402 @@
+[
+  {
+    "id": "agri001",
+    "name": "Indian Agricultural Research Institute",
+    "location": "Delhi, Delhi",
+    "fees": "₹30,000",
+    "rating": 4.9,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹8,00,000",
+      "highestPackage": "₹25,00,000",
+      "placementRate": 95
+    },
+    "faculty": 150,
+    "infrastructure": "World-class",
+    "description": "Premier agricultural research institute with global recognition",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Indian_Agricultural_Research_Institute_logo.png/220px-Indian_Agricultural_Research_Institute_logo.png"
+  },
+  {
+    "id": "agri002",
+    "name": "Punjab Agricultural University",
+    "location": "Ludhiana, Punjab",
+    "fees": "₹40,000",
+    "rating": 4.7,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,00,000",
+      "highestPackage": "₹20,00,000",
+      "placementRate": 92
+    },
+    "faculty": 120,
+    "infrastructure": "Excellent",
+    "description": "Leading agricultural university with strong research focus",
+    "logo": "https://images.indianexpress.com/2022/11/pau.jpg"
+  },
+  {
+    "id": "agri003",
+    "name": "Tamil Nadu Agricultural University",
+    "location": "Coimbatore, Tamil Nadu",
+    "fees": "₹35,000",
+    "rating": 4.6,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 90
+    },
+    "faculty": 110,
+    "infrastructure": "Excellent",
+    "description": "State agricultural university with excellent education",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/9/94/Tamil_Nadu_Agricultural_University_Logo.gif"
+  },
+  {
+    "id": "agri004",
+    "name": "University of Agricultural Sciences",
+    "location": "Bangalore, Karnataka",
+    "fees": "₹45,000",
+    "rating": 4.5,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 4,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,00,000",
+      "highestPackage": "₹16,00,000",
+      "placementRate": 88
+    },
+    "faculty": 100,
+    "infrastructure": "Excellent",
+    "description": "Leading agricultural university with strong industry connections",
+    "logo": "https://cstep.in/drupal/sites/default/files/2023-07/University_of_Agricultural_Sciences%2C_Bangalore_logo.png"
+  },
+  {
+    "id": "agri005",
+    "name": "Acharya NG Ranga Agricultural University",
+    "location": "Hyderabad, Telangana",
+    "fees": "₹30,000",
+    "rating": 4.4,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,80,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 85
+    },
+    "faculty": 95,
+    "infrastructure": "Very Good",
+    "description": "State agricultural university with comprehensive programs",
+    "logo": "https://angrau.ac.in/UPLOADS/ANGRAU_Logos/ANGRAU_Logo-min_03112023113542.png"
+  },
+  {
+    "id": "agri006",
+    "name": "Mahatma Phule Krishi Vidyapeeth",
+    "location": "Rahuri, Maharashtra",
+    "fees": "₹25,000",
+    "rating": 4.3,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 6,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,50,000",
+      "highestPackage": "₹14,00,000",
+      "placementRate": 83
+    },
+    "faculty": 90,
+    "infrastructure": "Very Good",
+    "description": "Established agricultural university with strong research focus",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/af/Mahatma_Phule_Krishi_Vidyapeeth_logo.jpg/250px-Mahatma_Phule_Krishi_Vidyapeeth_logo.jpg"
+  },
+  {
+    "id": "agri007",
+    "name": "Chaudhary Charan Singh Haryana Agricultural University",
+    "location": "Hisar, Haryana",
+    "fees": "₹35,000",
+    "rating": 4.2,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 7,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹13,00,000",
+      "placementRate": 80
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "State agricultural university with excellent facilities",
+    "logo": "https://hau.ac.in/storage/app/uploads/OAixrnLNsXBzhP31UISB2IvLHcX51rSDeI7zk4nh.jpeg"
+  },
+  {
+    "id": "agri008",
+    "name": "University of Agricultural Sciences",
+    "location": "Dharwad, Karnataka",
+    "fees": "₹40,000",
+    "rating": 4.1,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 8,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,00,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 78
+    },
+    "faculty": 80,
+    "infrastructure": "Very Good",
+    "description": "Leading agricultural university with strong programs",
+    "logo": "https://cstep.in/drupal/sites/default/files/2023-07/University_of_Agricultural_Sciences%2C_Bangalore_logo.png"
+  },
+  {
+    "id": "agri009",
+    "name": "G.B. Pant University of Agriculture and Technology",
+    "location": "Pantnagar, Uttarakhand",
+    "fees": "₹45,000",
+    "rating": 4.0,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 9,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹11,50,000",
+      "placementRate": 75
+    },
+    "faculty": 75,
+    "infrastructure": "Very Good",
+    "description": "First agricultural university of India with excellent reputation",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Pantnagar_logo.jpg/250px-Pantnagar_logo.jpg"
+  },
+  {
+    "id": "agri010",
+    "name": "Orissa University of Agriculture and Technology",
+    "location": "Bhubaneswar, Odisha",
+    "fees": "₹30,000",
+    "rating": 3.9,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 10,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,60,000",
+      "highestPackage": "₹11,00,000",
+      "placementRate": 73
+    },
+    "faculty": 70,
+    "infrastructure": "Good",
+    "description": "State agricultural university with comprehensive programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/9/90/Orissa_University_of_Agriculture_and_Technology_logo.png"
+  },
+  {
+    "id": "agri011",
+    "name": "Rajasthan Agricultural University",
+    "location": "Bikaner, Rajasthan",
+    "fees": "₹25,000",
+    "rating": 3.8,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 11,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,40,000",
+      "highestPackage": "₹10,50,000",
+      "placementRate": 70
+    },
+    "faculty": 65,
+    "infrastructure": "Good",
+    "description": "State agricultural university with strong programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Swami_Keshwanand_Rajasthan_Agricultural_University_logo.webp/142px-Swami_Keshwanand_Rajasthan_Agricultural_University_logo.webp.png"
+  },
+  {
+    "id": "agri012",
+    "name": "Indira Gandhi Krishi Vishwavidyalaya",
+    "location": "Raipur, Chhattisgarh",
+    "fees": "₹20,000",
+    "rating": 3.7,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 12,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 68
+    },
+    "faculty": 60,
+    "infrastructure": "Good",
+    "description": "State agricultural university with good facilities",
+    "logo": "https://igkv.ac.in/images/AngWeb/Photos/home-footer-igkv-logo.png"
+  },
+  {
+    "id": "agri013",
+    "name": "University of Agricultural Sciences",
+    "location": "Kerala",
+    "fees": "₹35,000",
+    "rating": 3.6,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 13,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,00,000",
+      "highestPackage": "₹9,50,000",
+      "placementRate": 65
+    },
+    "faculty": 55,
+    "infrastructure": "Good",
+    "description": "State agricultural university with good programs",
+    "logo": "https://www.clipartmax.com/png/small/285-2853046_by-http-myexamportal-university-of-agricultural-sciences-bangalore-logo.png"
+  },
+  {
+    "id": "agri014",
+    "name": "Jawaharlal Nehru Krishi Vishwa Vidyalaya",
+    "location": "Jabalpur, Madhya Pradesh",
+    "fees": "₹25,000",
+    "rating": 3.5,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 14,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹9,00,000",
+      "placementRate": 62
+    },
+    "faculty": 50,
+    "infrastructure": "Good",
+    "description": "State agricultural university with established programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/9/98/Jawaharlal_Nehru_Krishi_Vishwa_Vidyalaya_logo.png"
+  },
+  {
+    "id": "agri015",
+    "name": "Assam Agricultural University",
+    "location": "Jorhat, Assam",
+    "fees": "₹20,000",
+    "rating": 3.4,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 15,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,60,000",
+      "highestPackage": "₹8,50,000",
+      "placementRate": 60
+    },
+    "faculty": 45,
+    "infrastructure": "Good",
+    "description": "State agricultural university with good programs",
+    "logo": "https://www.sikshapedia.com/public/data/colleges/assam-agricultural-university-jorhat-assam/assam-agricultural-university-jorhat-assam-logo.webp"
+  },
+  {
+    "id": "agri016",
+    "name": "Bidhan Chandra Krishi Vishwavidyalaya",
+    "location": "Nadia, West Bengal",
+    "fees": "₹15,000",
+    "rating": 3.3,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 16,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,40,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 58
+    },
+    "faculty": 40,
+    "infrastructure": "Good",
+    "description": "State agricultural university with established programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/e/e9/Bidhan_Chandra_Krishi_Viswavidyalaya.svg"
+  },
+  {
+    "id": "agri017",
+    "name": "Tamil Nadu Veterinary and Animal Sciences University",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹30,000",
+    "rating": 3.2,
+    "courses": ["B.Sc Agriculture", "B.Tech Agriculture", "M.Sc Agriculture"],
+    "ranking": 17,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,20,000",
+      "highestPackage": "₹7,50,000",
+      "placementRate": 55
+    },
+    "faculty": 35,
+    "infrastructure": "Good",
+    "description": "State university with agricultural and veterinary programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/Tamil_Nadu_Veterinary_and_Animal_Science_University_logo.png/250px-Tamil_Nadu_Veterinary_and_Animal_Science_University_logo.png"
+  },
+  {
+    "id": "agri018",
+    "name": "Sher-e-Kashmir University of Agricultural Sciences",
+    "location": "Srinagar, Jammu and Kashmir",
+    "fees": "₹25,000",
+    "rating": 3.1,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 18,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹3,00,000",
+      "highestPackage": "₹7,00,000",
+      "placementRate": 52
+    },
+    "faculty": 30,
+    "infrastructure": "Good",
+    "description": "State agricultural university with good programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/c/cc/SKUAST-J_logo.png"
+  },
+  {
+    "id": "agri019",
+    "name": "Narendra Deva University of Agriculture and Technology",
+    "location": "Ayodhya, Uttar Pradesh",
+    "fees": "₹20,000",
+    "rating": 3.0,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 19,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹2,80,000",
+      "highestPackage": "₹6,50,000",
+      "placementRate": 50
+    },
+    "faculty": 25,
+    "infrastructure": "Good",
+    "description": "State agricultural university with established programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/d/de/Narendra_Deva_University_of_Agriculture_and_Technology_logo.png"
+  },
+  {
+    "id": "agri020",
+    "name": "Anand Agricultural University",
+    "location": "Anand, Gujarat",
+    "fees": "₹25,000",
+    "rating": 2.9,
+    "courses": ["B.Sc Agriculture", "M.Sc Agriculture", "Ph.D"],
+    "ranking": 20,
+    "type": "Government",
+    "accreditation": ["ICAR", "UGC"],
+    "placements": {
+      "averagePackage": "₹2,60,000",
+      "highestPackage": "₹6,00,000",
+      "placementRate": 48
+    },
+    "faculty": 20,
+    "infrastructure": "Good",
+    "description": "State agricultural university with good programs",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/f/fb/Anand_Agricultural_University_logo.png"
+  }
+]

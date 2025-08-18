@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';;
 import { Picker } from '@react-native-picker/picker';
 import { DataTable } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';

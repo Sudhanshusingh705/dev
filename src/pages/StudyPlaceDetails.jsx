@@ -10,7 +10,9 @@ import {
   ActivityIndicator,
   Dimensions
 } from 'react-native';
-import { AntDesign, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';;
 
 const { width } = Dimensions.get('window');
 
@@ -25,7 +27,8 @@ const StudyPlaceDetails = ({ route, navigation }) => {
     rating: '',
   });
   const [showFilters, setShowFilters] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [allColleges, setAllColleges] = useState([]);
   const itemsPerPage = 10;
 
   const streams = [
@@ -35,7 +38,21 @@ const StudyPlaceDetails = ({ route, navigation }) => {
     'Arts',
     'Science',
     'Commerce',
-    'Law'
+    'Law',
+    'Agriculture',
+    'Animation',
+    'Architecture',
+    'Aviation',
+    'Dental',
+    'Design',
+    'Education',
+    'Hotel Management',
+    'Mass Communication',
+    'Paramedical',
+    'Pharmacy',
+    'Science',
+    'Veterinary',
+    'Vocational'
   ];
 
   const courses = [
@@ -46,7 +63,17 @@ const StudyPlaceDetails = ({ route, navigation }) => {
     'B.Sc',
     'BA',
     'B.Com',
-    'LLB'
+    'LLB',
+    'B.Arch',
+    'B.Des',
+    'BHM',
+    'B.Pharm',
+    'BAMS',
+    'BHMS',
+    'BDS',
+    'BVSc',
+    'BPT',
+    'B.Ed'
   ];
 
   const feesRanges = [
@@ -57,106 +84,55 @@ const StudyPlaceDetails = ({ route, navigation }) => {
     'Above ₹10 Lakhs'
   ];
 
-  // Create dummy college data with full details
-  const collegeData = Array(20).fill().map((_, index) => ({
-    id: index + 1,
-    name: `${place.name} College of ${index % 2 === 0 ? 'Engineering' : 'Management'} ${index + 1}`,
-    location: `${place.name}, India`,
-    rating: (Math.random() * 2 + 3).toFixed(1),
-    stream: ['Engineering', 'Management', 'Medical', 'Arts', 'Science'][Math.floor(Math.random() * 5)],
-    course: ['B.Tech', 'MBA', 'MBBS', 'BBA', 'B.Sc'][Math.floor(Math.random() * 5)],
-    fees: `₹${Math.floor(Math.random() * 5 + 2)} Lakhs`,
-    seats: Math.floor(Math.random() * 100 + 60),
-    approved: ['UGC', 'AICTE', 'NAAC-A++'][Math.floor(Math.random() * 3)],
-    description: `One of the premier institutions in ${place.name}, known for excellence in education and research. The college offers state-of-the-art facilities and has a strong focus on practical learning and industry exposure.`,
-    courses: [
-      {
-        name: 'B.Tech Computer Science',
-        duration: '4 Years',
-        fees: '₹4.5 Lakhs',
-        seats: 120,
-        eligibility: '10+2 with PCM'
-      },
-      {
-        name: 'B.Tech Electronics',
-        duration: '4 Years',
-        fees: '₹4.2 Lakhs',
-        seats: 60,
-        eligibility: '10+2 with PCM'
-      },
-      {
-        name: 'MBA',
-        duration: '2 Years',
-        fees: '₹8.5 Lakhs',
-        seats: 180,
-        eligibility: 'Graduation with 50%'
-      },
-      {
-        name: 'BBA',
-        duration: '3 Years',
-        fees: '₹3.5 Lakhs',
-        seats: 120,
-        eligibility: '10+2 in any stream'
+  // Load all colleges from JSON files
+  useEffect(() => {
+    loadAllColleges();
+  }, [place]);
+
+  const loadAllColleges = () => {
+    setLoading(true);
+    
+    const jsonFiles = [
+      require('../data/agricultureColleges.json'),
+      require('../data/animationColleges.json'),
+      require('../data/architectureColleges.json'),
+      require('../data/artsColleges.json'),
+      require('../data/aviationColleges.json'),
+      require('../data/commerceColleges.json'),
+      require('../data/computerColleges.json'),
+      require('../data/dentalColleges.json'),
+      require('../data/designColleges.json'),
+      require('../data/educationColleges.json'),
+      require('../data/engineeringColleges.json'),
+      require('../data/hotelmanagementColleges.json'),
+      require('../data/lawColleges.json'),
+      require('../data/managementColleges.json'),
+      require('../data/masscommunicationColleges.json'),
+      require('../data/medicalColleges.json'),
+      require('../data/paramedicalColleges.json'),
+      require('../data/pharmacyColleges.json'),
+      require('../data/scienceColleges.json'),
+      require('../data/veterinaryColleges.json'),
+      require('../data/vocationalColleges.json')
+    ];
+
+    let combinedColleges = [];
+    
+    jsonFiles.forEach(file => {
+      if (file && Array.isArray(file)) {
+        combinedColleges = [...combinedColleges, ...file];
       }
-    ],
-    placements: {
-      averagePackage: '₹8.5 LPA',
-      highestPackage: '₹24 LPA',
-      placementRate: '92%',
-      recruiters: [
-        'Google',
-        'Microsoft',
-        'Amazon',
-        'IBM',
-        'Infosys',
-        'TCS',
-        'Wipro',
-        'Accenture'
-      ]
-    },
-    facilities: [
-      'Digital Library',
-      'Sports Complex',
-      'Research Labs',
-      'Smart Classrooms',
-      'Cafeteria',
-      'Hostel Facilities',
-      'Wi-Fi Campus',
-      'Auditorium',
-      'Medical Center',
-      'Transportation'
-    ],
-    highlights: [
-      'NAAC A++ Accredited',
-      '100% Placement Assistance',
-      'Industry Partnerships',
-      'Research Centers',
-      'International Collaborations',
-      'Modern Infrastructure'
-    ],
-    stats: {
-      students: '5000+',
-      faculty: '200+',
-      coursesOffered: '30+',
-      researchPapers: '1000+'
-    },
-    contact: {
-      phone: '8882855844',
-      email: 'enquiry@searchmycollege.com',
-      website: 'www.searchmycolleges.com',
-      address: `${Math.floor(Math.random() * 100 + 1)}, Education Hub, ${place.name}, India`
-    },
-    images: [
-      'https://example.com/college1.jpg',
-      'https://example.com/college2.jpg',
-      'https://example.com/college3.jpg'
-    ],
-    rankings: {
-      nirf: Math.floor(Math.random() * 50 + 1),
-      outlook: Math.floor(Math.random() * 50 + 1),
-      indiaToday: Math.floor(Math.random() * 50 + 1)
-    }
-  }));
+    });
+
+    // Filter colleges by city
+    const cityColleges = combinedColleges.filter(college => 
+      college.location && 
+      college.location.toLowerCase().includes(place.name.toLowerCase())
+    );
+
+    setAllColleges(cityColleges);
+    setLoading(false);
+  };
 
   const FilterSection = () => (
     <View style={styles.filterContainer}>
@@ -237,35 +213,35 @@ const StudyPlaceDetails = ({ route, navigation }) => {
         })}
       >
         <View style={styles.collegeHeader}>
-          <Text style={styles.collegeName} numberOfLines={2}>{item.name}</Text>
+          <Text style={styles.collegeName} numberOfLines={2}>{item.name || 'College Name'}</Text>
           <View style={styles.ratingContainer}>
             <AntDesign name="star" size={16} color="#FFD700" />
-            <Text style={styles.ratingText}>{item.rating}</Text>
+            <Text style={styles.ratingText}>{item.rating || '4.0'}</Text>
           </View>
         </View>
         
         <View style={styles.collegeDetails}>
           <View style={styles.detailRow}>
             <MaterialIcons name="school" size={16} color="#666" />
-            <Text style={styles.detailText}>{item.stream}</Text>
+            <Text style={styles.detailText}>{item.stream || 'General'}</Text>
           </View>
           <View style={styles.detailRow}>
             <MaterialIcons name="book" size={16} color="#666" />
-            <Text style={styles.detailText}>{item.course}</Text>
+            <Text style={styles.detailText}>{item.course || item.type || 'Various'}</Text>
           </View>
           <View style={styles.detailRow}>
             <MaterialIcons name="attach-money" size={16} color="#666" />
-            <Text style={styles.detailText}>{item.fees}</Text>
+            <Text style={styles.detailText}>{item.fees || 'Contact for Fees'}</Text>
           </View>
           <View style={styles.detailRow}>
             <MaterialIcons name="verified" size={16} color="#666" />
-            <Text style={styles.detailText}>{item.approved}</Text>
+            <Text style={styles.detailText}>{item.approved || 'UGC Approved'}</Text>
           </View>
         </View>
 
         <TouchableOpacity 
           style={styles.viewDetailsButton}
-          onPress={() => navigation.navigate('CollegeDetails', { college: item })}  // Update this line too
+          onPress={() => navigation.navigate('CollegeDetails', { college: item })}
         >
           <Text style={styles.viewDetailsText}>View Details</Text>
           <AntDesign name="right" size={14} color="#007bff" />
@@ -274,20 +250,50 @@ const StudyPlaceDetails = ({ route, navigation }) => {
     );
   };
 
-  const filteredColleges = collegeData.filter(college => {
-    return (
-      (!filters.stream || college.stream === filters.stream) &&
-      (!filters.course || college.course === filters.course) &&
-      (!filters.fees || college.fees.includes(filters.fees.match(/\d+/)?.[0] || ''))
-    );
+  const filteredColleges = allColleges.filter(college => {
+    let matches = true;
+    
+    if (filters.stream && college.stream !== filters.stream) {
+      matches = false;
+    }
+    
+    if (filters.course && college.course && !college.course.includes(filters.course)) {
+      matches = false;
+    }
+    
+    if (filters.rating && parseFloat(college.rating) < parseFloat(filters.rating)) {
+      matches = false;
+    }
+    
+    if (filters.fees && college.fees) {
+      const feesValue = parseInt(college.fees.toString().replace('₹', '').replace(' Lakhs', '').replace(/,/g, ''));
+      switch(filters.fees) {
+        case 'Under ₹1 Lakh':
+          if (feesValue >= 1) matches = false;
+          break;
+        case '₹1-3 Lakhs':
+          if (feesValue < 1 || feesValue > 3) matches = false;
+          break;
+        case '₹3-5 Lakhs':
+          if (feesValue < 3 || feesValue > 5) matches = false;
+          break;
+        case '₹5-10 Lakhs':
+          if (feesValue < 5 || feesValue > 10) matches = false;
+          break;
+        case 'Above ₹10 Lakhs':
+          if (feesValue <= 10) matches = false;
+          break;
+      }
+    }
+    
+    return matches;
   });
 
+  const totalPages = Math.max(1, Math.ceil(filteredColleges.length / itemsPerPage));
   const paginatedColleges = filteredColleges.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  const totalPages = Math.ceil(filteredColleges.length / itemsPerPage);
 
   return (
     <View style={styles.container}>
@@ -324,15 +330,34 @@ const StudyPlaceDetails = ({ route, navigation }) => {
 
       {showFilters && <FilterSection />}
 
-      <FlatList
-        data={paginatedColleges}
-        renderItem={renderCollegeItem}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.collegeList}
-        ListEmptyComponent={
-          <Text style={styles.noResultsText}>No colleges found matching your filters</Text>
-        }
-      />
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#007bff" />
+          <Text style={styles.loadingText}>Loading colleges for {place.name}...</Text>
+        </View>
+      ) : (
+        <>
+          <Text style={styles.resultsText}>
+            Found {filteredColleges.length} colleges in {place.name}
+          </Text>
+          {paginatedColleges.length > 0 ? (
+            <FlatList
+              data={paginatedColleges}
+              renderItem={renderCollegeItem}
+              keyExtractor={item => (item.id || Math.random()).toString()}
+              contentContainerStyle={styles.collegeList}
+            />
+          ) : (
+            <View style={styles.emptyContainer}>
+              <MaterialIcons name="school" size={64} color="#ccc" />
+              <Text style={styles.emptyTitle}>No colleges found</Text>
+              <Text style={styles.emptyText}>
+                We couldn't find any colleges in {place.name}. Try adjusting your filters or check other cities.
+              </Text>
+            </View>
+          )}
+        </>
+      )}
 
       <View style={styles.pagination}>
         <TouchableOpacity 
@@ -550,6 +575,43 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginTop: 32,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#666',
+  },
+  resultsText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginHorizontal: 15,
+    marginVertical: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#666',
+    marginTop: 16,
+  },
+  emptyText: {
+    fontSize: 14,
+    color: '#999',
+    textAlign: 'center',
+    marginTop: 8,
+    lineHeight: 20,
   },
 });
 

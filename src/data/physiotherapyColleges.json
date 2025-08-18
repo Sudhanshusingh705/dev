@@ -1,0 +1,97 @@
+[
+  {
+    "id": "physio001",
+    "name": "Christian Medical College",
+    "location": "Vellore, Tamil Nadu",
+    "fees": "₹2,50,000",
+    "rating": 4.8,
+    "courses": ["BPT", "MPT", "Ph.D Physiotherapy"],
+    "ranking": 1,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "IAP"],
+    "placements": {
+      "averagePackage": "₹4,20,000",
+      "highestPackage": "₹8,00,000",
+      "placementRate": 90
+    },
+    "faculty": 45,
+    "infrastructure": "Excellent",
+    "description": "Premier medical college with excellent physiotherapy program"
+  },
+  {
+    "id": "physio002",
+    "name": "Jamia Millia Islamia",
+    "location": "New Delhi, Delhi",
+    "fees": "₹85,000",
+    "rating": 4.6,
+    "courses": ["BPT", "MPT"],
+    "ranking": 2,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC", "IAP"],
+    "placements": {
+      "averagePackage": "₹3,80,000",
+      "highestPackage": "₹7,00,000",
+      "placementRate": 85
+    },
+    "faculty": 35,
+    "infrastructure": "Very Good",
+    "description": "Central university with strong physiotherapy department"
+  },
+  {
+    "id": "physio003",
+    "name": "Manipal College of Allied Health Sciences",
+    "location": "Manipal, Karnataka",
+    "fees": "₹3,20,000",
+    "rating": 4.5,
+    "courses": ["BPT", "MPT", "Ph.D"],
+    "ranking": 3,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "IAP"],
+    "placements": {
+      "averagePackage": "₹3,60,000",
+      "highestPackage": "₹6,50,000",
+      "placementRate": 82
+    },
+    "faculty": 40,
+    "infrastructure": "Excellent",
+    "description": "Well-established allied health sciences college"
+  },
+  {
+    "id": "physio004",
+    "name": "KLE University",
+    "location": "Belgaum, Karnataka",
+    "fees": "₹2,80,000",
+    "rating": 4.4,
+    "courses": ["BPT", "MPT"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A+", "UGC", "IAP"],
+    "placements": {
+      "averagePackage": "₹3,40,000",
+      "highestPackage": "₹6,00,000",
+      "placementRate": 78
+    },
+    "faculty": 38,
+    "infrastructure": "Very Good",
+    "description": "Private university with comprehensive physiotherapy program"
+  },
+  {
+    "id": "physio005",
+    "name": "SRM Institute of Science and Technology",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹3,50,000",
+    "rating": 4.3,
+    "courses": ["BPT", "MPT"],
+    "ranking": 5,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC", "IAP"],
+    "placements": {
+      "averagePackage": "₹3,20,000",
+      "highestPackage": "₹5,50,000",
+      "placementRate": 75
+    },
+    "faculty": 42,
+    "infrastructure": "Very Good",
+    "description": "Modern university with state-of-the-art physiotherapy facilities"
+  }
+]

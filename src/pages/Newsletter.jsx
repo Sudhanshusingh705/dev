@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';;
 import axios from 'axios';
+import { API_BASE_URL } from '../api';
+import NetInfo from '@react-native-community/netinfo';
 
 const courseOptions = {
   "Popular Courses": [
@@ -120,106 +122,217 @@ const Newsletter = () => {
     course: ''
   });
   const [loading, setLoading] = useState(false);
+  const [serverStatus, setServerStatus] = useState('online');
+  const [errors, setErrors] = useState({});
+
+  // Validate form data
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Check required fields
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.course) newErrors.course = 'Please select a course';
+
+    // Validate email format
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (formData.email && !emailRegex.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Validate phone number (10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (formData.phone && !phoneRegex.test(formData.phone.trim())) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.phone || !formData.course) {
-      Alert.alert('Error', 'Please fill in all fields');
+    // First validate form
+    if (!validateForm()) {
+      Alert.alert('Please Fix Errors', 'Please correct the errors in the form before submitting.');
       return;
     }
 
     setLoading(true);
 
     try {
+      // Check network connectivity first
+      const netInfo = await NetInfo.fetch();
+      if (!netInfo.isConnected) {
+        throw new Error('No internet connection. Please check your network settings and try again.');
+      }
+
+      // Make API call to subscribe
       const response = await axios.post(
-        'http://192.168.1.11:5000/api/newsletter/subscribe',
+        `${API_BASE_URL}/newsletter/subscribe`,
         formData,
         {
           headers: {
             'Content-Type': 'application/json',
           },
-          timeout: 5000 // 5 seconds timeout
+          timeout: 10000 // 10 seconds timeout
         }
       );
-      
+
+      // Check response and handle success
       if (response.data.success) {
-        Alert.alert('Success', 'Successfully subscribed to newsletter!');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          course: ''
-        });
+        Alert.alert(
+          'Success!', 
+          'Thank you for subscribing to our newsletter! We will keep you updated with the latest information about your selected course.',
+          [{ text: 'OK', onPress: () => resetForm() }]
+        );
+      } else {
+        throw new Error(response.data.message || 'Failed to subscribe');
       }
     } catch (error) {
-      console.error('Newsletter submission error:', error);
+      console.error('Newsletter subscription error:', error);
       
       let errorMessage = 'Failed to subscribe. Please try again.';
       
+      // Handle different types of errors
       if (error.response) {
         // Server responded with an error
         errorMessage = error.response.data.message || errorMessage;
+        console.log('Error response:', error.response.data);
       } else if (error.request) {
-        // Request was made but no response received
-        errorMessage = 'Cannot connect to server. Please check your internet connection.';
+        // Request was made but no response received (timeout, server down)
+        errorMessage = 'Cannot reach our servers. Please check your internet connection or try again later.';
+        setServerStatus('offline');
+      } else if (error.message) {
+        // Network error or other issue
+        errorMessage = error.message;
       }
       
-      Alert.alert('Error', errorMessage);
+      Alert.alert('Subscription Failed', errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
+  // Reset the form
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      course: ''
+    });
+    setErrors({});
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Subscribe to Our Newsletter</Text>
+      <Text style={styles.subtitle}>
+        Get the latest updates on courses, college admissions, and educational opportunities
+      </Text>
       
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-        value={formData.name}
-        onChangeText={(text) => setFormData({ ...formData, name: text })}
-      />
+      <View style={styles.formContainer}>
+        <View style={styles.inputWrapper}>
+          <Text style={styles.label}>Full Name</Text>
+          <TextInput
+            style={[styles.input, errors.name && styles.inputError]}
+            placeholder="Enter your full name"
+            value={formData.name}
+            onChangeText={(text) => {
+              setFormData({ ...formData, name: text });
+              if (errors.name) {
+                const newErrors = {...errors};
+                delete newErrors.name;
+                setErrors(newErrors);
+              }
+            }}
+          />
+          {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+        </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={formData.email}
-        onChangeText={(text) => setFormData({ ...formData, email: text.toLowerCase() })}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+        <View style={styles.inputWrapper}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={[styles.input, errors.email && styles.inputError]}
+            placeholder="Enter your email address"
+            value={formData.email}
+            onChangeText={(text) => {
+              setFormData({ ...formData, email: text.toLowerCase() });
+              if (errors.email) {
+                const newErrors = {...errors};
+                delete newErrors.email;
+                setErrors(newErrors);
+              }
+            }}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+        </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={formData.phone}
-        onChangeText={(text) => setFormData({ ...formData, phone: text })}
-        keyboardType="numeric"
-        maxLength={10}
-      />
+        <View style={styles.inputWrapper}>
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={[styles.input, errors.phone && styles.inputError]}
+            placeholder="Enter your 10-digit phone number"
+            value={formData.phone}
+            onChangeText={(text) => {
+              // Allow only numeric input
+              const numericInput = text.replace(/[^0-9]/g, '');
+              setFormData({ ...formData, phone: numericInput });
+              if (errors.phone) {
+                const newErrors = {...errors};
+                delete newErrors.phone;
+                setErrors(newErrors);
+              }
+            }}
+            keyboardType="numeric"
+            maxLength={10}
+          />
+          {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
+        </View>
 
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={formData.course}
-          onValueChange={(itemValue) => setFormData({ ...formData, course: itemValue })}
-          style={styles.picker}
+        <View style={styles.inputWrapper}>
+          <Text style={styles.label}>Select Course</Text>
+          <View style={[styles.pickerContainer, errors.course && styles.inputError]}>
+            <Picker
+              selectedValue={formData.course}
+              onValueChange={(itemValue) => {
+                setFormData({ ...formData, course: itemValue });
+                if (errors.course) {
+                  const newErrors = {...errors};
+                  delete newErrors.course;
+                  setErrors(newErrors);
+                }
+              }}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select Course" value="" />
+              {courseOptions["Popular Courses"].map((course, index) => (
+                <Picker.Item key={index} label={course} value={course} />
+              ))}
+            </Picker>
+          </View>
+          {errors.course && <Text style={styles.errorText}>{errors.course}</Text>}
+        </View>
+
+        <TouchableOpacity 
+          style={[styles.button, loading && styles.buttonDisabled]}
+          onPress={handleSubmit}
+          disabled={loading}
         >
-          <Picker.Item label="Select Course" value="" />
-          {courseOptions["Popular Courses"].map((course, index) => (
-            <Picker.Item key={index} label={course} value={course} />
-          ))}
-        </Picker>
-      </View>
-
-      <TouchableOpacity 
-        style={[styles.button, loading && styles.buttonDisabled]}
-        onPress={handleSubmit}
-        disabled={loading}
-      >
-        <Text style={styles.buttonText}>
-          {loading ? 'Subscribing...' : 'Subscribe'}
+          {loading ? (
+            <ActivityIndicator color="#fff" size="small" />
+          ) : (
+            <Text style={styles.buttonText}>Subscribe</Text>
+          )}
+        </TouchableOpacity>
+        
+        <Text style={styles.disclaimerText}>
+          By subscribing, you agree to receive emails from us about educational opportunities and updates. You can unsubscribe at any time.
         </Text>
-      </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -233,8 +346,34 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+    color: '#0066cc',
+  },
+  subtitle: {
+    fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
+    color: '#666',
+  },
+  formContainer: {
+    backgroundColor: '#f9f9f9',
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  inputWrapper: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: '500',
+    color: '#333',
   },
   input: {
     height: 50,
@@ -242,14 +381,22 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 15,
-    marginBottom: 15,
+    backgroundColor: '#fff',
+  },
+  inputError: {
+    borderColor: '#dc3545',
+  },
+  errorText: {
+    color: '#dc3545',
+    fontSize: 14,
+    marginTop: 5,
   },
   pickerContainer: {
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
-    marginBottom: 15,
     overflow: 'hidden',
+    backgroundColor: '#fff',
   },
   picker: {
     height: 50,
@@ -259,6 +406,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
+    marginTop: 10,
   },
   buttonDisabled: {
     backgroundColor: '#cccccc',
@@ -267,6 +415,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  disclaimerText: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 15,
+    textAlign: 'center',
   },
 });
 

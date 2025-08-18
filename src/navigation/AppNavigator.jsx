@@ -34,6 +34,8 @@ import TopCourses from '../pages/TopCourses';
 import Admission2025 from '../pages/Admission2025';
 import TopExams from '../pages/TopExams';
 import LatestNotification from '../pages/LatestNotification';
+import NewsletterSubscriptions from '../pages/NewsletterSubscriptions';
+import Newsletter from '../pages/Newsletter';
 
 // Import college pages
 import BTechColleges from '../pages/courses/BTechColleges.jsx';
@@ -59,6 +61,29 @@ import MPharmColleges from '../pages/courses/MPharmColleges.jsx';
 import MPlanningColleges from '../pages/courses/MPlanningColleges.jsx';
 import MScColleges from '../pages/courses/MScColleges.jsx';
 import MassCommunicationColleges from '../pages/courses/MassCommunicationColleges.jsx';
+import EngineeringSection from '../pages/EngineeringSection';
+
+// Additional College Pages
+import BAColleges from '../pages/courses/BAColleges.jsx';
+import BBAColleges from '../pages/courses/BBAColleges.jsx';
+import BArchColleges from '../pages/courses/BArchColleges.jsx';
+import BEdColleges from '../pages/courses/BEdColleges.jsx';
+import BPharmColleges from '../pages/courses/BPharmColleges.jsx';
+import BAMSColleges from '../pages/courses/BAMSColleges.jsx';
+import PhysiotherapyColleges from '../pages/courses/PhysiotherapyColleges.jsx';
+import BDesColleges from '../pages/courses/BDesColleges.jsx';
+import BPlanningColleges from '../pages/courses/BPlanningColleges.jsx';
+import AgricultureColleges from '../pages/courses/AgricultureColleges.jsx';
+import ArtsColleges from '../pages/courses/ArtsColleges.jsx';
+import CommerceColleges from '../pages/courses/CommerceColleges.jsx';
+import EngineeringColleges from '../pages/courses/EngineeringColleges.jsx';
+import LawColleges from '../pages/courses/LawColleges.jsx';
+import ManagementColleges from '../pages/courses/ManagementColleges.jsx';
+import MedicalColleges from '../pages/courses/MedicalColleges.jsx';
+import ScienceColleges from '../pages/courses/ScienceColleges.jsx';
+import ArchitectureColleges from '../pages/courses/ArchitectureColleges.jsx';
+import AviationColleges from '../pages/courses/AviationColleges.jsx';
+import AnimationColleges from '../pages/courses/AnimationColleges.jsx';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -233,9 +258,11 @@ const AdminDrawerScreens = () => (
 
 const MainStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="LoginSignup" component={LoginSignupScreen} />
     <Stack.Screen name="UserDrawer" component={UserDrawerScreens} />
+    <Stack.Screen name="LoginSignup" component={LoginSignupScreen} />
     <Stack.Screen name="AdminDrawer" component={AdminDrawerScreens} />
+    <Stack.Screen name="NewsletterSubscriptions" component={NewsletterSubscriptions} />
+    <Stack.Screen name="Newsletter" component={Newsletter} />
     <Stack.Screen name="AboutUs" component={AboutUs} />
     <Stack.Screen name="ContactUs" component={ContactUs} />
     <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
@@ -334,6 +361,7 @@ const MainStack = () => (
     />
 
     {/* College pages */}
+    <Stack.Screen name="EngineeringSection" component={EngineeringSection} />
     <Stack.Screen name="BTechColleges" component={BTechColleges} />
     <Stack.Screen name="MBAColleges" component={MBAColleges} />
     <Stack.Screen name="MTechColleges" component={MTechColleges} />
@@ -357,6 +385,28 @@ const MainStack = () => (
     <Stack.Screen name="MPlanningColleges" component={MPlanningColleges} />
     <Stack.Screen name="MScColleges" component={MScColleges} />
     <Stack.Screen name="MassCommunicationColleges" component={MassCommunicationColleges} />
+    
+    {/* Additional College Pages */}
+    <Stack.Screen name="BAColleges" component={BAColleges} />
+    <Stack.Screen name="BBAColleges" component={BBAColleges} />
+    <Stack.Screen name="BArchColleges" component={BArchColleges} />
+    <Stack.Screen name="BEdColleges" component={BEdColleges} />
+    <Stack.Screen name="BPharmColleges" component={BPharmColleges} />
+    <Stack.Screen name="BAMSColleges" component={BAMSColleges} />
+    <Stack.Screen name="PhysiotherapyColleges" component={PhysiotherapyColleges} />
+    <Stack.Screen name="BDesColleges" component={BDesColleges} />
+    <Stack.Screen name="BPlanningColleges" component={BPlanningColleges} />
+    <Stack.Screen name="AgricultureColleges" component={AgricultureColleges} />
+    <Stack.Screen name="ArtsColleges" component={ArtsColleges} />
+    <Stack.Screen name="CommerceColleges" component={CommerceColleges} />
+    <Stack.Screen name="EngineeringColleges" component={EngineeringColleges} />
+    <Stack.Screen name="LawColleges" component={LawColleges} />
+    <Stack.Screen name="ManagementColleges" component={ManagementColleges} />
+    <Stack.Screen name="MedicalColleges" component={MedicalColleges} />
+    <Stack.Screen name="ScienceColleges" component={ScienceColleges} />
+    <Stack.Screen name="ArchitectureColleges" component={ArchitectureColleges} />
+    <Stack.Screen name="AviationColleges" component={AviationColleges} />
+    <Stack.Screen name="AnimationColleges" component={AnimationColleges} />
   </Stack.Navigator>
 );
 

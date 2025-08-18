@@ -1,0 +1,102 @@
+[
+  {
+    "id": "ba001",
+    "name": "Lady Shri Ram College for Women",
+    "location": "Delhi, Delhi",
+    "fees": "₹25,000",
+    "rating": 4.7,
+    "courses": ["BA (H) English", "BA (H) History", "BA (H) Political Science", "BA (H) Economics"],
+    "ranking": 1,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹6,50,000",
+      "highestPackage": "₹18,00,000",
+      "placementRate": 88
+    },
+    "faculty": 120,
+    "infrastructure": "Excellent",
+    "description": "Premier women's college for arts and humanities education",
+    "logo": "https://lsr.edu.in/images/lsr-logo.png"
+  },
+  {
+    "id": "ba002",
+    "name": "St. Stephen's College",
+    "location": "Delhi, Delhi",
+    "fees": "₹30,000",
+    "rating": 4.8,
+    "courses": ["BA (H) English", "BA (H) History", "BA (H) Philosophy", "BA (H) Economics"],
+    "ranking": 2,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹7,00,000",
+      "highestPackage": "₹20,00,000",
+      "placementRate": 92
+    },
+    "faculty": 95,
+    "infrastructure": "Excellent",
+    "description": "Historic college known for academic excellence in liberal arts",
+    "logo": "https://ststephens.edu/images/st-stephens-logo.png"
+  },
+  {
+    "id": "ba003",
+    "name": "Hindu College",
+    "location": "Delhi, Delhi",
+    "fees": "₹22,000",
+    "rating": 4.6,
+    "courses": ["BA (H) English", "BA (H) History", "BA (H) Political Science", "BA Programme"],
+    "ranking": 3,
+    "type": "Government",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,80,000",
+      "highestPackage": "₹15,00,000",
+      "placementRate": 85
+    },
+    "faculty": 110,
+    "infrastructure": "Very Good",
+    "description": "One of the oldest and most prestigious colleges for arts education",
+    "logo": "https://hinducollege.ac.in/images/hindu-college-logo.png"
+  },
+  {
+    "id": "ba004",
+    "name": "Loyola College",
+    "location": "Chennai, Tamil Nadu",
+    "fees": "₹45,000",
+    "rating": 4.5,
+    "courses": ["BA English Literature", "BA History", "BA Economics", "BA Psychology"],
+    "ranking": 4,
+    "type": "Private",
+    "accreditation": ["NAAC A++", "UGC"],
+    "placements": {
+      "averagePackage": "₹5,20,000",
+      "highestPackage": "₹12,00,000",
+      "placementRate": 80
+    },
+    "faculty": 85,
+    "infrastructure": "Very Good",
+    "description": "Renowned Jesuit institution for liberal arts education",
+    "logo": "https://loyolacollege.edu/images/loyola-logo.png"
+  },
+  {
+    "id": "ba005",
+    "name": "Presidency College",
+    "location": "Kolkata, West Bengal",
+    "fees": "₹18,000",
+    "rating": 4.4,
+    "courses": ["BA (H) English", "BA (H) History", "BA (H) Philosophy", "BA (H) Bengali"],
+    "ranking": 5,
+    "type": "Government",
+    "accreditation": ["NAAC A+", "UGC"],
+    "placements": {
+      "averagePackage": "₹4,80,000",
+      "highestPackage": "₹10,00,000",
+      "placementRate": 75
+    },
+    "faculty": 90,
+    "infrastructure": "Good",
+    "description": "Historic college with strong tradition in humanities and social sciences",
+    "logo": "https://presiuniv.ac.in/images/presidency-logo.png"
+  }
+]

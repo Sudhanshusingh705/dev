@@ -1,0 +1,1 @@
+This file ensures that merged_java_res produces base.jar so that R8 does not fail with NoSuchFileException on Windows.
