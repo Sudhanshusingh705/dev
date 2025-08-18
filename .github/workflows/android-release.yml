@@ -24,12 +24,34 @@ jobs:
       - name: Cache Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Detect project layout
+        id: paths
+        shell: bash
+        run: |
+          if [ -f dev/package.json ]; then
+            echo "project_dir=dev" >> "$GITHUB_OUTPUT"
+          else
+            echo "project_dir=." >> "$GITHUB_OUTPUT"
+          fi
+          if [ -f dev/android/gradlew ]; then
+            echo "android_dir=dev/android" >> "$GITHUB_OUTPUT"
+          elif [ -f android/gradlew ]; then
+            echo "android_dir=android" >> "$GITHUB_OUTPUT"
+          else
+            echo "android_dir=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install JS dependencies
-        working-directory: dev
+        working-directory: ${{ steps.paths.outputs.project_dir }}
         run: npm ci
 
+      - name: Make Gradle wrapper executable
+        if: ${{ steps.paths.outputs.android_dir != '' }}
+        working-directory: ${{ steps.paths.outputs.android_dir }}
+        run: chmod +x ./gradlew
+
       - name: Run R8 minification to generate mapping.txt
-        working-directory: dev/android
+        working-directory: ${{ steps.paths.outputs.android_dir }}
         run: ./gradlew :app:minifyReleaseWithR8 --no-daemon --stacktrace --info
 
       - name: Upload mapping outputs
@@ -37,10 +59,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mapping
-          path: dev/android/app/build/outputs/mapping/release
+          path: ${{ steps.paths.outputs.android_dir }}/app/build/outputs/mapping/release
 
       - name: Build Release AAB (optional)
-        working-directory: dev/android
+        working-directory: ${{ steps.paths.outputs.android_dir }}
         run: ./gradlew :app:bundleRelease --no-daemon --stacktrace
         continue-on-error: true
 
@@ -49,5 +71,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: aab
-          path: dev/android/app/build/outputs/bundle/release/*.aab
+          path: ${{ steps.paths.outputs.android_dir }}/app/build/outputs/bundle/release/*.aab
           if-no-files-found: ignore
