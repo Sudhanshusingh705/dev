@@ -1,0 +1,53 @@
+name: Android Release (Minify on Linux)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Install JS dependencies
+        working-directory: dev
+        run: npm ci
+
+      - name: Run R8 minification to generate mapping.txt
+        working-directory: dev/android
+        run: ./gradlew :app:minifyReleaseWithR8 --no-daemon --stacktrace --info
+
+      - name: Upload mapping outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapping
+          path: dev/android/app/build/outputs/mapping/release
+
+      - name: Build Release AAB (optional)
+        working-directory: dev/android
+        run: ./gradlew :app:bundleRelease --no-daemon --stacktrace
+        continue-on-error: true
+
+      - name: Upload AAB
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab
+          path: dev/android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: ignore
