@@ -28,7 +28,7 @@
     "expo-constants": "^17.1.7",
     "expo-font": "^13.3.2",
     "expo-modules-core": "^2.5.0",
-    "firebase": "^10.7.1",
+    "firebase": "^12.8.0",
     "moment": "^2.29.4",
     "react": "18.2.0",
     "react-native": "0.73.6",
